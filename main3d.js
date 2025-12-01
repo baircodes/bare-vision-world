@@ -1,297 +1,266 @@
-/* main3d.js — Bare Vision Hybrid: desert backdrop + procedural dunes + refined orbs + dune-script
-   Requirements: three.min.js and SimplexNoise loaded from CDN in index.html
-*/
-(() => {
-  // mobile detect (skip heavy scene)
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent)
-    || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+/* main3d.js — Bare Vision v2.1: Self-contained, robust, enhanced motion */
 
-  const loaderEl = document.getElementById('page-loader');
+(function() {
+  // --- 1. UTILITY: Lightweight Noise Function (Inlined to prevent dependency errors) ---
+  // This replaces the need for the external SimplexNoise library
+  const Perm = new Uint8Array(512);
+  const Grad3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
+  for(let i=0; i<512; i++) Perm[i] = Math.floor(Math.random()*255);
+  function noise3D(xin, yin, zin) {
+      let n0, n1, n2, n3; 
+      const F3 = 1.0/3.0, G3 = 1.0/6.0;
+      const s = (xin+yin+zin)*F3;
+      const i = Math.floor(xin+s), j = Math.floor(yin+s), k = Math.floor(zin+s);
+      const t = (i+j+k)*G3;
+      const X0 = i-t, Y0 = j-t, Z0 = k-t;
+      const x0 = xin-X0, y0 = yin-Y0, z0 = zin-Z0;
+      let i1, j1, k1, i2, j2, k2;
+      if(x0>=y0) { if(y0>=z0) { i1=1; j1=0; k1=0; i2=1; j2=1; k2=0; } else if(x0>=z0) { i1=1; j1=0; k1=0; i2=1; j2=0; k2=1; } else { i1=0; j1=0; k1=1; i2=1; j2=0; k2=1; } }
+      else { if(y0<z0) { i1=0; j1=0; k1=1; i2=0; j2=1; k2=1; } else if(x0<z0) { i1=0; j1=1; k1=0; i2=0; j2=1; k2=1; } else { i1=0; j1=1; k1=0; i2=1; j2=1; k2=0; } }
+      const x1 = x0 - i1 + G3, y1 = y0 - j1 + G3, z1 = z0 - k1 + G3;
+      const x2 = x0 - i2 + 2.0*G3, y2 = y0 - j2 + 2.0*G3, z2 = z0 - k2 + 2.0*G3;
+      const x3 = x0 - 1.0 + 3.0*G3, y3 = y0 - 1.0 + 3.0*G3, z3 = z0 - 1.0 + 3.0*G3;
+      const ii = i & 255, jj = j & 255, kk = k & 255;
+      const gi0 = Perm[ii+Perm[jj+Perm[kk]]] % 12, gi1 = Perm[ii+i1+Perm[jj+j1+Perm[kk+k1]]] % 12;
+      const gi2 = Perm[ii+i2+Perm[jj+j2+Perm[kk+k2]]] % 12, gi3 = Perm[ii+1+Perm[jj+1+Perm[kk+1]]] % 12;
+      let t0 = 0.6 - x0*x0 - y0*y0 - z0*z0;
+      if(t0<0) n0 = 0.0; else { t0 *= t0; n0 = t0 * t0 * (Grad3[gi0][0]*x0 + Grad3[gi0][1]*y0 + Grad3[gi0][2]*z0); }
+      let t1 = 0.6 - x1*x1 - y1*y1 - z1*z1;
+      if(t1<0) n1 = 0.0; else { t1 *= t1; n1 = t1 * t1 * (Grad3[gi1][0]*x1 + Grad3[gi1][1]*y1 + Grad3[gi1][2]*z1); }
+      let t2 = 0.6 - x2*x2 - y2*y2 - z2*z2;
+      if(t2<0) n2 = 0.0; else { t2 *= t2; n2 = t2 * t2 * (Grad3[gi2][0]*x2 + Grad3[gi2][1]*y2 + Grad3[gi2][2]*z2); }
+      let t3 = 0.6 - x3*x3 - y3*y3 - z3*z3;
+      if(t3<0) n3 = 0.0; else { t3 *= t3; n3 = t3 * t3 * (Grad3[gi3][0]*x3 + Grad3[gi3][1]*y3 + Grad3[gi3][2]*z3); }
+      return 32.0*(n0 + n1 + n2 + n3);
+  }
 
+  // --- 2. FAIL-SAFE LOADER REMOVAL ---
+  // If 3D crashes, we still want the site to open.
+  function removeLoader() {
+    const loader = document.getElementById('page-loader');
+    if(loader && !loader.classList.contains('hidden')) {
+        loader.classList.add('hidden');
+    }
+  }
+  // Force removal after 1.5s regardless of 3D status
+  setTimeout(removeLoader, 1500);
+
+  // --- 3. SCENE SETUP ---
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+  
   if (isMobile) {
-    loaderEl?.classList.add('hidden');
-    console.log('Mobile detected — skipping Three.js heavy scene.');
+    console.log('Mobile: skipping heavy 3D.');
+    removeLoader();
     return;
   }
 
-  // Basic scene
   const container = document.getElementById('three-container');
+  if (!container) return;
+
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 4000);
-  camera.position.set(0, 18, 60);
+  // Cinematic fog
+  scene.fog = new THREE.FogExp2(0xf7efe8, 0.00065);
+
+  const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 2000);
+  camera.position.set(0, 16, 55); // Slightly further back
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
+  // Using standard encoding for r128 compatibility to avoid errors
+  renderer.outputEncoding = THREE.sRGBEncoding; 
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  // PMREM generator for env map (if env image provided)
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  pmrem.compileEquirectangularShader();
-
-  // load environment / background
-  const texLoader = new THREE.TextureLoader();
-  let hasEnv = false;
-  texLoader.load('assets/env.jpg',
-    (tex) => {
-      tex.mapping = THREE.EquirectangularReflectionMapping;
-      const env = pmrem.fromEquirectangular(tex).texture;
-      scene.environment = env;
-      // do not set scene.background to env; we use a background image plane (see below)
-      hasEnv = true;
-      tex.dispose && tex.dispose();
-      pmrem.dispose();
-    },
-    undefined,
-    () => { /* fail quietly */ }
-  );
-
-  // BACKDROP: large distant plane with desert image
-  texLoader.load('assets/desert-bg.jpg',
-    (bgTex) => {
-      bgTex.encoding = THREE.sRGBEncoding;
-      const bgMat = new THREE.MeshBasicMaterial({ map: bgTex, toneMapped: false });
-      const plane = new THREE.Mesh(new THREE.PlaneGeometry(1600, 700), bgMat);
-      plane.position.set(0, -10, -800);
-      plane.rotation.x = 0;
-      scene.add(plane);
-    },
-    undefined,
-    () => {
-      // fallback: soft color background if image missing
-      scene.background = new THREE.Color(0xf9f4ee);
-    }
-  );
-
-  // Fog for deep atmosphere
-  scene.fog = new THREE.FogExp2(0xf8f5f1, 0.00065);
-
-  // Lights
-  const hemi = new THREE.HemisphereLight(0xfff4ea, 0x2b2b3a, 0.6);
+  // --- 4. LIGHTING ---
+  const hemi = new THREE.HemisphereLight(0xfff4ea, 0x303040, 0.6);
   scene.add(hemi);
-  const sun = new THREE.DirectionalLight(0xffe7c6, 1.0);
-  sun.position.set(40, 70, -40);
+
+  const sun = new THREE.DirectionalLight(0xffe7c6, 1.1);
+  sun.position.set(40, 80, -40);
+  sun.castShadow = false; // Disable shadows for performance/clean look
   scene.add(sun);
 
-  // ground / dunes (larger plane)
+  // --- 5. OBJECTS ---
+  
+  // A. The Dunes (Procedural Landscape)
   const planeSize = 900;
-  const segX = 300;
-  const segY = 160;
+  const segX = 180, segY = 90; // Optimized segments
   const geom = new THREE.PlaneGeometry(planeSize, planeSize, segX, segY);
   geom.rotateX(-Math.PI / 2);
+  
+  const posAttr = geom.attributes.position;
+  const vCount = posAttr.count;
+  const baseY = new Float32Array(vCount);
+  for (let i = 0; i < vCount; i++) baseY[i] = posAttr.getY(i);
 
-  // store base Y
-  const pos = geom.attributes.position;
-  const vertCount = pos.count;
-  const baseY = new Float32Array(vertCount);
-  for (let i = 0; i < vertCount; i++) baseY[i] = pos.getY(i);
-
-  // dune material: physical with sheen and subtle clearcoat
   const duneMat = new THREE.MeshPhysicalMaterial({
-    color: 0xdbcdb5,
-    roughness: 0.92,
-    metalness: 0.02,
-    clearcoat: 0.06,
-    sheen: 0.14,
-    sheenColor: 0xefe2d1,
+    color: 0xdbcdbf, // Sand
+    roughness: 0.85,
+    metalness: 0.05,
+    clearcoat: 0.1,
+    flatShading: false,
   });
 
   const dunes = new THREE.Mesh(geom, duneMat);
-  dunes.position.y = -7.0;
+  dunes.position.y = -8;
   scene.add(dunes);
 
-  // cheap volumetric glow: a soft cone (god-ray) aligned with sun
-  const cone = new THREE.Mesh(
-    new THREE.ConeGeometry(120, 240, 32, 1, true),
-    new THREE.MeshBasicMaterial({ color: 0xfff0d4, transparent: true, opacity: 0.04, depthWrite: false, blending: THREE.AdditiveBlending })
-  );
-  cone.position.set(0, 70, -120);
-  cone.rotateX(Math.PI);
-  scene.add(cone);
+  // B. The Chrome & Gem Orbs
+  const orbGroup = new THREE.Group();
+  scene.add(orbGroup);
 
-  // Simplex for dunes
-  const simplex = new SimplexNoise(Math.random);
-
-  // Orbs: chrome and gemstone
-  const orbs = new THREE.Group();
-  scene.add(orbs);
-
-  function createOrb({ x = 0, y = 20, z = -40, r = 2.2, metal = true, tint = 0xffffff }) {
-    const g = new THREE.IcosahedronGeometry(r, 3);
-    const matParams = metal ? {
-      color: tint,
-      metalness: 1.0,
-      roughness: 0.04,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.02
-    } : {
-      color: tint,
-      metalness: 0.0,
-      roughness: 0.12,
-      transmission: 0.85,
-      thickness: 1.6,
-      ior: 1.42
-    };
-    const mat = new THREE.MeshPhysicalMaterial(matParams);
-    const m = new THREE.Mesh(g, mat);
-    m.position.set(x, y, z);
-    m.userData = { drift: 0.008 + Math.random() * 0.03, baseX: x, wobble: 0.6 + Math.random() * 1.2 };
-    return m;
-  }
-
-  // spawn curated orbs: fewer gem orbs, more chrome, placed tastefully
-  const initialPositions = [
-    [-28, 28, -90],
-    [18, 36, -180],
-    [38, 22, -120],
-    [-60, 30, -240],
-    [6, 26, -300],
-    [74, 34, -360],
-    [-120, 40, -420],
-    [110, 28, -200]
-  ];
-
-  initialPositions.forEach((p, idx) => {
-    const isMetal = idx % 3 !== 0;
-    const tint = isMetal ? 0xffffff : 0xD5A9E3; // orchid-like gem tint
-    const orb = createOrb({ x: p[0], y: p[1], z: p[2], r: 2 + Math.random() * 3.2, metal: isMetal, tint });
-    orbs.add(orb);
+  const chromeMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 1.0,
+    roughness: 0.05,
+    clearcoat: 1.0
   });
 
-  // dust particles
-  const dustCount = 380;
-  const dustGeo = new THREE.BufferGeometry();
-  const dustArr = new Float32Array(dustCount * 3);
-  for (let i = 0; i < dustCount; i++) {
-    dustArr[i * 3 + 0] = (Math.random() - 0.5) * 900;
-    dustArr[i * 3 + 1] = Math.random() * 40 + 2;
-    dustArr[i * 3 + 2] = -Math.random() * 800;
+  const gemMat = new THREE.MeshPhysicalMaterial({
+    color: 0xC8B7D2, // Orchid
+    metalness: 0.1,
+    roughness: 0.1,
+    transmission: 0.6, // Glass-like
+    opacity: 0.9,
+    transparent: true
+  });
+
+  const orbs = [];
+  const orbCount = 14;
+  const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
+
+  for(let i=0; i<orbCount; i++) {
+    const isChrome = Math.random() > 0.4;
+    const mesh = new THREE.Mesh(sphereGeo, isChrome ? chromeMat : gemMat);
+    
+    // Random placement
+    const x = (Math.random() - 0.5) * 350;
+    const z = -20 - Math.random() * 400;
+    const y = 5 + Math.random() * 30;
+    const scale = 2.0 + Math.random() * 3.5;
+    
+    mesh.position.set(x, y, z);
+    mesh.scale.set(scale, scale, scale);
+    
+    // Store animation data
+    mesh.userData = {
+      baseY: y,
+      baseX: x,
+      speed: 0.2 + Math.random() * 0.4,
+      offset: Math.random() * 10,
+      floatAmp: 2 + Math.random() * 4
+    };
+    
+    orbGroup.add(mesh);
+    orbs.push(mesh);
   }
-  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustArr, 3));
-  const dustMat = new THREE.PointsMaterial({ color: 0xfff6ef, size: 0.9, transparent: true, opacity: 0.12 });
+
+  // C. Atmosphere Particles (Dust)
+  const dustCount = 600;
+  const dustGeo = new THREE.BufferGeometry();
+  const dustPos = new Float32Array(dustCount * 3);
+  for(let i=0; i<dustCount*3; i+=3) {
+    dustPos[i] = (Math.random()-0.5) * 800;
+    dustPos[i+1] = Math.random() * 100;
+    dustPos[i+2] = -Math.random() * 600;
+  }
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  const dustMat = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.8,
+    transparent: true,
+    opacity: 0.3
+  });
   const dust = new THREE.Points(dustGeo, dustMat);
   scene.add(dust);
 
-  // dune-script: render typed fluid text to canvas and map on a slightly curved plane that sits on sand
-  const scriptCanvas = document.createElement('canvas');
-  scriptCanvas.width = 2048; scriptCanvas.height = 512;
-  const sc = scriptCanvas.getContext('2d');
-  sc.fillStyle = 'rgba(255,255,245,0)';
-  sc.fillRect(0, 0, scriptCanvas.width, scriptCanvas.height);
-  sc.font = '140px "Cormorant Garamond", serif';
-  sc.textAlign = 'center';
-  sc.fillStyle = '#e9d8c7'; // sand-stroked color
-  sc.shadowColor = 'rgba(0,0,0,0.25)';
-  sc.shadowBlur = 30;
-  sc.fillText('bare vision', scriptCanvas.width / 2, scriptCanvas.height / 2 + 20);
 
-  const scriptTex = new THREE.CanvasTexture(scriptCanvas);
-  scriptTex.encoding = THREE.sRGBEncoding;
-  scriptTex.needsUpdate = true;
-  const scriptMat = new THREE.MeshBasicMaterial({ map: scriptTex, transparent: true, opacity: 0.95 });
-  const scriptPlane = new THREE.Mesh(new THREE.PlaneGeometry(120, 30), scriptMat);
-  scriptPlane.rotation.x = -Math.PI / 2;
-  scriptPlane.position.set(0, -5.5, -38);
-  scriptPlane.renderOrder = 10;
-  scene.add(scriptPlane);
-
-  // day-time parameter controlled by scroll (and time)
-  let dayT = 0.04; // 0..1
-
-  // pointer parallax
-  const pointer = { x: 0, y: 0 };
-  window.addEventListener('mousemove', (e) => {
-    pointer.x = (e.clientX / innerWidth) * 2 - 1;
-    pointer.y = (e.clientY / innerHeight) * 2 - 1;
+  // --- 6. ANIMATION LOOP ---
+  const clock = new THREE.Clock();
+  let t = 0;
+  
+  // Mouse interaction
+  let mouseX = 0;
+  let mouseY = 0;
+  window.addEventListener('mousemove', e => {
+    mouseX = (e.clientX - innerWidth/2) * 0.001;
+    mouseY = (e.clientY - innerHeight/2) * 0.001;
   });
 
-  // update on resize
-  window.addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth, innerHeight);
-  }, { passive: true });
-
-  // map scroll to dayT
+  // Scroll day/night cycle
+  let dayRatio = 0;
   window.addEventListener('scroll', () => {
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    const s = docH > 0 ? window.scrollY / docH : 0;
-    dayT = Math.min(1, Math.max(0, s));
-  }, { passive: true });
+    const limit = document.documentElement.scrollHeight - window.innerHeight;
+    dayRatio = Math.min(1, window.scrollY / limit);
+  });
 
-  // animation
-  let time = 0;
   function animate() {
     requestAnimationFrame(animate);
-    const dt = 0.016; time += dt * 0.6;
+    const delta = clock.getDelta();
+    t += delta;
 
-    // dunes displacement (layered noise)
-    for (let i = 0; i < vertCount; i++) {
-      const x = pos.getX(i);
-      const z = pos.getZ(i);
-      const a = simplex.noise3D(x * 0.0035 + time * 0.08, z * 0.0035 + time * 0.06, time * 0.01);
-      const b = simplex.noise3D(x * 0.018 + time * 0.02, z * 0.018 + time * 0.018, time * 0.008) * 0.7;
-      const height = a * 3.4 + b * 1.6;
-      pos.setY(i, baseY[i] + height);
+    // 1. Animate Dunes (Simulate Wind/Breathing)
+    // We update vertices using the noise function
+    const positions = dunes.geometry.attributes.position;
+    for (let i = 0; i < vCount; i++) {
+        const x = positions.getX(i);
+        const z = positions.getZ(i);
+        // Combine low freq (hills) and high freq (ripples)
+        // Note: noise3D returns -1 to 1 roughly.
+        const n1 = noise3D(x*0.005, z*0.005, t*0.05); 
+        const n2 = noise3D(x*0.02, z*0.02, t*0.1); 
+        
+        const h = (n1 * 6) + (n2 * 1.5);
+        positions.setY(i, baseY[i] + h);
     }
-    pos.needsUpdate = true;
-    geom.computeVertexNormals();
+    positions.needsUpdate = true;
+    dunes.geometry.computeVertexNormals(); // Essential for lighting updates
 
-    // orbs: float, drift down slowly
-    orbs.children.forEach((o, i) => {
-      const ud = o.userData;
-      o.position.x = ud.baseX + Math.sin(time * ud.wobble + i) * (0.5 + (i % 3) * 0.4);
-      o.position.y -= ud.drift * 0.38;
-      if (o.position.y < -9) {
-        o.position.y = 24 + Math.random() * 40;
-        ud.baseX = (Math.random() - 0.5) * 320;
-      }
-      o.rotation.y += 0.002 + (i % 4) * 0.0015;
+    // 2. Animate Orbs (Complex float + Rotate)
+    orbs.forEach(orb => {
+        const u = orb.userData;
+        // Vertical float
+        orb.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * u.floatAmp;
+        // Slow horizontal drift
+        orb.position.x = u.baseX + Math.sin(t * 0.1 + u.offset) * 5;
+        // Rotation
+        orb.rotation.x += delta * 0.1;
+        orb.rotation.y += delta * 0.05;
     });
 
-    // dust flow
-    const dp = dust.geometry.attributes.position.array;
-    for (let i = 0; i < dustCount; i++) {
-      const idx = i * 3;
-      dp[idx + 1] += Math.sin(time * 0.2 + i) * 0.001 - 0.0008;
-      if (dp[idx + 1] < 1) dp[idx + 1] = 60 + Math.random() * 10;
+    // 3. Animate Dust (Vortex effect)
+    const dPos = dust.geometry.attributes.position.array;
+    for(let i=0; i<dustCount; i++) {
+        const idx = i*3;
+        // Rise up
+        dPos[idx+1] += 0.1; 
+        if(dPos[idx+1] > 100) dPos[idx+1] = 0;
+        // Spiral
+        dPos[idx] += Math.sin(t * 0.2 + i) * 0.1;
     }
     dust.geometry.attributes.position.needsUpdate = true;
 
-    // camera parallax
-    const tx = pointer.x * 4;
-    const ty = 16 + -pointer.y * 5;
-    camera.position.x += (tx - camera.position.x) * 0.03;
-    camera.position.y += (ty - camera.position.y) * 0.03;
-    camera.lookAt(0, -2, -120);
+    // 4. Camera Parallax (Cinematic feel)
+    camera.position.x += (mouseX * 50 - camera.position.x) * 0.05;
+    camera.position.y += ((16 + mouseY * 20) - camera.position.y) * 0.05;
+    camera.lookAt(0, 5, -100);
 
-    // day-night color lerp
-    const dawn = new THREE.Color(0xffd9b6), noon = new THREE.Color(0xffffff), dusk = new THREE.Color(0xffb28c);
-    const t = dayT;
-    let col = new THREE.Color();
-    if (t < 0.5) col.copy(dawn).lerp(noon, t * 2);
-    else col.copy(noon).lerp(dusk, (t - 0.5) * 2);
-    sun.color.copy(col);
-    sun.intensity = 0.7 + (1 - Math.abs(0.5 - t)) * 1.1;
-
-    // dune warm tint adjustment
-    duneMat.color.lerp(new THREE.Color(0xdbcdb5).lerp(new THREE.Color(0xefd8c1), t * 0.7), 0.02);
-
-    // subtle scene background shift if no background plane present
-    if (!scene.background) {
-      const start = new THREE.Color(0xfbf6f0);
-      const mid = new THREE.Color(0xeef7ff);
-      const end = new THREE.Color(0x071022);
-      scene.background = start.clone().lerp(mid, Math.min(1, t * 1.2)).lerp(end, Math.max(0, (t - 0.65)));
-    }
+    // 5. Day/Night Shift (Color Grading)
+    // Interpolate fog and background based on scroll
+    const lightC = new THREE.Color(0xf7efe8).lerp(new THREE.Color(0x0a0a10), dayRatio);
+    scene.fog.color.copy(lightC);
+    scene.background = lightC;
+    // Dim sun at bottom of page
+    sun.intensity = 1.1 - dayRatio * 0.8;
 
     renderer.render(scene, camera);
   }
 
+  // Start
   animate();
-
-  // remove loader after scene boot
-  setTimeout(() => loaderEl?.classList.add('hidden'), 900);
+  
+  // Ensure loader is gone
+  setTimeout(removeLoader, 500);
 
 })();
