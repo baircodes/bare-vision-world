@@ -3,40 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BARE VISION — Futuristic Dunes</title>
+  <title>BARE VISION — Strategic Foresight</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
-  <!-- Three.js + SimplexNoise (CDNs) -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-  <!-- Mirrored minimal loader -->
   <div id="page-loader" class="loader">
     <div class="loader-inner">
       <h1 class="loader-title">BARE VISION</h1>
+      <p class="loader-sub">Initializing Architecture...</p>
     </div>
   </div>
 
-  <!-- WEBGL canvas: full-bleed behind the DOM -->
   <div id="three-container" aria-hidden="true"></div>
 
-  <!-- MIRAGE LAYER — SVG filter for subtle heat/wave distortion -->
-  <svg id="mirage-filters" style="position:absolute; width:0; height:0;">
+  <svg style="position:absolute; width:0; height:0;" aria-hidden="true">
     <defs>
-      <filter id="mirage" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence baseFrequency="0.004" numOctaves="2" seed="3" result="t" />
-        <feDisplacementMap in="SourceGraphic" in2="t" scale="2" xChannelSelector="R" yChannelSelector="G" />
-        <feBlend mode="screen"/>
+      <filter id="mirage">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" />
       </filter>
     </defs>
   </svg>
 
-  <!-- Main page content (panels float above canvas) -->
   <main id="site">
     <header class="hero">
       <div class="hero-inner">
-        <h1 class="title hero-title"><span class="title-text">BARE VISION</span></h1>
+        <h1 class="title hero-title">BARE VISION</h1>
         <p class="subtitle">Strategic Foresight for a New Economy</p>
         <div class="cta-group">
           <a href="#mirror" class="btn orb primary">Step Into The Mirror</a>
@@ -45,104 +45,93 @@
       </div>
     </header>
 
-    <!-- Panels: each .panel will be styled as glass and will float -->
-   <section class="section mirror" id="mirror" data-animate>
-  <div class="panel">
-    <h2>The Mirror : 2h Consultation</h2>
+    <section class="section mirror" id="mirror" data-animate>
+      <div class="panel">
+        <h2>The Mirror™ : 2h Consultation</h2>
+        <p class="lead-text"> Designed for the moment where commitment ignites destiny.</p>
+        <p>The Mirror slows time. It clears the static. Navigate what ambition demands of you with courage and confidence.</p>
+        
+        <p class="list-header">For creative leaders who are:</p>
+        <ul class="star-list">
+          <li>Navigating a sudden opening or challenge</li>
+          <li>Preparing for a negotiation or launch</li>
+          <li>Scaling, pivoting or restructuring</li>
+          <li>Stepping into a tour, event, or performance</li>
+          <li>Making a decision that will echo</li>
+        </ul>
 
-    <p>Two hours of high-clarity decision support — designed for the moment where commitment ignites destiny.</p>
+        <div class="meta-row">
+            <span class="pill">The mirror is limited to 4 sessions per year per client</span>
+        </div>
 
-    <p>The Mirror slows time. It clears the static. It brings you into direct contact with the opportunity, the risk, or the ambition, and what it demands of you.</p>
+        <div class="panel-cta">
+          <a href="#reserve" class="btn orb primary">Face Your Mirror</a>
+          <a href="#inquire" class="btn orb secondary">Inquire</a>
+        </div>
+      </div>
+    </section>
 
-    <p>For creative leaders who are:</p>
-    <ul class="star-list">
-     </li> navigating a sudden opening or challenge</li>
-     </li> preparing for a negotiation or launch</li>
-     </li> scaling or restructuring</li>
-     </li> stepping into a tour, event, or performance</li>
-     </li> making a decision that will echo</li>
-    </ul>
+    <section class="section blueprint" id="blueprint" data-animate>
+      <div class="panel">
+        <h2>The Blueprint™ & The Playbook™</h2>
+        <p>BARE VISION dissects your current operating system and fine tunes it with Slow Down 2 Speed Up™ mechanics. You are the architect of your initiative.</p>
 
-    <!-- Moved + styled line -->
-    <p class="limited subtle-note"> The Mirror is limited to 4 sessions per year per client</p>
+        <div class="split-col">
+            <div class="col">
+                <h3 class="subheading">The Blueprint</h3>
+                <p class="tiny-desc">Internal Architecture Audit</p>
+              </p>The Blueprint is a clarity system designed to raise your operational baseline. We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
+              </p>
+              <ul class="star-list">
+                    <li>Strategic foundation</li>
+                    <li>Agile leadership structure</li>
+                    <li>Clarity-based operating model</li>
+                    <li>Your initiative's rhythm of progress<li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3 class="subheading">The Playbook</h3>
+                <p class="tiny-desc">Expansion Roadmap</p>
+             </p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It goes beyond strategy: it evaluates your landscape — resources, opportunities, bandwidth, and your emerging future.</p>
+             </p>
+             <ul class="star-list">
+                    <li>Ecosystem architecture</li>
+                    <li>Global scaling pathways</li>
+                    <li>Operational choreography</li>
+                </ul>
+            </div>
+        </div>
 
-    <div class="panel-cta">
-      <a href="#" class="btn orb primary">Face Your Mirror</a>
-      <a href="#" class="btn orb secondary">Inquire</a>
-    </div>
-  </div>
-</section>
+        <p class="italic-ender">Your long game begins with one conversation.</p>
 
- <section class="section blueprint" id="blueprint" data-animate>
-  <div class="panel">
-    <h2>The Blueprint & The Playbook</h2>
-
-    <p>Bare Vision works with leaders, creators, and ecosystems who feel the future pressing at their door. Some arrive operating at 60%. Others stand at the edge of expansion, sensing it’s time to scale with clarity and intention.</p>
-
-    <p class="italic-break">You are the architect of your initiative.</p>
-
-    <!-- BLUEPRINT -->
-    <h3 class="subheading">THE BLUEPRINT</h3>
-    <p>The Blueprint is an internal architecture audit: a clarity system designed to raise your operational baseline running from 60% to a clean, optimized +100%.</p>
-
-    <p>We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
-
-    <p class="italic-break">Everything grows when the foundation breathes.</p>
-
-    <p>Together, we co-create:</p>
-    <ul class="star-list">
-      <li>your strategic foundation</li>
-      <li>your agile leadership structure</li>
-      <li>your communication ecosystem</li>
-      <li>your rhythm of progress</li>
-      <li>your clarity-based operating model</li>
-    </ul>
-
-    <!-- PLAYBOOK -->
-    <h3 class="subheading">THE PLAYBOOK</h3>
-    <p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It goes beyond strategy: it evaluates your landscape — resources, opportunities, bandwidth, and your emerging future.</p>
-
-    <ul class="star-list">
-      <li>sustainable expansion models</li>
-      <li>brand-world building</li>
-      <li>ecosystem architecture</li>
-      <li>global or local scaling pathways</li>
-      <li>operational choreography</li>
-      <li>strategic alliances & collaborations</li>
-    </ul>
-    <p class="italic-break">Move with precision. Expand with clarity.</p>
-    
-    <p>BARE VISION can integrate with your internal task force and orchestrate the project through our extended network of specialists and collaborators.</p>
-
-    <!-- Final line before CTA -->
-    <p class="italic-ender">Your long game begins with one conversation.</p>
-
-    <div class="panel-cta">
-      <a href="#" class="btn orb secondary">Schedule Discovery Call</a>
-    </div>
-  </div>
-</section>
+        <div class="panel-cta">
+          <a href="#discovery" class="btn orb secondary">Schedule Discovery Call</a>
+        </div>
+      </div>
+    </section>
 
     <section class="section about" id="about" data-animate>
       <div class="panel">
         <h2>About BARE VISION</h2>
-        <p>BARE VISION is the consulting pillar of BAIR Atmospheres — shaping natural + digital landscapes with ethical foresight, creative strategy and careful stewardship.</p>
+        <p>BARE VISION is the consulting pillar of <span class="mirage-text">BAIR Atmospheres</span> — shaping natural + digital landscapes with ethical foresight, creative strategy, and careful stewardship.</p>
       </div>
     </section>
 
     <section class="section contact" id="contact" data-animate>
       <div class="panel">
-        <h2>Contact</h2>
-        <p>Interested in an exploratory conversation? Reach out: <a href="mailto:dare222bare@gmail.com">dare222bare@gmail.com</a></p>
+        <h2>Initiate Contact</h2>
+        <p>For high-level inquiries and partnership opportunities.</p>
+        <div class="panel-cta">
+            <a href="mailto:dare222bare@gmail.com" class="btn orb primary">Email Dima</a>
+        </div>
       </div>
     </section>
 
     <footer class="footer" data-animate>
-      <p>© BARE VISION ☺ a division of BAIR Atmospheres</p>
+      <p>© BARE VISION <span class="divider">/</span> a division of BAIR Atmospheres</p>
     </footer>
   </main>
 
-  <!-- main 3D scene logic -->
   <script src="main3d.js"></script>
 </body>
 </html>
