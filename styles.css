@@ -255,3 +255,54 @@ body::after{
   #page-loader { display: none; }
   body::after { opacity: 0.5; }
 }
+/* ─── Mirror subtle note ─────────────────────────────── */
+.subtle-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.6;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* ─── Blueprint / Playbook italic breaks ─────────────── */
+.italic-break {
+  font-style: italic;
+  opacity: 0.75;
+  margin: 25px 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.italic-ender {
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 1.1rem;
+  margin: 40px 0 30px;
+  text-align: center;
+}
+
+/* ─── Blueprint / Playbook headings ───────────────────── */
+.subheading {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 1.6rem;
+  margin-top: 35px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Star list formatting ───────────────────────────── */
+.star-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 25px;
+}
+
+.star-list li {
+  margin: 4px 0;
+}
+
+.star-list li::before {
+  content: "✦ ";
+  opacity: 0.8;
+}
