@@ -1,8 +1,7 @@
-/* main3d.js — Bare Vision v2.1: Self-contained, robust, enhanced motion */
+/* main3d.js — Bare Vision Cinematic Engine v2.5 */
 
 (function() {
-  // --- 1. UTILITY: Lightweight Noise Function (Inlined to prevent dependency errors) ---
-  // This replaces the need for the external SimplexNoise library
+  // --- 1. UTILITY: Lightweight Noise (Self-Contained) ---
   const Perm = new Uint8Array(512);
   const Grad3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
   for(let i=0; i<512; i++) Perm[i] = Math.floor(Math.random()*255);
@@ -34,23 +33,13 @@
       return 32.0*(n0 + n1 + n2 + n3);
   }
 
-  // --- 2. FAIL-SAFE LOADER REMOVAL ---
-  // If 3D crashes, we still want the site to open.
-  function removeLoader() {
-    const loader = document.getElementById('page-loader');
-    if(loader && !loader.classList.contains('hidden')) {
-        loader.classList.add('hidden');
-    }
-  }
-  // Force removal after 1.5s regardless of 3D status
-  setTimeout(removeLoader, 1500);
-
-  // --- 3. SCENE SETUP ---
+  // --- 2. SETUP & MOBILE CHECK ---
+  const loaderEl = document.getElementById('page-loader');
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
-  
+
   if (isMobile) {
-    console.log('Mobile: skipping heavy 3D.');
-    removeLoader();
+    if(loaderEl) loaderEl.classList.add('hidden');
+    console.log('Mobile detected — 3D scene optimized/disabled.');
     return;
   }
 
@@ -58,34 +47,31 @@
   if (!container) return;
 
   const scene = new THREE.Scene();
-  // Cinematic fog
-  scene.fog = new THREE.FogExp2(0xf7efe8, 0.00065);
+  // Warm ivory fog for depth
+  scene.fog = new THREE.FogExp2(0xFFFBF3, 0.0008); 
 
-  const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 2000);
-  camera.position.set(0, 16, 55); // Slightly further back
+  const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 3000);
+  camera.position.set(0, 18, 55);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
-  // Using standard encoding for r128 compatibility to avoid errors
-  renderer.outputEncoding = THREE.sRGBEncoding; 
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1; // Slightly overexposed for high-key look
+  renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  // --- 4. LIGHTING ---
-  const hemi = new THREE.HemisphereLight(0xfff4ea, 0x303040, 0.6);
+  // --- 3. LIGHTING (High Key) ---
+  const hemi = new THREE.HemisphereLight(0xfff4ea, 0x555566, 0.7);
   scene.add(hemi);
 
-  const sun = new THREE.DirectionalLight(0xffe7c6, 1.1);
-  sun.position.set(40, 80, -40);
-  sun.castShadow = false; // Disable shadows for performance/clean look
+  const sun = new THREE.DirectionalLight(0xffe7c6, 0.9);
+  sun.position.set(50, 80, -30);
   scene.add(sun);
 
-  // --- 5. OBJECTS ---
-  
-  // A. The Dunes (Procedural Landscape)
-  const planeSize = 900;
-  const segX = 180, segY = 90; // Optimized segments
+  // --- 4. THE DUNES ---
+  const planeSize = 800;
+  const segX = 200, segY = 120;
   const geom = new THREE.PlaneGeometry(planeSize, planeSize, segX, segY);
   geom.rotateX(-Math.PI / 2);
   
@@ -95,172 +81,130 @@
   for (let i = 0; i < vCount; i++) baseY[i] = posAttr.getY(i);
 
   const duneMat = new THREE.MeshPhysicalMaterial({
-    color: 0xdbcdbf, // Sand
-    roughness: 0.85,
-    metalness: 0.05,
-    clearcoat: 0.1,
-    flatShading: false,
+    color: 0xE8DFD5, // Very pale sand
+    roughness: 0.9,
+    metalness: 0.0,
+    clearcoat: 0.05,
+    flatShading: false
   });
 
   const dunes = new THREE.Mesh(geom, duneMat);
   dunes.position.y = -8;
   scene.add(dunes);
 
-  // B. The Chrome & Gem Orbs
+  // --- 5. THE ORBS (Jewelry) ---
   const orbGroup = new THREE.Group();
   scene.add(orbGroup);
 
+  // Material: Chrome
   const chromeMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    metalness: 1.0,
-    roughness: 0.05,
-    clearcoat: 1.0
+    color: 0xffffff, metalness: 1.0, roughness: 0.05, clearcoat: 1.0
+  });
+  // Material: Orchid Glass
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    color: 0xC8B7D2, metalness: 0.1, roughness: 0.15, transmission: 0.6, transparent: true, opacity: 0.9
   });
 
-  const gemMat = new THREE.MeshPhysicalMaterial({
-    color: 0xC8B7D2, // Orchid
-    metalness: 0.1,
-    roughness: 0.1,
-    transmission: 0.6, // Glass-like
-    opacity: 0.9,
-    transparent: true
-  });
+  const sphereGeo = new THREE.SphereGeometry(1, 48, 48);
 
-  const orbs = [];
-  const orbCount = 14;
-  const sphereGeo = new THREE.SphereGeometry(1, 32, 32);
-
-  for(let i=0; i<orbCount; i++) {
-    const isChrome = Math.random() > 0.4;
-    const mesh = new THREE.Mesh(sphereGeo, isChrome ? chromeMat : gemMat);
-    
-    // Random placement
-    const x = (Math.random() - 0.5) * 350;
-    const z = -20 - Math.random() * 400;
-    const y = 5 + Math.random() * 30;
-    const scale = 2.0 + Math.random() * 3.5;
-    
-    mesh.position.set(x, y, z);
-    mesh.scale.set(scale, scale, scale);
-    
-    // Store animation data
-    mesh.userData = {
-      baseY: y,
-      baseX: x,
-      speed: 0.2 + Math.random() * 0.4,
-      offset: Math.random() * 10,
-      floatAmp: 2 + Math.random() * 4
-    };
-    
-    orbGroup.add(mesh);
-    orbs.push(mesh);
+  function spawnOrb(x, y, z, size, isGlass) {
+      const mesh = new THREE.Mesh(sphereGeo, isGlass ? glassMat : chromeMat);
+      mesh.position.set(x, y, z);
+      mesh.scale.set(size, size, size);
+      mesh.userData = { 
+          baseY: y, 
+          offset: Math.random() * 100,
+          speed: 0.3 + Math.random() * 0.4 
+      };
+      orbGroup.add(mesh);
   }
 
-  // C. Atmosphere Particles (Dust)
-  const dustCount = 600;
+  // Curated positions for balance (no random chaos)
+  spawnOrb(-20, 15, -60, 2.5, false); // Left Chrome
+  spawnOrb(25, 12, -80, 3.0, true);   // Right Glass
+  spawnOrb(0, 22, -120, 5.0, false);  // Distant Giant
+  spawnOrb(-40, 8, -40, 1.2, true);   // Small Glass
+  spawnOrb(35, 18, -50, 1.8, false);  // Mid Chrome
+
+  // --- 6. PARTICLES (Dust Motes) ---
+  const dustCount = 400;
   const dustGeo = new THREE.BufferGeometry();
   const dustPos = new Float32Array(dustCount * 3);
   for(let i=0; i<dustCount*3; i+=3) {
-    dustPos[i] = (Math.random()-0.5) * 800;
-    dustPos[i+1] = Math.random() * 100;
-    dustPos[i+2] = -Math.random() * 600;
+      dustPos[i] = (Math.random()-0.5) * 500;
+      dustPos[i+1] = Math.random() * 80;
+      dustPos[i+2] = -Math.random() * 400;
   }
   dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
-  const dustMat = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: 0.8,
-    transparent: true,
-    opacity: 0.3
-  });
+  const dustMat = new THREE.PointsMaterial({ color: 0xA5B4B9, size: 0.6, transparent: true, opacity: 0.4 });
   const dust = new THREE.Points(dustGeo, dustMat);
   scene.add(dust);
 
-
-  // --- 6. ANIMATION LOOP ---
-  const clock = new THREE.Clock();
+  // --- 7. ANIMATION ---
   let t = 0;
+  const clock = new THREE.Clock();
   
-  // Mouse interaction
-  let mouseX = 0;
-  let mouseY = 0;
+  // Mouse
+  let mx = 0, my = 0;
   window.addEventListener('mousemove', e => {
-    mouseX = (e.clientX - innerWidth/2) * 0.001;
-    mouseY = (e.clientY - innerHeight/2) * 0.001;
+      mx = (e.clientX - innerWidth/2) * 0.0005;
+      my = (e.clientY - innerHeight/2) * 0.0005;
   });
 
-  // Scroll day/night cycle
-  let dayRatio = 0;
-  window.addEventListener('scroll', () => {
-    const limit = document.documentElement.scrollHeight - window.innerHeight;
-    dayRatio = Math.min(1, window.scrollY / limit);
-  });
+  // Reveal Sections on scroll
+  const sections = document.querySelectorAll('.section, .footer');
+  const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+          if(entry.isIntersecting) entry.target.classList.add('visible');
+      });
+  }, { threshold: 0.1 });
+  sections.forEach(s => observer.observe(s));
 
   function animate() {
-    requestAnimationFrame(animate);
-    const delta = clock.getDelta();
-    t += delta;
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+      t += delta;
 
-    // 1. Animate Dunes (Simulate Wind/Breathing)
-    // We update vertices using the noise function
-    const positions = dunes.geometry.attributes.position;
-    for (let i = 0; i < vCount; i++) {
-        const x = positions.getX(i);
-        const z = positions.getZ(i);
-        // Combine low freq (hills) and high freq (ripples)
-        // Note: noise3D returns -1 to 1 roughly.
-        const n1 = noise3D(x*0.005, z*0.005, t*0.05); 
-        const n2 = noise3D(x*0.02, z*0.02, t*0.1); 
-        
-        const h = (n1 * 6) + (n2 * 1.5);
-        positions.setY(i, baseY[i] + h);
-    }
-    positions.needsUpdate = true;
-    dunes.geometry.computeVertexNormals(); // Essential for lighting updates
+      // Breathe Dunes
+      for (let i = 0; i < vCount; i++) {
+          const x = posAttr.getX(i);
+          const z = posAttr.getZ(i);
+          // Slow, sweeping movement
+          const n = noise3D(x*0.004, z*0.004, t*0.08); 
+          posAttr.setY(i, baseY[i] + n * 4);
+      }
+      posAttr.needsUpdate = true;
+      geom.computeVertexNormals();
 
-    // 2. Animate Orbs (Complex float + Rotate)
-    orbs.forEach(orb => {
-        const u = orb.userData;
-        // Vertical float
-        orb.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * u.floatAmp;
-        // Slow horizontal drift
-        orb.position.x = u.baseX + Math.sin(t * 0.1 + u.offset) * 5;
-        // Rotation
-        orb.rotation.x += delta * 0.1;
-        orb.rotation.y += delta * 0.05;
-    });
+      // Float Orbs
+      orbGroup.children.forEach(orb => {
+          const u = orb.userData;
+          orb.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * 2.0;
+          orb.rotation.y += 0.002;
+      });
 
-    // 3. Animate Dust (Vortex effect)
-    const dPos = dust.geometry.attributes.position.array;
-    for(let i=0; i<dustCount; i++) {
-        const idx = i*3;
-        // Rise up
-        dPos[idx+1] += 0.1; 
-        if(dPos[idx+1] > 100) dPos[idx+1] = 0;
-        // Spiral
-        dPos[idx] += Math.sin(t * 0.2 + i) * 0.1;
-    }
-    dust.geometry.attributes.position.needsUpdate = true;
+      // Dust Rise
+      const dp = dust.geometry.attributes.position.array;
+      for(let i=0; i<dustCount; i++) {
+          const idx = i*3;
+          dp[idx+1] += 0.05;
+          if(dp[idx+1] > 80) dp[idx+1] = 0;
+      }
+      dust.geometry.attributes.position.needsUpdate = true;
 
-    // 4. Camera Parallax (Cinematic feel)
-    camera.position.x += (mouseX * 50 - camera.position.x) * 0.05;
-    camera.position.y += ((16 + mouseY * 20) - camera.position.y) * 0.05;
-    camera.lookAt(0, 5, -100);
+      // Camera Parallax
+      camera.position.x += (mx * 30 - camera.position.x) * 0.05;
+      camera.position.y += ((18 + my * 20) - camera.position.y) * 0.05;
+      camera.lookAt(0, 5, -100);
 
-    // 5. Day/Night Shift (Color Grading)
-    // Interpolate fog and background based on scroll
-    const lightC = new THREE.Color(0xf7efe8).lerp(new THREE.Color(0x0a0a10), dayRatio);
-    scene.fog.color.copy(lightC);
-    scene.background = lightC;
-    // Dim sun at bottom of page
-    sun.intensity = 1.1 - dayRatio * 0.8;
-
-    renderer.render(scene, camera);
+      renderer.render(scene, camera);
   }
 
-  // Start
   animate();
-  
-  // Ensure loader is gone
-  setTimeout(removeLoader, 500);
+
+  // Remove Loader
+  setTimeout(() => {
+      if(loaderEl) loaderEl.classList.add('hidden');
+  }, 800);
 
 })();
