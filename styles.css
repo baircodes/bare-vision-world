@@ -132,14 +132,18 @@ body{
       inset 0 -2px 5px rgba(0,0,0,0.05);
 }
 
-/* SAGE GREEN HOVER */
-.orb:hover{
-    transform:translateY(-3px);
-    color: #4a5e46 !important; /* Sage Green Text */
-    box-shadow: 
-      0 16px 32px rgba(0,0,0,0.12),
-      inset 0 0 20px rgba(184, 207, 176, 0.5), /* Inner Sage Glow */
-      0 0 20px rgba(184, 207, 176, 0.4);       /* Outer Sage Aura */
+/* Make orb chrome only */
+.btn.orb {
+    background: radial-gradient(circle at 30% 30%, #d1d1d1, #8a8a8a, #5d5d5d);
+    color: #ffffff;
+    border: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Only text changes on hover */
+.btn.orb:hover {
+    color: #b8cfb0;
+    text-shadow: 0 0 8px rgba(184, 207, 176, 0.6);
 }
 
 /* Mirage Text */
