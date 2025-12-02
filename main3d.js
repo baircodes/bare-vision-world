@@ -1,7 +1,21 @@
-/* main3d.js — Bare Vision Cinematic Engine v2.5 */
+/* main3d.js — Bare Vision v3: Anti-Gravity & Self-Contained */
 
 (function() {
-  // --- 1. UTILITY: Lightweight Noise (Self-Contained) ---
+  
+  // --- 1. SAFETY VALVE: REMOVE LOADER AUTOMATICALLY ---
+  // This ensures the site NEVER gets stuck on the loading screen
+  function removeLoader() {
+    const loader = document.getElementById('page-loader');
+    if (loader && !loader.classList.contains('hidden')) {
+      loader.classList.add('hidden');
+    }
+  }
+  // Force removal after 1.2 seconds, even if 3D isn't ready
+  setTimeout(removeLoader, 1200);
+
+
+  // --- 2. NOISE FUNCTION (INLINED) ---
+  // This replaces external libraries so it never crashes
   const Perm = new Uint8Array(512);
   const Grad3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
   for(let i=0; i<512; i++) Perm[i] = Math.floor(Math.random()*255);
@@ -33,13 +47,11 @@
       return 32.0*(n0 + n1 + n2 + n3);
   }
 
-  // --- 2. SETUP & MOBILE CHECK ---
-  const loaderEl = document.getElementById('page-loader');
+  // --- 3. SCENE SETUP ---
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
 
   if (isMobile) {
-    if(loaderEl) loaderEl.classList.add('hidden');
-    console.log('Mobile detected — 3D scene optimized/disabled.');
+    console.log('Mobile detected — 3D skipped.');
     return;
   }
 
@@ -47,8 +59,8 @@
   if (!container) return;
 
   const scene = new THREE.Scene();
-  // Warm ivory fog for depth
-  scene.fog = new THREE.FogExp2(0xFFFBF3, 0.0008); 
+  // Warm ivory fog
+  scene.fog = new THREE.FogExp2(0xFFFBF3, 0.0007); 
 
   const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 3000);
   camera.position.set(0, 18, 55);
@@ -57,11 +69,11 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1; // Slightly overexposed for high-key look
+  renderer.toneMappingExposure = 1.1; 
   renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  // --- 3. LIGHTING (High Key) ---
+  // --- 4. LIGHTING ---
   const hemi = new THREE.HemisphereLight(0xfff4ea, 0x555566, 0.7);
   scene.add(hemi);
 
@@ -69,7 +81,7 @@
   sun.position.set(50, 80, -30);
   scene.add(sun);
 
-  // --- 4. THE DUNES ---
+  // --- 5. THE DUNES ---
   const planeSize = 800;
   const segX = 200, segY = 120;
   const geom = new THREE.PlaneGeometry(planeSize, planeSize, segX, segY);
@@ -81,7 +93,7 @@
   for (let i = 0; i < vCount; i++) baseY[i] = posAttr.getY(i);
 
   const duneMat = new THREE.MeshPhysicalMaterial({
-    color: 0xE8DFD5, // Very pale sand
+    color: 0xE8DFD5, 
     roughness: 0.9,
     metalness: 0.0,
     clearcoat: 0.05,
@@ -92,41 +104,41 @@
   dunes.position.y = -8;
   scene.add(dunes);
 
-  // --- 5. THE ORBS (Jewelry) ---
+  // --- 6. THE ORBS (Jewelry) ---
   const orbGroup = new THREE.Group();
   scene.add(orbGroup);
 
-  // Material: Chrome
   const chromeMat = new THREE.MeshPhysicalMaterial({
     color: 0xffffff, metalness: 1.0, roughness: 0.05, clearcoat: 1.0
   });
-  // Material: Orchid Glass
   const glassMat = new THREE.MeshPhysicalMaterial({
     color: 0xC8B7D2, metalness: 0.1, roughness: 0.15, transmission: 0.6, transparent: true, opacity: 0.9
   });
 
   const sphereGeo = new THREE.SphereGeometry(1, 48, 48);
 
-    // ORBS: Suspended Anti-Gravity Motion
-    // Instead of falling, they hover and breathe
-    orbGroup.children.forEach((o, idx) => {
-        const u = o.userData;
-        const time = t * u.speed; // Individual speed per orb
+  function spawnOrb(x, y, z, size, isGlass) {
+      const mesh = new THREE.Mesh(sphereGeo, isGlass ? glassMat : chromeMat);
+      mesh.position.set(x, y, z);
+      mesh.scale.set(size, size, size);
+      mesh.userData = { 
+          baseY: y, 
+          baseX: x,
+          offset: Math.random() * 100,
+          speed: 0.5 + Math.random() * 0.5 
+      };
+      orbGroup.add(mesh);
+  }
 
-     // Vertical Float (Breathing)
-     // Moves up and down smoothly based on time + random offset
-        o.position.y = u.baseY + Math.sin(time + u.offset) * 2.5;
+  // Floating Constellation
+  spawnOrb(-20, 15, -60, 2.5, false); // Chrome
+  spawnOrb(25, 12, -80, 3.0, true);   // Glass
+  spawnOrb(0, 22, -120, 5.0, false);  // Giant Chrome
+  spawnOrb(-40, 8, -40, 1.2, true);   // Glass
+  spawnOrb(35, 18, -50, 1.8, false);  // Chrome
+  spawnOrb(10, 6, -30, 0.8, false);   // Tiny Chrome
 
-     // Horizontal Drift (Wandering)
-     // Moves slightly left/right so they don't look static
-        o.position.x = u.baseX + Math.cos(time * 0.5 + idx) * 4.0;
-
-     // Slow, heavy rotation (Cinematic)
-        o.rotation.x += 0.001;
-        o.rotation.y += 0.002;
-    });
-
-  // --- 6. PARTICLES (Dust Motes) ---
+  // --- 7. PARTICLES (Dust Motes) ---
   const dustCount = 400;
   const dustGeo = new THREE.BufferGeometry();
   const dustPos = new Float32Array(dustCount * 3);
@@ -140,7 +152,7 @@
   const dust = new THREE.Points(dustGeo, dustMat);
   scene.add(dust);
 
-  // --- 7. ANIMATION ---
+  // --- 8. ANIMATION LOOP ---
   let t = 0;
   const clock = new THREE.Clock();
   
@@ -165,25 +177,30 @@
       const delta = clock.getDelta();
       t += delta;
 
-      // Breathe Dunes
+      // 1. Breathe Dunes
       for (let i = 0; i < vCount; i++) {
           const x = posAttr.getX(i);
           const z = posAttr.getZ(i);
-          // Slow, sweeping movement
           const n = noise3D(x*0.004, z*0.004, t*0.08); 
           posAttr.setY(i, baseY[i] + n * 4);
       }
       posAttr.needsUpdate = true;
       geom.computeVertexNormals();
 
-      // Float Orbs
-      orbGroup.children.forEach(orb => {
-          const u = orb.userData;
-          orb.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * 2.0;
-          orb.rotation.y += 0.002;
+      // 2. Anti-Gravity Orbs (Floating Figure-8s)
+      orbGroup.children.forEach((o, idx) => {
+          const u = o.userData;
+          // Lissajous motion for suspended feel
+          o.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * 2.5; 
+          o.position.x = u.baseX + Math.cos(t * u.speed * 0.5 + idx) * 3.0;
+          o.position.z += Math.sin(t * 0.2 + idx) * 0.05;
+
+          // Slow Rotation
+          o.rotation.x += 0.001;
+          o.rotation.y += 0.002;
       });
 
-      // Dust Rise
+      // 3. Dust Rise
       const dp = dust.geometry.attributes.position.array;
       for(let i=0; i<dustCount; i++) {
           const idx = i*3;
@@ -192,7 +209,7 @@
       }
       dust.geometry.attributes.position.needsUpdate = true;
 
-      // Camera Parallax
+      // 4. Parallax
       camera.position.x += (mx * 30 - camera.position.x) * 0.05;
       camera.position.y += ((18 + my * 20) - camera.position.y) * 0.05;
       camera.lookAt(0, 5, -100);
@@ -201,10 +218,5 @@
   }
 
   animate();
-
-  // Remove Loader
-  setTimeout(() => {
-      if(loaderEl) loaderEl.classList.add('hidden');
-  }, 800);
 
 })();
