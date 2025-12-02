@@ -1,128 +1,129 @@
-/* ---------- Design Tokens ---------- */
-:root {
+/* =========================
+   Bare Vision — styles.css
+   Replace existing file with this
+   ========================= */
+
+/* design tokens */
+:root{
   --ivory: #FFFBF3;
-  --sand: #DBD6D0;
-  --dune: #CBB89A;
-  --sage: #B8CFB0;
-  --azur: #A5B4B9;
-  --orchid: #C8B7D2;
-  --text: #1a1a1c;
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --glass-bg: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,245,0.05) 100%);
-  --panel-shadow: 0 20px 50px rgba(0,0,0,0.06);
-  --maxwidth: 900px;
+  --sand: #dbd6d0;
+  --dune: #cbb89a;
+  --sage: #b8cfb0;
+  --azur: #a5b4b9;
+  --orchid: #c8b7d2;
+  --jewel: #c0e0da;
+  --chrome-a: #cfd8dc;
+  --chrome-b: #9fb0b8;
+  --text: #0f0f10;
+
+  --space-xs:10px; --space-sm:18px; --space-md:28px; --space-lg:64px; --space-xl:120px;
+  --maxwidth:1100px;
+  --transition-fast:220ms;
+  --transition-med:420ms;
 }
 
-/* ---------- Base / Reset ---------- */
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Inter', sans-serif;
-  color: var(--text);
-  margin: 0;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+/* reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--ivory);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
 }
 
-/* ---------- 3D Infinite Background (Cyc Wall) ---------- */
-#three-container {
-  position: fixed; inset: 0; z-index: -1;
-  /* Radical gradient creates the infinite floor look */
-  background: radial-gradient(circle at 50% 30%, #f9f6f2 0%, #e3ddd5 100%);
+/* three container */
+#three-container { position:fixed; inset:0; z-index:-4; pointer-events:none; width:100%; height:100%; background: linear-gradient(180deg, rgba(255,255,250,0.06), rgba(254,245,230,0.02)); }
+
+/* mirage overlay */
+#mirage-overlay { position:fixed; inset:0; z-index:6; pointer-events:none; mix-blend-mode: overlay; filter: url(#mirage); opacity:0.14; }
+
+/* loader */
+#page-loader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,245,1), rgba(255,248,240,0.96));transition:opacity .8s ease}
+#page-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-title{font-family:'Cormorant Garamond',serif;letter-spacing:.3em;color:var(--azur);font-size:2rem;margin-bottom:6px}
+.loader-sub{opacity:.7;font-size:.95rem}
+
+/* hero */
+.hero{position:relative;z-index:3;padding:clamp(36px, 6vh, 120px) 20px;text-align:center}
+.title{font-family:'Baloo 2', 'Cormorant Garamond', serif; font-weight:800; color:#fff; font-size:clamp(2.4rem,8vw,5rem); line-height:0.96; margin:0; letter-spacing:0.02em;
+  /* Bubble/word-art treatment */
+  background: linear-gradient(90deg, rgba(255,255,255,0.98), rgba(216,230,226,0.8));
+  -webkit-background-clip: text; background-clip:text; -webkit-text-fill-color:transparent;
+  text-shadow: 0 12px 30px rgba(6,6,8,0.6), 0 2px 8px rgba(255,255,255,0.04);
+  transform: translateZ(0);
 }
-/* Film Grain Overlay */
-#three-container::after {
-  content:""; position: absolute; inset:0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-  opacity: 0.35; pointer-events:none; mix-blend-mode: overlay;
+.subtitle{margin-top:12px;color:rgba(255,255,255,0.92);font-weight:600}
+
+/* cta group */
+.cta-group{display:flex;gap:18px;justify-content:center;margin-top:18px;align-items:center}
+.panel-cta{display:flex;gap:14px;justify-content:center;margin-top:18px}
+
+/* panel (glass + chrome rim) */
+.panel{
+  position:relative;margin:18px auto;padding:28px;border-radius:16px;max-width:var(--maxwidth);
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,245,0.06));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:0 26px 64px rgba(6,8,10,0.08), inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px) saturate(1.06);
+  -webkit-backdrop-filter: blur(12px) saturate(1.06);
+  transition: transform var(--transition-med) cubic-bezier(.2,.9,.2,1), box-shadow var(--transition-fast);
+  overflow:visible;
 }
-
-/* ---------- Loader ---------- */
-#page-loader {
-  position: fixed; inset: 0; z-index: 9999;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--ivory); transition: opacity 0.8s ease, visibility 0.8s;
-}
-#page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-title { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.2em; font-size: 1.5rem; color: var(--text); margin-bottom: 8px;}
-.loader-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.5; margin-top: 0; text-align: center;}
-
-/* ---------- Typography & Layout ---------- */
-.hero { padding: 140px 20px 80px; text-align: center; position: relative; z-index: 2; }
-.title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 400; letter-spacing: -0.02em; color: var(--text); margin: 0; mix-blend-mode: multiply; }
-.subtitle { margin-top: 16px; font-weight: 300; letter-spacing: 0.05em; color: rgba(20,20,20,0.6); }
-
-/* ---------- Panels (Glass) ---------- */
-.section { padding: 40px 20px; opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 2; position: relative; }
-.section.visible { opacity: 1; transform: translateY(0); }
-
-.panel {
-  max-width: var(--maxwidth); margin: 0 auto; padding: 48px;
-  border-radius: 24px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
-  box-shadow: var(--panel-shadow);
-  position: relative; overflow: visible;
-}
-
-.panel h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400; margin-top: 0; color: #111; }
-.panel p { line-height: 1.7; color: rgba(0,0,0,0.75); font-weight: 300; margin-bottom: 1.2rem; }
-.lead-text { font-size: 1.1rem; font-weight: 400; color: #000; font-style: italic; font-family: 'Cormorant Garamond', serif; }
-
-/* ---------- Liquid Chrome Buttons ---------- */
-.panel-cta { display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
-
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 16px 32px; border-radius: 999px; text-decoration: none;
-  font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.03em; font-size: 0.9rem;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  position: relative; z-index: 1;
+.panel::before{
+  content:""; position:absolute; left:-2px; top:-2px; right:-2px; bottom:-2px; z-index:-1; border-radius:18px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(206,224,224,0.06));
+  filter: blur(10px) saturate(1.02); pointer-events:none;
 }
 
-/* The Silver Orb Look */
-.orb {
-  /* Horizon Line Gradient for Metallic Look */
-  background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 49%, #d1d1d1 50%, #f4f4f4 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 
-    0 10px 20px rgba(0,0,0,0.1), 
-    inset 0 2px 0 rgba(255,255,255,1), 
-    inset 0 -2px 5px rgba(0,0,0,0.05);
-  color: #111;
-}
+/* panel reveal float */
+.section.visible .panel{ transform: translateY(-12px) scale(1.004); box-shadow:0 34px 96px rgba(6,8,10,0.12) }
 
-/* SAGE GREEN HOVER */
-.orb:hover {
-  transform: translateY(-3px) scale(1.02);
-  color: #4a5e46; /* Dark Sage Text */
-  box-shadow: 
-    0 16px 32px rgba(0,0,0,0.12),
-    inset 0 0 20px rgba(184, 207, 176, 0.5), /* Inner Sage Glow */
-    0 0 20px rgba(184, 207, 176, 0.4);       /* Outer Sage Aura */
-}
+/* headings */
+.panel h2{ font-family: 'Cormorant Garamond', serif; font-size:1.9rem; margin:0 0 10px; color:rgba(255,255,255,0.98); text-shadow: 0 6px 18px rgba(8,8,10,0.6) }
+.subheading{ font-family:'Cormorant Garamond', serif; font-size:1.4rem; color:rgba(240,235,230,0.98); margin-top:18px }
 
-/* ---------- Lists & Columns ---------- */
-.star-list { list-style: none; padding: 0; margin: 24px 0; }
-.star-list li { margin-bottom: 12px; padding-left: 24px; position: relative; }
-.star-list li::before { content: "✦"; position: absolute; left: 0; color: var(--dune); font-size: 0.8em; top: 4px; }
+/* body */
+.panel p, .panel li{ color: rgba(255,255,255,0.90); line-height:1.6; font-size:1.03rem; }
 
-.split-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 30px; }
-.subheading { font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; margin-bottom: 5px; color: var(--text); }
-.tiny-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--azur); margin-top: 0; margin-bottom: 16px; }
+/* star list */
+.star-list{ list-style:none; padding-left:0; margin:12px 0 }
+.star-list li{ margin:6px 0 }
+.star-list li::before{ content:"✦ "; margin-right:6px; color:var(--sand); opacity:0.95 }
 
-.pill { display: inline-block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 18px; border-radius: 50px; background: rgba(255,255,255,0.4); border: 1px solid rgba(0,0,0,0.08); color: rgba(0,0,0,0.6); margin-top: 10px;}
-.meta-row { text-align: center; }
+/* small italic subtle note */
+.subtle-note{ font-size:.9rem; font-style:italic; opacity:.85; text-align:center; margin-top:16px; margin-bottom:18px; color: rgba(255,255,255,0.95) }
 
-/* ---------- Footer & Misc ---------- */
-.footer { text-align: center; padding: 60px 20px; font-size: 0.8rem; opacity: 0.5; }
-.mirage-text { font-style: italic; position: relative; display: inline-block; color: var(--text); }
-.italic-ender { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; margin-top: 40px; color: #111; }
+/* italic breaks / ender */
+.italic-break{ font-style:italic; color:rgba(255,255,255,0.9); text-align:center; margin:24px 0; }
+.italic-ender{ font-style:italic; color:rgba(255,255,255,0.98); text-align:center; margin:36px 0 26px; font-size:1.12rem; font-weight:600; text-shadow: 0 6px 18px rgba(0,0,0,0.45) }
 
-@media (max-width: 768px) {
-  .split-col { grid-template-columns: 1fr; gap: 24px; }
-  .title { font-size: 3rem; }
-  .panel { padding: 24px; margin: 10px; }
+/* Buttons – orb chrome + text-only hover sage highlight */
+.btn{ display:inline-flex; align-items:center; justify-content:center; padding:12px 22px; border-radius:999px; text-decoration:none; font-weight:700; cursor:pointer; position:relative; overflow:visible; border:none; transition: transform .18s ease, box-shadow .18s ease, color .18s ease; }
+.orb{ background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(183,196,200,0.06)); color: #0d0d0d; box-shadow: 0 8px 26px rgba(8,8,10,0.12), inset 0 3px 10px rgba(255,255,255,0.22); border:1px solid rgba(255,255,255,0.06) }
+
+/* text-only sage hover: change color only, do NOT affect orb background */
+.btn.orb { color: rgba(15,15,16,0.95) }
+.btn.orb:hover { color: var(--sage) !important; transform: translateY(-4px) }
+
+/* keep reflection highlight but do not change orb color */
+.orb::after{ content:""; position:absolute; left:var(--mx,18px); top:var(--my,8px); width:160px; height:56px; transform:translate(-50%,-50%) rotate(-18deg); background: radial-gradient(120px 48px at 20% 24%, rgba(255,255,255,0.7), transparent 30%); opacity:0; pointer-events:none; transition: opacity .22s ease, transform .35s ease; mix-blend-mode: overlay; }
+.orb:hover::after{ opacity:0.98; transform: translate(-50%,-60%) rotate(-18deg) scale(1.05) }
+
+/* mirage-text usage inlined (sage green shimmer effect) */
+.mirage-text{ color:var(--sage); font-style:italic; position:relative; display:inline-block }
+.mirage-text::after{ content:""; position:absolute; left:0; top:0; right:0; bottom:0; pointer-events:none; filter:url(#mirage); opacity:0.12 }
+
+/* section base + reveal */
+.section{ padding:64px 20px; position:relative; z-index:3; }
+.section{ opacity:0; transform: translateY(26px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.9,.2,1); }
+.section.visible{ opacity:1; transform: translateY(0) }
+
+/* responsive */
+@media (max-width:768px){
+  .panel{ padding:16px; border-radius:12px }
+  .title{ font-size:2.2rem; text-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+  #three-container{ display:none } /* disable heavy scene on phone */
+  #mirage-overlay{ display:none }
 }
