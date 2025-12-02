@@ -107,17 +107,24 @@
 
   const sphereGeo = new THREE.SphereGeometry(1, 48, 48);
 
-  function spawnOrb(x, y, z, size, isGlass) {
-      const mesh = new THREE.Mesh(sphereGeo, isGlass ? glassMat : chromeMat);
-      mesh.position.set(x, y, z);
-      mesh.scale.set(size, size, size);
-      mesh.userData = { 
-          baseY: y, 
-          offset: Math.random() * 100,
-          speed: 0.3 + Math.random() * 0.4 
-      };
-      orbGroup.add(mesh);
-  }
+    // ORBS: Suspended Anti-Gravity Motion
+    // Instead of falling, they hover and breathe
+    orbGroup.children.forEach((o, idx) => {
+        const u = o.userData;
+        const time = t * u.speed; // Individual speed per orb
+
+     // Vertical Float (Breathing)
+     // Moves up and down smoothly based on time + random offset
+        o.position.y = u.baseY + Math.sin(time + u.offset) * 2.5;
+
+     // Horizontal Drift (Wandering)
+     // Moves slightly left/right so they don't look static
+        o.position.x = u.baseX + Math.cos(time * 0.5 + idx) * 4.0;
+
+     // Slow, heavy rotation (Cinematic)
+        o.rotation.x += 0.001;
+        o.rotation.y += 0.002;
+    });
 
   // Curated positions for balance (no random chaos)
   spawnOrb(-20, 15, -60, 2.5, false); // Left Chrome
