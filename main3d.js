@@ -126,13 +126,6 @@
         o.rotation.y += 0.002;
     });
 
-  // Curated positions for balance (no random chaos)
-  spawnOrb(-20, 15, -60, 2.5, false); // Left Chrome
-  spawnOrb(25, 12, -80, 3.0, true);   // Right Glass
-  spawnOrb(0, 22, -120, 5.0, false);  // Distant Giant
-  spawnOrb(-40, 8, -40, 1.2, true);   // Small Glass
-  spawnOrb(35, 18, -50, 1.8, false);  // Mid Chrome
-
   // --- 6. PARTICLES (Dust Motes) ---
   const dustCount = 400;
   const dustGeo = new THREE.BufferGeometry();
