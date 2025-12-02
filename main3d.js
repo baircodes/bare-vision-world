@@ -1,222 +1,348 @@
-/* main3d.js — Bare Vision v3: Anti-Gravity & Self-Contained */
+/* main3d.js — updated: canvas-shaped orbs (clouds + stars), improved motion, sunrise→sunset + parallax
+   Requires:
+   - three.min.js r149
+   - simplex-noise 2.4.0
+   - optional: assets/desert-bg.jpg, assets/env.jpg
+*/
+(() => {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent)
+    || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
 
-(function() {
-  
-  // --- 1. SAFETY VALVE: REMOVE LOADER AUTOMATICALLY ---
-  // This ensures the site NEVER gets stuck on the loading screen
-  function removeLoader() {
-    const loader = document.getElementById('page-loader');
-    if (loader && !loader.classList.contains('hidden')) {
-      loader.classList.add('hidden');
-    }
-  }
-  // Force removal after 1.2 seconds, even if 3D isn't ready
-  setTimeout(removeLoader, 1200);
-
-
-  // --- 2. NOISE FUNCTION (INLINED) ---
-  // This replaces external libraries so it never crashes
-  const Perm = new Uint8Array(512);
-  const Grad3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
-  for(let i=0; i<512; i++) Perm[i] = Math.floor(Math.random()*255);
-  function noise3D(xin, yin, zin) {
-      let n0, n1, n2, n3; 
-      const F3 = 1.0/3.0, G3 = 1.0/6.0;
-      const s = (xin+yin+zin)*F3;
-      const i = Math.floor(xin+s), j = Math.floor(yin+s), k = Math.floor(zin+s);
-      const t = (i+j+k)*G3;
-      const X0 = i-t, Y0 = j-t, Z0 = k-t;
-      const x0 = xin-X0, y0 = yin-Y0, z0 = zin-Z0;
-      let i1, j1, k1, i2, j2, k2;
-      if(x0>=y0) { if(y0>=z0) { i1=1; j1=0; k1=0; i2=1; j2=1; k2=0; } else if(x0>=z0) { i1=1; j1=0; k1=0; i2=1; j2=0; k2=1; } else { i1=0; j1=0; k1=1; i2=1; j2=0; k2=1; } }
-      else { if(y0<z0) { i1=0; j1=0; k1=1; i2=0; j2=1; k2=1; } else if(x0<z0) { i1=0; j1=1; k1=0; i2=0; j2=1; k2=1; } else { i1=0; j1=1; k1=0; i2=1; j2=1; k2=0; } }
-      const x1 = x0 - i1 + G3, y1 = y0 - j1 + G3, z1 = z0 - k1 + G3;
-      const x2 = x0 - i2 + 2.0*G3, y2 = y0 - j2 + 2.0*G3, z2 = z0 - k2 + 2.0*G3;
-      const x3 = x0 - 1.0 + 3.0*G3, y3 = y0 - 1.0 + 3.0*G3, z3 = z0 - 1.0 + 3.0*G3;
-      const ii = i & 255, jj = j & 255, kk = k & 255;
-      const gi0 = Perm[ii+Perm[jj+Perm[kk]]] % 12, gi1 = Perm[ii+i1+Perm[jj+j1+Perm[kk+k1]]] % 12;
-      const gi2 = Perm[ii+i2+Perm[jj+j2+Perm[kk+k2]]] % 12, gi3 = Perm[ii+1+Perm[jj+1+Perm[kk+1]]] % 12;
-      let t0 = 0.6 - x0*x0 - y0*y0 - z0*z0;
-      if(t0<0) n0 = 0.0; else { t0 *= t0; n0 = t0 * t0 * (Grad3[gi0][0]*x0 + Grad3[gi0][1]*y0 + Grad3[gi0][2]*z0); }
-      let t1 = 0.6 - x1*x1 - y1*y1 - z1*z1;
-      if(t1<0) n1 = 0.0; else { t1 *= t1; n1 = t1 * t1 * (Grad3[gi1][0]*x1 + Grad3[gi1][1]*y1 + Grad3[gi1][2]*z1); }
-      let t2 = 0.6 - x2*x2 - y2*y2 - z2*z2;
-      if(t2<0) n2 = 0.0; else { t2 *= t2; n2 = t2 * t2 * (Grad3[gi2][0]*x2 + Grad3[gi2][1]*y2 + Grad3[gi2][2]*z2); }
-      let t3 = 0.6 - x3*x3 - y3*y3 - z3*z3;
-      if(t3<0) n3 = 0.0; else { t3 *= t3; n3 = t3 * t3 * (Grad3[gi3][0]*x3 + Grad3[gi3][1]*y3 + Grad3[gi3][2]*z3); }
-      return 32.0*(n0 + n1 + n2 + n3);
-  }
-
-  // --- 3. SCENE SETUP ---
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+  const loaderEl = document.getElementById('page-loader');
 
   if (isMobile) {
-    console.log('Mobile detected — 3D skipped.');
+    loaderEl?.classList.add('hidden');
+    console.log('Mobile device: Three.js scene disabled.');
     return;
   }
 
+  // scene basics
   const container = document.getElementById('three-container');
-  if (!container) return;
-
   const scene = new THREE.Scene();
-  // Warm ivory fog
-  scene.fog = new THREE.FogExp2(0xFFFBF3, 0.0007); 
-
-  const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 3000);
-  camera.position.set(0, 18, 55);
+  const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 4000);
+  camera.position.set(0, 18, 60);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1; 
   renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  // --- 4. LIGHTING ---
-  const hemi = new THREE.HemisphereLight(0xfff4ea, 0x555566, 0.7);
+  // pmrem for env
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+  const texLoader = new THREE.TextureLoader();
+  let hasEnv = false;
+  texLoader.load('assets/env.jpg',
+    (tex) => {
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      const env = pmrem.fromEquirectangular(tex).texture;
+      scene.environment = env;
+      hasEnv = true;
+      tex.dispose && tex.dispose();
+      pmrem.dispose();
+    },
+    undefined,
+    () => {}
+  );
+
+  // background plane
+  texLoader.load('assets/desert-bg.jpg',
+    (bg) => {
+      bg.encoding = THREE.sRGBEncoding;
+      const mat = new THREE.MeshBasicMaterial({ map: bg, toneMapped: false });
+      const plane = new THREE.Mesh(new THREE.PlaneGeometry(1600, 700), mat);
+      plane.position.set(0, -10, -800);
+      scene.add(plane);
+    },
+    undefined,
+    () => { scene.background = new THREE.Color(0xfbf6f0); }
+  );
+
+  // atmospheric lights
+  scene.fog = new THREE.FogExp2(0xf7efe8, 0.00066);
+  const hemi = new THREE.HemisphereLight(0xfff4ea, 0x2b2b3a, 0.56);
   scene.add(hemi);
-
-  const sun = new THREE.DirectionalLight(0xffe7c6, 0.9);
-  sun.position.set(50, 80, -30);
+  const sun = new THREE.DirectionalLight(0xffe7c6, 1.0);
+  sun.position.set(40, 70, -40);
   scene.add(sun);
+  const ambient = new THREE.AmbientLight(0xffffff, 0.12);
+  scene.add(ambient);
 
-  // --- 5. THE DUNES ---
-  const planeSize = 800;
-  const segX = 200, segY = 120;
+  // dunes geometry
+  const planeSize = 900;
+  const segX = 280;
+  const segY = 160;
   const geom = new THREE.PlaneGeometry(planeSize, planeSize, segX, segY);
   geom.rotateX(-Math.PI / 2);
-  
-  const posAttr = geom.attributes.position;
-  const vCount = posAttr.count;
-  const baseY = new Float32Array(vCount);
-  for (let i = 0; i < vCount; i++) baseY[i] = posAttr.getY(i);
+  const pos = geom.attributes.position;
+  const vertCount = pos.count;
+  const baseY = new Float32Array(vertCount);
+  for (let i = 0; i < vertCount; i++) baseY[i] = pos.getY(i);
 
   const duneMat = new THREE.MeshPhysicalMaterial({
-    color: 0xE8DFD5, 
-    roughness: 0.9,
-    metalness: 0.0,
-    clearcoat: 0.05,
-    flatShading: false
+    color: 0xdbcdb5,
+    roughness: 0.92,
+    metalness: 0.02,
+    clearcoat: 0.06,
+    sheen: 0.14,
+    sheenColor: 0xefe2d1
   });
 
   const dunes = new THREE.Mesh(geom, duneMat);
-  dunes.position.y = -8;
+  dunes.position.y = -7.0;
   scene.add(dunes);
 
-  // --- 6. THE ORBS (Jewelry) ---
-  const orbGroup = new THREE.Group();
-  scene.add(orbGroup);
+  // subtle god-ray cone
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(120, 260, 32, 1, true), new THREE.MeshBasicMaterial({
+    color: 0xfff0d4, transparent: true, opacity: 0.04, depthWrite: false, blending: THREE.AdditiveBlending
+  }));
+  cone.position.set(0, 80, -120);
+  cone.rotateX(Math.PI);
+  scene.add(cone);
 
-  const chromeMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff, metalness: 1.0, roughness: 0.05, clearcoat: 1.0
-  });
-  const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0xC8B7D2, metalness: 0.1, roughness: 0.15, transmission: 0.6, transparent: true, opacity: 0.9
-  });
+  // noise
+  const simplex = new SimplexNoise(Math.random);
 
-  const sphereGeo = new THREE.SphereGeometry(1, 48, 48);
+  // utility: create canvas texture for cloud shape
+  function makeCloudTexture(size = 512, tint = '#ffffff') {
+    const c = document.createElement('canvas');
+    c.width = c.height = size;
+    const ctx = c.getContext('2d');
+    ctx.clearRect(0,0,size,size);
+    // draw 3 overlapped circles to make a cloud silhouette
+    ctx.fillStyle = tint;
+    ctx.beginPath();
+    ctx.arc(size*0.35, size*0.45, size*0.26, 0, Math.PI*2);
+    ctx.arc(size*0.55, size*0.38, size*0.3, 0, Math.PI*2);
+    ctx.arc(size*0.7, size*0.5, size*0.22, 0, Math.PI*2);
+    ctx.closePath();
+    ctx.fill();
 
-  function spawnOrb(x, y, z, size, isGlass) {
-      const mesh = new THREE.Mesh(sphereGeo, isGlass ? glassMat : chromeMat);
-      mesh.position.set(x, y, z);
-      mesh.scale.set(size, size, size);
-      mesh.userData = { 
-          baseY: y, 
-          baseX: x,
-          offset: Math.random() * 100,
-          speed: 0.5 + Math.random() * 0.5 
-      };
-      orbGroup.add(mesh);
+    // soft blur by drawing multiple times with globalAlpha
+    ctx.globalCompositeOperation = 'source-over';
+    // add soft highlight
+    const grad = ctx.createRadialGradient(size*0.45, size*0.35, 10, size*0.6, size*0.5, size*0.45);
+    grad.addColorStop(0, 'rgba(255,255,255,0.95)');
+    grad.addColorStop(0.6, 'rgba(255,255,255,0.28)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+    return new THREE.CanvasTexture(c);
   }
 
-  // Floating Constellation
-  spawnOrb(-20, 15, -60, 2.5, false); // Chrome
-  spawnOrb(25, 12, -80, 3.0, true);   // Glass
-  spawnOrb(0, 22, -120, 5.0, false);  // Giant Chrome
-  spawnOrb(-40, 8, -40, 1.2, true);   // Glass
-  spawnOrb(35, 18, -50, 1.8, false);  // Chrome
-  spawnOrb(10, 6, -30, 0.8, false);   // Tiny Chrome
-
-  // --- 7. PARTICLES (Dust Motes) ---
-  const dustCount = 400;
-  const dustGeo = new THREE.BufferGeometry();
-  const dustPos = new Float32Array(dustCount * 3);
-  for(let i=0; i<dustCount*3; i+=3) {
-      dustPos[i] = (Math.random()-0.5) * 500;
-      dustPos[i+1] = Math.random() * 80;
-      dustPos[i+2] = -Math.random() * 400;
+  // utility: create star texture (stylized)
+  function makeStarTexture(size = 512, tint = '#ffffff') {
+    const c = document.createElement('canvas');
+    c.width = c.height = size;
+    const ctx = c.getContext('2d');
+    ctx.clearRect(0,0,size,size);
+    ctx.fillStyle = tint;
+    ctx.beginPath();
+    // simple 5-point star
+    const cx = size/2, cy = size/2, r = size*0.35;
+    for (let i=0;i<5;i++){
+      const a = (i*2)*Math.PI/5 - Math.PI/2;
+      const x = cx + Math.cos(a)*r;
+      const y = cy + Math.sin(a)*r;
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fill();
+    // soft highlight center
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r*1.1);
+    grad.addColorStop(0, 'rgba(255,255,255,0.95)');
+    grad.addColorStop(0.6, 'rgba(255,255,255,0.2)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+    return new THREE.CanvasTexture(c);
   }
-  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
-  const dustMat = new THREE.PointsMaterial({ color: 0xA5B4B9, size: 0.6, transparent: true, opacity: 0.4 });
+
+  // create materials for cloud/star orbs (simulate chrome by using environment when available)
+  function makeOrbMaterial(mapTex, metal=true) {
+    const mat = new THREE.MeshPhysicalMaterial({
+      map: mapTex,
+      transparent: true,
+      alphaTest: 0.01,
+      side: THREE.DoubleSide,
+      metalness: metal ? 0.9 : 0.02,
+      roughness: metal ? 0.08 : 0.18,
+      clearcoat: metal ? 1.0 : 0.0,
+      clearcoatRoughness: metal ? 0.02 : 0.5,
+    });
+    if (hasEnv) mat.envMap = scene.environment;
+    return mat;
+  }
+
+  // groups
+  const orbGroup = new THREE.Group(); scene.add(orbGroup);
+  const butterflyGroup = new THREE.Group(); scene.add(butterflyGroup);
+
+  // textures
+  const cloudTex = makeCloudTexture(1024, '#ffffff');
+  const cloudMat = makeOrbMaterial(cloudTex, true); // chrome cloud
+  const starTex = makeStarTexture(1024, '#ffffff');
+  const starMat = makeOrbMaterial(starTex, true); // chrome star (reflective)
+
+  // spawn cloud-shaped orbs
+  const orbPositions = [
+    [-36,28,-140],[18,36,-200],[42,22,-120],[-72,30,-240],[10,26,-300],[86,36,-360],[-130,42,-420],[128,30,-180]
+  ];
+  orbPositions.forEach((p,i)=>{
+    const size = 12 + Math.random()*18; // plane width
+    const geo = new THREE.PlaneGeometry(size, size*0.6);
+    const mat = (i%4===0) ? starMat.clone() : cloudMat.clone(); // mix clouds + stars
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(p[0], p[1], p[2]);
+    mesh.userData = { baseX: p[0], baseY: p[1], drift: 0.008 + Math.random()*0.02, wobble: 0.6 + Math.random()*1.2, size };
+    mesh.rotation.y = Math.PI * 0.2 * (Math.random() - 0.4);
+    orbGroup.add(mesh);
+  });
+
+  // butterflies as before (flat chrome planes)
+  function createButterfly({x=0,y=30,z=-120, scale=6, tint=0xCADFE3}) {
+    const g = new THREE.PlaneGeometry(scale, scale*0.6);
+    const m = new THREE.MeshStandardMaterial({ color: tint, metalness:0.9, roughness:0.06, side: THREE.DoubleSide });
+    const mesh = new THREE.Mesh(g,m);
+    mesh.position.set(x,y,z);
+    mesh.userData = { baseX:x, baseY:y, wobble: 0.4 + Math.random()*0.8 };
+    return mesh;
+  }
+  butterflyGroup.add(createButterfly({x:-20,y:36,z:-180, scale:8}));
+  butterflyGroup.add(createButterfly({x:60,y:30,z:-240, scale:6}));
+  butterflyGroup.add(createButterfly({x:-80,y:34,z:-310, scale:7}));
+
+  // dust particles
+  const dustCount = 420; const dustGeo = new THREE.BufferGeometry();
+  const dustArr = new Float32Array(dustCount*3);
+  for (let i=0;i<dustCount;i++){
+    dustArr[i*3+0] = (Math.random()-0.5)*900;
+    dustArr[i*3+1] = Math.random()*40 + 2;
+    dustArr[i*3+2] = -Math.random()*800;
+  }
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustArr,3));
+  const dustMat = new THREE.PointsMaterial({ color:0xfff6ef, size:0.9, transparent:true, opacity:0.12 });
   const dust = new THREE.Points(dustGeo, dustMat);
   scene.add(dust);
 
-  // --- 8. ANIMATION LOOP ---
+  // day param (0..1) — governed by scroll and slight auto drift
+  let dayT = 0.02;
+  let autoT = 0;
+  const pointer = { x:0,y:0 };
+  window.addEventListener('mousemove', e => { pointer.x = (e.clientX/innerWidth)*2-1; pointer.y = (e.clientY/innerHeight)*2-1 }, { passive:true });
+  window.addEventListener('scroll', () => {
+    const dh = document.documentElement.scrollHeight - window.innerHeight;
+    const s = dh>0 ? window.scrollY/dh : 0;
+    dayT = Math.min(1, Math.max(0, s));
+  }, { passive:true });
+
+  // resize
+  window.addEventListener('resize', ()=>{ camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); }, { passive:true });
+
+  // animate
   let t = 0;
-  const clock = new THREE.Clock();
-  
-  // Mouse
-  let mx = 0, my = 0;
-  window.addEventListener('mousemove', e => {
-      mx = (e.clientX - innerWidth/2) * 0.0005;
-      my = (e.clientY - innerHeight/2) * 0.0005;
-  });
+  function animate(){
+    requestAnimationFrame(animate);
+    t += 0.006;
+    autoT += 0.0002;
 
-  // Reveal Sections on scroll
-  const sections = document.querySelectorAll('.section, .footer');
-  const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-          if(entry.isIntersecting) entry.target.classList.add('visible');
-      });
-  }, { threshold: 0.1 });
-  sections.forEach(s => observer.observe(s));
+    // dunes displacement
+    for (let i=0;i<vertCount;i++){
+      const x = pos.getX(i), z = pos.getZ(i);
+      const n1 = simplex.noise3D(x*0.0035 + t*0.08, z*0.0035 + t*0.06, t*0.01);
+      const n2 = simplex.noise3D(x*0.018 + t*0.02, z*0.018 + t*0.018, t*0.008) * 0.72;
+      const h = n1*3.4 + n2*1.6;
+      pos.setY(i, baseY[i] + h);
+    }
+    pos.needsUpdate = true;
+    geom.computeVertexNormals();
 
-  function animate() {
-      requestAnimationFrame(animate);
-      const delta = clock.getDelta();
-      t += delta;
-
-      // 1. Breathe Dunes
-      for (let i = 0; i < vCount; i++) {
-          const x = posAttr.getX(i);
-          const z = posAttr.getZ(i);
-          const n = noise3D(x*0.004, z*0.004, t*0.08); 
-          posAttr.setY(i, baseY[i] + n * 4);
+    // orb group cinematic motion (layered noise) - clouds/stars as planes
+    orbGroup.children.forEach((o, idx) => {
+      const ud = o.userData;
+      // layered noise drift (x)
+      const dx = simplex.noise3D((ud.baseX+idx)*0.007 + t*0.02, idx*0.1, t*0.004) * 8;
+      const dz = simplex.noise3D((ud.baseX+idx)*0.011 + t*0.01, t*0.006, idx) * 6;
+      o.position.x = ud.baseX + dx;
+      // slow forward/back motion
+      o.position.z += dz * 0.06;
+      // slow vertical descent that is gentle and scene-anchored; reset if too low
+      o.position.y -= ud.drift * 0.14;
+      if (o.position.y < -9) {
+        o.position.y = 20 + Math.random()*18;
+        ud.baseX = (Math.random()-0.5)*320;
+        o.position.x = ud.baseX;
       }
-      posAttr.needsUpdate = true;
-      geom.computeVertexNormals();
+      // rotations for plane (slight yaw/pitch)
+      o.rotation.z = Math.sin(t*0.12 + idx)*0.05;
+      o.rotation.x = Math.sin(t*0.06 + idx*0.2)*0.03;
+    });
 
-      // 2. Anti-Gravity Orbs (Floating Figure-8s)
-      orbGroup.children.forEach((o, idx) => {
-          const u = o.userData;
-          // Lissajous motion for suspended feel
-          o.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * 2.5; 
-          o.position.x = u.baseX + Math.cos(t * u.speed * 0.5 + idx) * 3.0;
-          o.position.z += Math.sin(t * 0.2 + idx) * 0.05;
+    // butterflies gentle flight
+    butterflyGroup.children.forEach((b,i)=>{
+      const ud = b.userData;
+      b.position.x = ud.baseX + Math.sin(t*0.28 + i)*8;
+      b.position.y = ud.baseY + Math.sin(t*0.18 + i)*2.2;
+      b.rotation.z = Math.sin(t*0.5 + i)*0.12;
+    });
 
-          // Slow Rotation
-          o.rotation.x += 0.001;
-          o.rotation.y += 0.002;
-      });
+    // dust
+    const dp = dust.geometry.attributes.position.array;
+    for (let i=0;i<dustCount;i++){
+      const idx = i*3;
+      dp[idx+1] += Math.sin(t*0.2 + i)*0.001 - 0.0007;
+      if (dp[idx+1] < 1) dp[idx+1] = 60 + Math.random()*10;
+    }
+    dust.geometry.attributes.position.needsUpdate = true;
 
-      // 3. Dust Rise
-      const dp = dust.geometry.attributes.position.array;
-      for(let i=0; i<dustCount; i++) {
-          const idx = i*3;
-          dp[idx+1] += 0.05;
-          if(dp[idx+1] > 80) dp[idx+1] = 0;
-      }
-      dust.geometry.attributes.position.needsUpdate = true;
+    // camera parallax
+    const tx = pointer.x * 4;
+    const ty = 16 + -pointer.y * 6;
+    camera.position.x += (tx - camera.position.x) * 0.03;
+    camera.position.y += (ty - camera.position.y) * 0.03;
+    camera.lookAt(0, -2, -120);
 
-      // 4. Parallax
-      camera.position.x += (mx * 30 - camera.position.x) * 0.05;
-      camera.position.y += ((18 + my * 20) - camera.position.y) * 0.05;
-      camera.lookAt(0, 5, -100);
+    // sunrise → sunset -> night blending
+    // combine scroll-driven dayT with slow auto drift so scene slowly evolves
+    const mixT = Math.min(1, Math.max(0, dayT*0.9 + (Math.sin(autoT)*0.05)));
+    const dawn = new THREE.Color(0xffd8b8), noon = new THREE.Color(0xffffff), dusk = new THREE.Color(0xffb28c);
+    let col = new THREE.Color();
+    if (mixT < 0.5) col.copy(dawn).lerp(noon, mixT*2); else col.copy(noon).lerp(dusk, (mixT-0.5)*2);
+    sun.color.copy(col);
+    sun.intensity = 0.7 + (1 - Math.abs(0.5 - mixT)) * 1.1;
+    // dune color warming
+    duneMat.color.lerp(new THREE.Color(0xdbcdb5).lerp(new THREE.Color(0xefd8c1), mixT*0.6), 0.02);
 
-      renderer.render(scene, camera);
+    renderer.render(scene, camera);
   }
 
   animate();
+
+  // hide loader
+  setTimeout(()=> loaderEl?.classList.add('hidden'), 900);
+
+  // IntersectionObserver for DOM panels
+  const obsTargets = document.querySelectorAll('[data-animate]');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); }
+    });
+  }, { root:null, rootMargin:'0px 0px -10% 0px', threshold: 0.12 });
+  obsTargets.forEach(t => obs.observe(t));
+
+  // pointer-follow highlight for orb buttons (text-only color)
+  if(window.matchMedia && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.orb').forEach(btn=>{
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        btn.style.setProperty('--mx', `${x}px`);
+        btn.style.setProperty('--my', `${y}px`);
+      });
+    });
+  }
 
 })();
