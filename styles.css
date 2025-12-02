@@ -54,11 +54,15 @@ body{
 .hero{position:relative;z-index:3;padding:clamp(36px,6vh,120px) 20px;text-align:center}
 .title{font-family:'Baloo 2', 'Cormorant Garamond', serif; font-weight:800; font-size:clamp(2.6rem,9vw,6rem); line-height:0.92; margin:0; display:inline-block; position:relative; color:#fff; }
 .title-text{
-  /* Chrome Gradient Fill */
-  background: linear-gradient(90deg, #ffffff 0%, #f0f7f6 18%, #d4e6e4 38%, #b9d6d2 55%, #ffffff 80%);
-  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  text-shadow: 0 30px 60px rgba(6,6,8,0.2), 0 6px 20px rgba(255,255,255,0.1);
-  display:inline-block; padding: 6px 18px;
+/* Hero Title — sage green, no gradient */
+.hero-title .title-text {
+    color: #b8cfb0;
+    font-weight: 600;
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    letter-spacing: 0.05em;
+    filter: none;
+    background: none;
+    -webkit-text-fill-color: #b8cfb0;
 }
 
 /* Sheen Animation */
