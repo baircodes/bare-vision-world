@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BARE VISION — Strategic Foresight</title>
+  <title>BARE VISION — Futuristic Dunes</title>
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -22,14 +22,16 @@
 
   <div id="three-container" aria-hidden="true"></div>
 
-  <svg style="position:absolute; width:0; height:0;" aria-hidden="true">
+  <svg id="mirage-filters" style="position:absolute; width:0; height:0;">
     <defs>
-      <filter id="mirage">
-        <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" />
+      <filter id="mirage" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.0025" numOctaves="2" seed="8" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </defs>
   </svg>
+
+  <div id="mirage-overlay" aria-hidden="true"></div>
 
   <main id="site">
     <header class="hero">
@@ -81,31 +83,38 @@
 
         <p class="italic-break">You are the architect of your initiative.</p>
 
-        <h3 class="subheading">THE BLUEPRINT</h3>
-        <p>The Blueprint is an internal architecture audit: a tailor-made clarity system designed to raise your operational baseline.</p>
-        <p>We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
+        <div class="split-col">
+            <div class="col">
+                <h3 class="subheading">THE BLUEPRINT</h3>
+                <p class="tiny-desc">Internal Architecture Audit</p>
+                <p>The Blueprint is an internal architecture audit: a tailor-made clarity system designed to raise your operational baseline. We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
+                
+                <p class="italic-break">Everything grows when the foundation breathes.</p>
 
-        <p class="italic-break">Everything grows when the foundation breathes.</p>
+                <ul class="star-list">
+                    <li>strategic foundation</li>
+                    <li>agile leadership structure</li>
+                    <li>communication ecosystem</li>
+                    <li>rhythm of progress</li>
+                    <li>clarity-based operating model</li>
+                </ul>
+            </div>
+            
+            <div class="col">
+                <h3 class="subheading">THE PLAYBOOK</h3>
+                <p class="tiny-desc">Expansion Roadmap</p>
+                <p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It evaluates your landscape — resources, opportunities, bandwidth, and the direction your future is shaping.</p>
 
-        <ul class="star-list">
-          <li>strategic foundation</li>
-          <li>agile leadership structure</li>
-          <li>communication ecosystem</li>
-          <li>rhythm of progress</li>
-          <li>clarity-based operating model</li>
-        </ul>
-
-        <h3 class="subheading">THE PLAYBOOK</h3>
-        <p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It evaluates your landscape — resources, opportunities, bandwidth, and the direction your future is shaping.</p>
-
-        <ul class="star-list">
-          <li>sustainable expansion models</li>
-          <li>brand-world building</li>
-          <li>ecosystem architecture</li>
-          <li>global & local scaling pathways</li>
-          <li>operational choreography</li>
-          <li>strategic alliances & collaborations</li>
-        </ul>
+                <ul class="star-list">
+                    <li>sustainable expansion models</li>
+                    <li>brand-world building</li>
+                    <li>ecosystem architecture</li>
+                    <li>global & local scaling pathways</li>
+                    <li>operational choreography</li>
+                    <li>strategic alliances & collaborations</li>
+                </ul>
+            </div>
+        </div>
 
         <p class="italic-break">Move with precision. Expand with clarity.</p>
         <p class="italic-ender">Your long game begins with one conversation.</p>
