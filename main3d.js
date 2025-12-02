@@ -1,15 +1,15 @@
-// ===== THREE.JS MODULE IMPORT ===== //
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js";
 
-// ---- SETUP ---- //
+// === SCENE ===
 const scene = new THREE.Scene();
+
 const camera = new THREE.PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
   0.1,
-  200
+  300
 );
-camera.position.set(0, 0, 5);
+camera.position.set(0, 0, 6);
 
 const renderer = new THREE.WebGLRenderer({
   antialias: true
@@ -18,17 +18,16 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 document.getElementById("three-container").appendChild(renderer.domElement);
 
-// ---- SKY GRADIENT (Shader) ---- //
-const skyGeo = new THREE.SphereGeometry(100, 64, 64);
-
+// === SKY (SUNRISE → NIGHT CYCLE) ===
+const skyGeo = new THREE.SphereGeometry(120, 64, 64);
 const skyMat = new THREE.ShaderMaterial({
   side: THREE.BackSide,
   uniforms: {
     time: { value: 0.0 },
-    sunrise:  { value: new THREE.Color("#ffcf9f") },
-    morning:  { value: new THREE.Color("#ffe7c9") },
-    sunset:   { value: new THREE.Color("#f9b36d") },
-    twilight: { value: new THREE.Color("#2a2d48") }
+    sunrise:  { value: new THREE.Color("#ffdbc3") },
+    morning:  { value: new THREE.Color("#fff3e3") },
+    sunset:   { value: new THREE.Color("#f9b68a") },
+    twilight: { value: new THREE.Color("#2a2d4a") }
   },
   vertexShader: `
     varying vec2 vUv;
@@ -67,16 +66,15 @@ const skyMat = new THREE.ShaderMaterial({
 const sky = new THREE.Mesh(skyGeo, skyMat);
 scene.add(sky);
 
-// ---- ANIMATION LOOP ---- //
+// === ANIMATION ===
 function animate() {
   skyMat.uniforms.time.value += 0.002;
-  renderer.render(scene, camera);
   requestAnimationFrame(animate);
+  renderer.render(scene, camera);
 }
-
 animate();
 
-// ---- RESPONSIVENESS ---- //
+// === RESPONSIVE ===
 window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
