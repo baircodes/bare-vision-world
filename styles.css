@@ -7,9 +7,9 @@
   --azur: #A5B4B9;
   --orchid: #C8B7D2;
   --text: #1a1a1c;
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-bg: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,245,0.03) 100%);
-  --panel-shadow: 0 20px 40px rgba(0,0,0,0.04);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-bg: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,245,0.05) 100%);
+  --panel-shadow: 0 20px 50px rgba(0,0,0,0.06);
   --maxwidth: 900px;
 }
 
@@ -19,22 +19,22 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', sans-serif;
   color: var(--text);
-  background: var(--ivory);
   margin: 0;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- 3D Container & Film Grain ---------- */
+/* ---------- 3D Infinite Background (Cyc Wall) ---------- */
 #three-container {
   position: fixed; inset: 0; z-index: -1;
-  background: radial-gradient(circle at center, #fbf7f2 0%, #e8e0d5 100%);
+  /* Radical gradient creates the infinite floor look */
+  background: radial-gradient(circle at 50% 30%, #f9f6f2 0%, #e3ddd5 100%);
 }
-/* Cheap noise trick for "expensive" texture */
+/* Film Grain Overlay */
 #three-container::after {
   content:""; position: absolute; inset:0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-  opacity: 0.4; pointer-events:none; mix-blend-mode: overlay;
+  opacity: 0.35; pointer-events:none; mix-blend-mode: overlay;
 }
 
 /* ---------- Loader ---------- */
@@ -43,127 +43,86 @@ body {
   display: flex; align-items: center; justify-content: center;
   background: var(--ivory); transition: opacity 0.8s ease, visibility 0.8s;
 }
-#page-loader.hidden { opacity: 0; visibility: hidden; }
-.loader-title { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.2em; font-size: 1.5rem; color: var(--text); }
-.loader-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.5; margin-top: 10px; text-align: center;}
+#page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-title { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.2em; font-size: 1.5rem; color: var(--text); margin-bottom: 8px;}
+.loader-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.5; margin-top: 0; text-align: center;}
 
-/* ---------- Hero ---------- */
-.hero { padding: 140px 20px 80px; text-align: center; }
-.title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 400; letter-spacing: -0.02em; color: var(--text); margin: 0; mix-blend-mode: multiply; }
+/* ---------- Typography & Layout ---------- */
+.hero { padding: 140px 20px 80px; text-align: center; position: relative; z-index: 2; }
+.title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 400; letter-spacing: -0.02em; color: var(--text); margin: 0; mix-blend-mode: multiply; }
 .subtitle { margin-top: 16px; font-weight: 300; letter-spacing: 0.05em; color: rgba(20,20,20,0.6); }
 
-/* ---------- Panels (Glassmorphism) ---------- */
-.section { padding: 40px 20px; opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+/* ---------- Panels (Glass) ---------- */
+.section { padding: 40px 20px; opacity: 0; transform: translateY(20px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 2; position: relative; }
 .section.visible { opacity: 1; transform: translateY(0); }
 
 .panel {
-  max-width: var(--maxwidth); margin: 0 auto; padding: 40px;
+  max-width: var(--maxwidth); margin: 0 auto; padding: 48px;
   border-radius: 24px;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(14px) saturate(180%);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   box-shadow: var(--panel-shadow);
-  position: relative; overflow: hidden;
-}
-
-/* Chrome Rim Effect */
-.panel::after {
-  content: ""; position: absolute; inset: 0; border-radius: 24px; padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  position: relative; overflow: visible;
 }
 
 .panel h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 400; margin-top: 0; color: #111; }
-.panel p { line-height: 1.7; color: rgba(0,0,0,0.75); font-weight: 300; }
-.lead-text { font-size: 1.15rem; font-weight: 400; color: #000; }
+.panel p { line-height: 1.7; color: rgba(0,0,0,0.75); font-weight: 300; margin-bottom: 1.2rem; }
+.lead-text { font-size: 1.1rem; font-weight: 400; color: #000; font-style: italic; font-family: 'Cormorant Garamond', serif; }
 
-/* Lists & Columns */
-.star-list { list-style: none; padding: 0; margin: 20px 0; }
-.star-list li { margin-bottom: 10px; padding-left: 20px; position: relative; }
-.star-list li::before { content: "✦"; position: absolute; left: 0; color: var(--dune); font-size: 0.8em; top: 4px; }
+/* ---------- Liquid Chrome Buttons ---------- */
+.panel-cta { display: flex; justify-content: center; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
 
-.split-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px; }
-.subheading { font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; margin-bottom: 5px; color: var(--text); }
-.tiny-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--azur); margin-top: 0; }
-
-/* Pills */
-.meta-row { display: flex; gap: 10px; justify-content: center; margin: 24px 0; flex-wrap: wrap; }
-.pill { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 16px; border-radius: 50px; border: 1px solid rgba(0,0,0,0.1); color: rgba(0,0,0,0.6); }
-.pill.active { background: rgba(255,255,255,0.5); border-color: var(--sage); color: #3a4a35; }
-
-/* ---------- 3D LIQUID CHROME BUTTONS ---------- */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 32px;
-  border-radius: 999px; /* Pill shape */
-  text-decoration: none;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  font-size: 0.9rem;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth 'expensive' feel */
-  position: relative;
-  z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 16px 32px; border-radius: 999px; text-decoration: none;
+  font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.03em; font-size: 0.9rem;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative; z-index: 1;
 }
 
 /* The Silver Orb Look */
 .orb {
-  /* 1. The Metal Surface (Horizon Line Gradient) */
-  background: linear-gradient(
-    180deg, 
-    #ffffff 0%, 
-    #e8e8e8 49%, 
-    #d1d1d1 50%, 
-    #f4f4f4 100%
-  );
-  
-  /* 2. The Depth (Shadows + Highlights) */
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  /* Horizon Line Gradient for Metallic Look */
+  background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 49%, #d1d1d1 50%, #f4f4f4 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 
-    0 10px 20px rgba(0,0,0,0.15),       /* Drop shadow */
-    inset 0 2px 0 rgba(255,255,255,0.9), /* Top specular highlight */
-    inset 0 -2px 5px rgba(0,0,0,0.05);   /* Bottom contour */
-    
-  color: #111; /* Dark text for contrast against silver */
+    0 10px 20px rgba(0,0,0,0.1), 
+    inset 0 2px 0 rgba(255,255,255,1), 
+    inset 0 -2px 5px rgba(0,0,0,0.05);
+  color: #111;
 }
 
-/* HOVER: Sage Reflection */
+/* SAGE GREEN HOVER */
 .orb:hover {
-  transform: translateY(-2px) scale(1.02);
-  color: #5c7058; /* Dark Sage Text */
-  
-  /* The button glows with sage green from the inside */
+  transform: translateY(-3px) scale(1.02);
+  color: #4a5e46; /* Dark Sage Text */
   box-shadow: 
-    0 14px 28px rgba(0,0,0,0.1),
-    inset 0 0 20px rgba(184, 207, 176, 0.6), /* Inner Sage Glow */
-    0 0 15px rgba(184, 207, 176, 0.4);       /* Outer Sage Aura */
+    0 16px 32px rgba(0,0,0,0.12),
+    inset 0 0 20px rgba(184, 207, 176, 0.5), /* Inner Sage Glow */
+    0 0 20px rgba(184, 207, 176, 0.4);       /* Outer Sage Aura */
 }
 
-/* Active Press State (Click) */
-.orb:active {
-  transform: translateY(1px);
-  box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
-}
+/* ---------- Lists & Columns ---------- */
+.star-list { list-style: none; padding: 0; margin: 24px 0; }
+.star-list li { margin-bottom: 12px; padding-left: 24px; position: relative; }
+.star-list li::before { content: "✦"; position: absolute; left: 0; color: var(--dune); font-size: 0.8em; top: 4px; }
 
-/* ---------- BACKGROUND FIX ---------- */
-/* Make the background feel like an infinite studio cyc wall */
-#three-container {
-    background: radial-gradient(circle at 50% 30%, #f7f4ef 0%, #dcd6ce 100%);
-}
+.split-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 30px; }
+.subheading { font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; margin-bottom: 5px; color: var(--text); }
+.tiny-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--azur); margin-top: 0; margin-bottom: 16px; }
+
+.pill { display: inline-block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 18px; border-radius: 50px; background: rgba(255,255,255,0.4); border: 1px solid rgba(0,0,0,0.08); color: rgba(0,0,0,0.6); margin-top: 10px;}
+.meta-row { text-align: center; }
 
 /* ---------- Footer & Misc ---------- */
 .footer { text-align: center; padding: 60px 20px; font-size: 0.8rem; opacity: 0.5; }
 .mirage-text { font-style: italic; position: relative; display: inline-block; color: var(--text); }
-.mirage-text:hover { filter: url(#mirage); }
-.italic-ender { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; margin-top: 40px; }
+.italic-ender { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; margin-top: 40px; color: #111; }
 
-/* Mobile */
 @media (max-width: 768px) {
-  .split-col { grid-template-columns: 1fr; gap: 20px; }
-  .title { font-size: 2.8rem; }
+  .split-col { grid-template-columns: 1fr; gap: 24px; }
+  .title { font-size: 3rem; }
   .panel { padding: 24px; margin: 10px; }
 }
