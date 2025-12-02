@@ -1,20 +1,21 @@
-/* main3d.js — Bare Vision v4: Self-Contained, Safe, Anti-Gravity */
+/* main3d.js — Bare Vision v5: Safe & Self-Contained */
 
 (function() {
   
   // --- 1. SAFETY VALVE: REMOVE LOADER AUTOMATICALLY ---
-  // This ensures the site NEVER gets stuck on the loading screen
   function removeLoader() {
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('hidden')) {
       loader.classList.add('hidden');
+      // Trigger title animation
+      const sheen = document.querySelector('.title-sheen');
+      sheen?.classList.add('play');
     }
   }
-  // Force removal after 1.2 seconds, even if 3D crashes
+  // Force removal after 1.2s so site is usable even if 3D fails
   setTimeout(removeLoader, 1200);
 
-  // --- 2. NOISE FUNCTION (INLINED) ---
-  // Replaces external dependencies to prevent crashes
+  // --- 2. NOISE FUNCTION (Internal) ---
   const Perm = new Uint8Array(512);
   const Grad3 = [[1,1,0],[-1,1,0],[1,-1,0],[-1,-1,0],[1,0,1],[-1,0,1],[1,0,-1],[-1,0,-1],[0,1,1],[0,-1,1],[0,1,-1],[0,-1,-1]];
   for(let i=0; i<512; i++) Perm[i] = Math.floor(Math.random()*255);
@@ -50,7 +51,6 @@
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
 
   if (isMobile) {
-    console.log('Mobile detected — 3D skipped.');
     removeLoader();
     return;
   }
@@ -76,35 +76,29 @@
   // --- 4. LIGHTING ---
   const hemi = new THREE.HemisphereLight(0xfff4ea, 0x555566, 0.7);
   scene.add(hemi);
-
   const sun = new THREE.DirectionalLight(0xffe7c6, 0.9);
   sun.position.set(50, 80, -30);
   scene.add(sun);
 
-  // --- 5. THE DUNES ---
+  // --- 5. OBJECTS ---
+  // Dunes
   const planeSize = 800;
   const segX = 200, segY = 120;
   const geom = new THREE.PlaneGeometry(planeSize, planeSize, segX, segY);
   geom.rotateX(-Math.PI / 2);
-  
   const posAttr = geom.attributes.position;
   const vCount = posAttr.count;
   const baseY = new Float32Array(vCount);
   for (let i = 0; i < vCount; i++) baseY[i] = posAttr.getY(i);
 
   const duneMat = new THREE.MeshPhysicalMaterial({
-    color: 0xE8DFD5, 
-    roughness: 0.9,
-    metalness: 0.0,
-    clearcoat: 0.05,
-    flatShading: false
+    color: 0xE8DFD5, roughness: 0.9, metalness: 0.0, clearcoat: 0.05, flatShading: false
   });
-
   const dunes = new THREE.Mesh(geom, duneMat);
   dunes.position.y = -8;
   scene.add(dunes);
 
-  // --- 6. THE ORBS (Jewelry) ---
+  // Orbs Group
   const orbGroup = new THREE.Group();
   scene.add(orbGroup);
 
@@ -136,9 +130,8 @@
   spawnOrb(0, 22, -120, 5.0, false);  // Giant Chrome
   spawnOrb(-40, 8, -40, 1.2, true);   // Glass
   spawnOrb(35, 18, -50, 1.8, false);  // Chrome
-  spawnOrb(10, 6, -30, 0.8, false);   // Tiny Chrome
 
-  // --- 7. PARTICLES (Dust Motes) ---
+  // Particles
   const dustCount = 400;
   const dustGeo = new THREE.BufferGeometry();
   const dustPos = new Float32Array(dustCount * 3);
@@ -152,7 +145,7 @@
   const dust = new THREE.Points(dustGeo, dustMat);
   scene.add(dust);
 
-  // --- 8. ANIMATION LOOP ---
+  // --- 6. ANIMATION LOOP ---
   let t = 0;
   const clock = new THREE.Clock();
   
@@ -190,11 +183,10 @@
       // 2. Anti-Gravity Orbs (Floating Figure-8s)
       orbGroup.children.forEach((o, idx) => {
           const u = o.userData;
-          // Lissajous motion for suspended feel (Floating)
+          // Lissajous motion
           o.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * 2.5; 
           o.position.x = u.baseX + Math.cos(t * u.speed * 0.5 + idx) * 3.0;
           o.position.z += Math.sin(t * 0.2 + idx) * 0.05;
-
           // Slow Rotation
           o.rotation.x += 0.001;
           o.rotation.y += 0.002;
