@@ -197,21 +197,13 @@ createChromeStars();
       c.use.setAttribute('transform', `translate(${nx},${ny}) scale(${c.sx},${c.sy})`);
     });
 
-    // stars subtle drift + tiny shimmer
-    stars.forEach((s, idx) => {
-      const wobx = Math.sin(now*0.0008*(1+idx*0.2) + idx) * (4*(1-s.depth));
-      const woby = Math.cos(now*0.0006*(1+idx*0.15) + idx) * (2*(1-s.depth));
-      let nx = s.x + wobx - (window.innerWidth*0.02)*(t*(1-s.depth));
-      let ny = s.y + woby - (t*18*s.depth);
-      // wrap vertically
-      if (ny > window.innerHeight + 80) ny = -80 - Math.random()*40;
-      s.x = nx; s.y = ny;
-      const sc = s.s;
-      s.use.setAttribute('transform', `translate(${nx},${ny}) scale(${sc})`);
-      // micro opacity glint
-      const gl = 0.8 + Math.sin(now*0.003 + idx)*0.06;
-      s.use.setAttribute('opacity', gl.toFixed(2));
-    });
+    // Animation loop — micro galaxy swirl
+function frame() {
+  requestAnimationFrame(frame);
+  // chrome-star motion handled by CSS — JS no longer needed here
+}
+
+frame();
 
     // satellite gentle glide along an arc
     satx = window.innerWidth * (0.82 - t*0.18);
