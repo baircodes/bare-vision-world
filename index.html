@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BARE VISION — Futuristic Dunes</title>
 
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  
-<script type="module" src="main3d.js"></script>
-  
+  <!-- Fonts: hybrid bubble serif + rounded accents -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+  <!-- Lightweight loader -->
   <div id="page-loader" class="loader">
     <div class="loader-inner">
       <h1 class="loader-title">BARE VISION</h1>
@@ -21,21 +21,14 @@
     </div>
   </div>
 
-  <div id="three-container" aria-hidden="true"></div>
+  <!-- Sky container (background rendered by CSS vars updated by JS) -->
+  <div id="sky" aria-hidden="true"></div>
 
-  <svg id="mirage-filters" style="position:absolute; width:0; height:0;">
-    <defs>
-      <filter id="mirage" x="-30%" y="-30%" width="160%" height="160%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.0025" numOctaves="2" seed="8" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
-
-  <div id="mirage-overlay" aria-hidden="true"></div>
+  <!-- Floating chrome orbs container -->
+  <div id="orb-layer" aria-hidden="true"></div>
 
   <main id="site">
-    <header class="hero">
+    <header class="hero" id="hero">
       <div class="hero-inner">
         <h1 class="title hero-title">
           <span class="title-text">BARE VISION</span>
@@ -51,6 +44,7 @@
       </div>
     </header>
 
+    <!-- MIRROR -->
     <section class="section mirror" id="mirror" data-animate>
       <div class="panel">
         <h2>The Mirror™ : 2h Consultation</h2>
@@ -58,7 +52,7 @@
 
         <p>The Mirror slows time. It clears the static. Learn how to navigate what ambition demands of you with courage, grace and confidence</p>
 
-        <p class="list-header">For creative leaders who are:</p>
+        <p>For creative leaders who are:</p>
         <ul class="star-list">
           <li>navigating a sudden opening or challenge</li>
           <li>preparing for a negotiation or launch</li>
@@ -70,58 +64,52 @@
         <p class="limited subtle-note">The mirror is limited to 4 sessions per year per client</p>
 
         <div class="panel-cta">
-          <a href="#reserve" class="btn orb primary">Face Your Mirror</a>
-          <a href="#inquire" class="btn orb secondary">Inquire</a>
+          <a href="#" class="btn orb primary">Face Your Mirror</a>
+          <a href="#" class="btn orb secondary">Inquire</a>
         </div>
       </div>
     </section>
 
+    <!-- BLUEPRINT + PLAYBOOK -->
     <section class="section blueprint" id="blueprint" data-animate>
       <div class="panel">
-        <h2>The Blueprint & The Playbook</h2>
+        <h2>The Blueprint™ & The Playbook™</h2>
 
         <p>BARE VISION dissects your current operating system and fine tunes it with Slow Down 2 Speed Up™ mechanics.</p>
 
         <p class="italic-break">You are the architect of your initiative.</p>
 
-        <div class="split-col">
-            <div class="col">
-                <h3 class="subheading">THE BLUEPRINT</h3>
-                <p class="tiny-desc">Internal Architecture Audit</p>
-                <p>The Blueprint is an internal architecture audit: a tailor-made clarity system designed to raise your operational baseline. We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
-                
-                <p class="italic-break">Everything grows when the foundation breathes.</p>
+        <h3 class="subheading">THE BLUEPRINT</h3>
+        <p>The Blueprint is an internal architecture audit: a tailor-made clarity system designed to raise your operational baseline.</p>
+        <p>We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
 
-                <ul class="star-list">
-                    <li>strategic foundation</li>
-                    <li>agile leadership structure</li>
-                    <li>communication ecosystem</li>
-                    <li>rhythm of progress</li>
-                    <li>clarity-based operating model</li>
-                </ul>
-            </div>
-            
-            <div class="col">
-                <h3 class="subheading">THE PLAYBOOK</h3>
-                <p class="tiny-desc">Expansion Roadmap</p>
-                <p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It evaluates your landscape — resources, opportunities, bandwidth, and the direction your future is shaping.</p>
+        <p class="italic-break">Everything grows when the foundation breathes.</p>
 
-                <ul class="star-list">
-                    <li>sustainable expansion models</li>
-                    <li>brand-world building</li>
-                    <li>ecosystem architecture</li>
-                    <li>global & local scaling pathways</li>
-                    <li>operational choreography</li>
-                    <li>strategic alliances & collaborations</li>
-                </ul>
-            </div>
-        </div>
+        <ul class="star-list">
+          <li>strategic foundation</li>
+          <li>agile leadership structure</li>
+          <li>communication ecosystem</li>
+          <li>rhythm of progress</li>
+          <li>clarity-based operating model</li>
+        </ul>
+
+        <h3 class="subheading">THE PLAYBOOK</h3>
+        <p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It evaluates your landscape — resources, opportunities, bandwidth, and the direction your future is shaping.</p>
+
+        <ul class="star-list">
+          <li>sustainable expansion models</li>
+          <li>brand-world building</li>
+          <li>ecosystem architecture</li>
+          <li>global & local scaling pathways</li>
+          <li>operational choreography</li>
+          <li>strategic alliances & collaborations</li>
+        </ul>
 
         <p class="italic-break">Move with precision. Expand with clarity.</p>
         <p class="italic-ender">Your long game begins with one conversation.</p>
 
         <div class="panel-cta">
-          <a href="#discovery" class="btn orb secondary">Schedule Discovery Call</a>
+          <a href="#" class="btn orb secondary">Schedule Discovery Call</a>
         </div>
       </div>
     </section>
@@ -145,6 +133,7 @@
     </footer>
   </main>
 
-<script type="module" src="main3d.js"></script>
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>
