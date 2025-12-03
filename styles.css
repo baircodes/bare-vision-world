@@ -140,7 +140,28 @@ body{
 
 /* small focus */
 .btn:focus-visible{ outline: 2px solid rgba(184,207,176,0.9); outline-offset:3px; border-radius:999px; }
+/* MICRO CHROME SPECULAR STARS */
+.chrome-star {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.9) 0%,
+    rgba(180,180,180,0.5) 60%,
+    rgba(80,80,80,0.4) 100%
+  );
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+  animation: chromeFloat 6s ease-in-out infinite alternate;
+}
 
+@keyframes chromeFloat {
+  0% {
+    transform: translate(-4px, -4px);
+  }
+  100% {
+    transform: translate(4px, 4px);
+  }
+  } 
 /* responsive */
 @media(max-width:780px){
   .title-text{ font-size:2.2rem; }
