@@ -1,6 +1,6 @@
 /* =========================
    BARE VISION — styles.css
-   SOLARPUNK OASIS — Liquid Chrome Edition
+   ENGINEERING FIX: Chrome v2 + Book Layout + Icy Glass
    ========================= */
 
 :root{
@@ -10,208 +10,172 @@
   --azur:#a5b4b9;
   --text-dark:#0f0f10;
   --maxwidth:1100px;
-  --transition-fast:180ms;
-  --transition-med:420ms;
 }
 
 /* reset */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
   background: var(--ivory);
   color:var(--text-dark);
-  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
-  --sky-top:#f7efe6;   /* pale sand haze */
-  --sky-mid:#fbf8f3;   /* desert light */
-  --sky-bottom:#eef6ec;/* sage hint */
+  --sky-top:#f7efe6;
+  --sky-mid:#fbf8f3;
+  --sky-bottom:#eef6ec;
 }
 
-/* MINIMAL DESERT HORIZON — A3 */
+/* SKY & ATMOSPHERE */
 #sky {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background: radial-gradient(
-      circle at 50% 55%,      /* sun position */
-      rgba(255, 235, 200, 0.45) 0%,
-      rgba(243, 215, 181, 0.25) 20%,
-      rgba(231, 198, 163, 0.15) 40%,
-      rgba(199, 171, 150, 0.1) 60%,
-      rgba(181, 160, 144, 0.08) 80%,
-      rgba(167, 150, 137, 0.06) 100%
-    ),
-    #c3a986;
+  position: fixed; inset: 0; z-index: -2;
+  background: radial-gradient(circle at 50% 55%, rgba(255,235,200,0.45), rgba(181,160,144,0.08));
   transition: background 1s ease-out;
 }
+#orb-layer{ position:fixed; inset:0; z-index:-3; pointer-events:none; }
 
-/* subtle "sun" overlay */
-#sky::before{
-  content:"";
-  position:absolute; left:50%; top:18%; width:520px; height:520px; transform:translateX(-50%) translateY(-10%);
-  background: radial-gradient(circle at 40% 35%, rgba(255,250,236,0.95) 0%, rgba(255,244,220,0.6) 20%, rgba(255,230,190,0.18) 45%, rgba(255,230,190,0.02) 60%, transparent 70%);
-  border-radius:999px;
-  filter: blur(28px) saturate(1.02);
-  opacity:0.98;
-  pointer-events:none;
-  transition: transform 420ms linear, opacity 420ms linear;
-}
-
-/* orb svg layer */
-#orb-layer{
-  position:fixed; inset:0; z-index:-3; pointer-events:none; overflow:visible;
-}
-
-/* loader */
-#page-loader{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,250,0.94)); transition: opacity .6s ease; }
+/* LOADER */
+#page-loader{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:#fff; transition: opacity .6s ease; }
 #page-loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
-.loader-title{ font-family:'Cormorant Garamond', serif; letter-spacing:.28em; color:var(--azur); font-size:1.8rem; }
-.loader-sub{ opacity:.72; font-size:.95rem; margin-top:6px }
+.loader-title{ font-family:'Cormorant Garamond', serif; letter-spacing:.28em; font-size:1.8rem; }
 
-/* HERO LAYOUT - Fixed Centering */
+/* HERO ARCHITECTURE */
 .hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  padding: 0 2rem;
-  position: relative;
-  z-index: 10;
+  display: flex; justify-content: center; align-items: center; text-align: center;
+  min-height: 100vh; padding: 0 2rem; position: relative; z-index: 10;
 }
+.hero-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; }
 
-.hero-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  width: 100%;
-}
-
-/* HERO TITLE — LIQUID CHROME (Matched to Logo) */
+/* --- FIX: PURE CHROME TITLE (No Sage) --- */
 .hero-title .title-text {
   font-family: "Baloo 2", sans-serif;
   font-weight: 800;
-  font-size: clamp(3.5rem, 9vw, 8rem); /* Larger for impact */
+  font-size: clamp(3.5rem, 9vw, 8rem);
   letter-spacing: -0.04em;
   line-height: 0.9;
   
-  /* The Liquid Chrome Effect */
+  /* Hard Chrome Gradient: White -> Dark Grey Horizon -> White */
   background: linear-gradient(
     180deg, 
-    #ffffff 10%, 
-    #dbebe8 45%, 
-    #8ea3a6 50%, 
-    #b8cfb0 52%, /* hint of sage in the reflection */
-    #eaf4f2 90%
+    #ffffff 20%, 
+    #e0e0e0 45%, 
+    #777777 50%, 
+    #cccccc 55%, 
+    #ffffff 90%
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
   
-  /* Metallic Gloss filter */
-  filter: drop-shadow(0px 10px 20px rgba(100, 115, 110, 0.3));
-  
-  position: relative;
-  display: inline-block;
+  filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.15));
 }
 
-/* High-Gloss Specular Highlight (The "Shine") */
+/* Glass Specular Highlight over Title */
 .hero-title .title-text::after {
   content: "BARE VISION";
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  
-  /* Creates the glass overlay look */
-  background: linear-gradient(
-    170deg, 
-    rgba(255,255,255,0.9) 10%, 
-    rgba(255,255,255,0) 40%, 
-    rgba(255,255,255,0) 70%, 
-    rgba(255,255,255,0.6) 90%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 2;
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  background: linear-gradient(170deg, rgba(255,255,255,0.9) 10%, transparent 40%, transparent 70%, rgba(255,255,255,0.6) 90%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; mix-blend-mode: overlay; pointer-events: none;
 }
 
-/* subtitle */
-.subtitle{ margin-top:12px; color:rgba(10,9,8,0.7); font-weight:500; letter-spacing: 0.02em; font-family: 'Inter', sans-serif;}
+.subtitle{ margin-top:12px; color:rgba(10,9,8,0.7); font-weight:500; font-family: 'Inter', sans-serif;}
 
-/* CTA group */
+/* CTA Group */
 .cta-group{ display:flex; gap:18px; justify-content:center; margin-top:32px; align-items:center; flex-wrap: wrap;}
-.panel-cta{ display:flex; gap:14px; justify-content:center; margin-top:18px; }
+.panel-cta{ display:flex; gap:14px; justify-content:center; margin-top:32px; }
 
-/* GLASS-ICE PANELS */
+/* --- FIX: GLASS-ICE PANELS (More Transparent, Cooler) --- */
 .panel{
-  position:relative; margin:18px auto; padding:28px; border-radius:24px; max-width:var(--maxwidth);
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(24px) saturate(130%);
-  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  position:relative; margin:18px auto; padding:40px; border-radius:24px; max-width:var(--maxwidth);
   
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  padding: 3rem;
-  max-width: 800px;
-  margin: 0 auto 6rem auto;
-
-  box-shadow:
-    0 20px 40px rgba(184, 207, 176, 0.08), /* Soft sage shadow */
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  /* Ice Effect: Very low opacity white + strong blur */
+  background: rgba(245, 250, 255, 0.15); 
+  backdrop-filter: blur(30px) saturate(160%);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  
+  /* Frost Border */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 20px 50px rgba(165, 180, 185, 0.15), /* Cool blue-ish shadow */
+    inset 0 0 20px rgba(255,255,255,0.2);  /* Inner glow */
+    
+  margin-bottom: 6rem;
 }
 
 .section{ padding:64px 20px; position:relative; z-index:3; opacity:0; transform:translateY(20px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.9,.2,1); }
 .section.visible{ opacity:1; transform:none; }
 
-.panel h2{ font-family:'Cormorant Garamond', serif; font-size:2.2rem; margin:0 0 12px; color:rgba(8,8,8,0.96); font-weight: 600; }
-.subheading{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; margin-top:16px; color:rgba(8,8,8,0.92); letter-spacing: 0.05em; text-transform: uppercase; }
-.panel p, .panel li{ color: rgba(30,30,35,0.85); line-height:1.7; font-size:1.05rem; }
+.panel h2{ font-family:'Cormorant Garamond', serif; font-size:2.2rem; margin:0 0 16px; color:#111; font-weight: 600; text-align:center;}
+.subheading{ font-family:'Cormorant Garamond', serif; font-size:1.1rem; margin-top:0; margin-bottom:12px; color:#444; letter-spacing: 0.08em; text-transform: uppercase; font-weight:600;}
+.panel p, .panel li{ color: rgba(20,20,25,0.85); line-height:1.7; font-size:1.05rem; }
 
-/* star list */
+/* --- FIX: BOOK LAYOUT (Two Columns) --- */
+.book-spread {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: flex-start;
+}
+
+.book-page {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.book-divider {
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.1), transparent);
+    height: auto;
+    align-self: stretch;
+}
+
+/* Star List */
 .star-list{ list-style:none; padding-left:0; margin:12px 0 }
-.star-list li{ margin:8px 0 }
-.star-list li::before{ content:"✦ "; margin-right:12px; color:var(--sand); opacity:0.95 }
+.star-list li{ margin:8px 0; display:flex; align-items:baseline;}
+.star-list li::before{ content:"✦"; margin-right:12px; color:var(--sand); opacity:0.95; flex-shrink:0; }
 
-/* italic lines */
+/* Typography Accents */
 .italic-break{ font-style:italic; color:rgba(8,8,8,0.6); text-align:center; margin:30px 0 }
 .italic-ender{ font-style:italic; color:rgba(8,8,8,0.9); text-align:center; margin:42px 0 18px; font-size:1.15rem; font-weight:500 }
 
-/* buttons */
-.btn{ display:inline-flex; align-items:center; justify-content:center; padding:16px 32px; border-radius:999px; text-decoration:none; font-weight:600; position:relative; overflow:visible; cursor:pointer; border:none; transition: transform .18s ease; font-size: 0.95rem; letter-spacing: 0.02em; }
+/* --- FIX: BUTTON HOVER (Text Only) --- */
+.btn{ 
+    display:inline-flex; align-items:center; justify-content:center; 
+    padding:16px 32px; border-radius:999px; text-decoration:none; 
+    font-weight:600; cursor:pointer; border:none; transition: transform .2s ease; 
+}
 .orb{ 
-    background: linear-gradient(180deg, #ffffff, #e6eef0); 
-    color:#081015; 
-    box-shadow: 0 10px 25px rgba(184, 207, 176, 0.25), inset 0 2px 0 rgba(255,255,255,1); 
+    /* Fixed Metallic Background */
+    background: linear-gradient(180deg, #ffffff 0%, #eef2f3 100%); 
+    color:#222; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08), inset 0 2px 0 rgba(255,255,255,1); 
     border: 1px solid rgba(255,255,255,0.8); 
+    /* Only transition color */
+    transition: color 0.3s ease, transform 0.2s ease;
 }
-.btn.orb:hover{ transform: translateY(-2px); box-shadow: 0 14px 30px rgba(184, 207, 176, 0.35), inset 0 2px 0 rgba(255,255,255,1); }
-.btn.orb{ color:#333; transition: all .28s ease; }
-.btn.orb:hover{ color: var(--text-dark); }
 
-/* MICRO CHROME SPECULAR STARS */
+.btn.orb:hover{ 
+    /* NO background change */
+    transform: translateY(-2px); 
+    /* Text turns Sage */
+    color: var(--sage); 
+}
+
+/* Chrome Stars (Decoration) */
 .chrome-star {
-  position: absolute;
-  border-radius: 50%;
-  background: white;
+  position: absolute; border-radius: 50%; background: white;
   box-shadow: 0 0 8px rgba(255,255,255,0.8);
-  animation: chromeFloat 6s ease-in-out infinite alternate;
-  opacity: 0.6;
+  animation: chromeFloat 6s ease-in-out infinite alternate; opacity: 0.6;
 }
+@keyframes chromeFloat { 0% { transform: translate(-4px, -4px); } 100% { transform: translate(4px, 4px); } } 
 
-@keyframes chromeFloat {
-  0% { transform: translate(-4px, -4px); }
-  100% { transform: translate(4px, 4px); }
-} 
-
-/* responsive */
+/* Responsive */
 @media(max-width:780px){
   .hero-title .title-text { font-size: 3.8rem; }
-  .hero { padding: 0 1rem; }
-  .panel { padding: 1.5rem; }
-  #orb-layer{ display:none }
+  .book-spread { flex-direction: column; gap: 40px; }
+  .book-divider { display: none; }
+  .panel { padding: 24px; }
 }
