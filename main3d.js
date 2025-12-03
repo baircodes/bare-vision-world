@@ -1,13 +1,4 @@
-/* main3d.js
-   Refined SVG+JS Solarpunk engine:
-   - minimal desert horizon (less intense)
-   - tiny editorial chrome stars (smaller, metallic)
-   - soft chrome clouds (blobby, but restrained)
-   - chrome satellite (single object)
-   - sun position controlled by scroll (dawn -> dusk)
-   - title sheen & micro-extrude already handled in CSS
-   - safe: no external imports
-*/
+/* main3d.js - Fixed Logic & Loop */
 
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
@@ -22,14 +13,13 @@ function init(){
   const sky = document.getElementById('sky');
   const svgNS = "http://www.w3.org/2000/svg";
 
-  // create or reuse svg container
+  // --- SVG SETUP ---
   let svgWrap = document.getElementById('orb-svg');
   if (!svgWrap){
     svgWrap = document.createElementNS(svgNS,'svg');
     svgWrap.setAttribute('id','orb-svg');
     svgWrap.setAttribute('width','100%');
     svgWrap.setAttribute('height','100%');
-    svgWrap.setAttribute('preserveAspectRatio','xMidYMid slice');
     svgWrap.style.position = 'fixed';
     svgWrap.style.left = '0';
     svgWrap.style.top = '0';
@@ -38,10 +28,9 @@ function init(){
     document.body.appendChild(svgWrap);
   }
 
-  // defs
   const defs = document.createElementNS(svgNS,'defs');
 
-  // cloud symbol (softer/blobby)
+  // Cloud Symbol
   const cloudSym = document.createElementNS(svgNS,'symbol');
   cloudSym.setAttribute('id','sym-cloud');
   cloudSym.setAttribute('viewBox','0 0 200 120');
@@ -51,17 +40,7 @@ function init(){
   cloudSym.appendChild(cloudPath);
   defs.appendChild(cloudSym);
 
-  // star symbol (thin editorial spark)
-  const starSym = document.createElementNS(svgNS,'symbol');
-  starSym.setAttribute('id','sym-star');
-  starSym.setAttribute('viewBox','-50 -50 100 100');
-  const starPath = document.createElementNS(svgNS,'path');
-  starPath.setAttribute('d','M0,-36 L8,-10 34,-10 14,6 22,34 0,18 -22,34 -14,6 -34,-10 -8,-10 Z');
-  starPath.setAttribute('fill','white');
-  starSym.appendChild(starPath);
-  defs.appendChild(starSym);
-
-  // satellite symbol (abstract soft orb with small dish)
+  // Satellite Symbol
   const satSym = document.createElementNS(svgNS,'symbol');
   satSym.setAttribute('id','sym-sat');
   satSym.setAttribute('viewBox','-60 -60 120 120');
@@ -72,16 +51,12 @@ function init(){
 
   svgWrap.appendChild(defs);
 
-  // create groups
   const cloudGroup = document.createElementNS(svgNS,'g');
-  const starGroup = document.createElementNS(svgNS,'g');
   const satGroup = document.createElementNS(svgNS,'g');
-
   svgWrap.appendChild(cloudGroup);
-  svgWrap.appendChild(starGroup);
   svgWrap.appendChild(satGroup);
 
-  // spawn clouds — restrained count and sizes
+  // --- SPAWN CLOUDS ---
   const clouds = [];
   for (let i=0;i<5;i++){
     const use = document.createElementNS(svgNS,'use');
@@ -92,8 +67,7 @@ function init(){
     const y = rand(0.04,0.22) * window.innerHeight;
     const sx = w/200; const sy = h/120;
     use.setAttribute('transform', `translate(${x},${y}) scale(${sx},${sy})`);
-    use.setAttribute('opacity', 0.95);
-    // create subtle metallic gradient fill
+    
     const gid = `gcloud${i}`;
     const grad = document.createElementNS(svgNS,'linearGradient');
     grad.setAttribute('id', gid); grad.setAttribute('x1','0'); grad.setAttribute('x2','1');
@@ -102,73 +76,57 @@ function init(){
     const stop3 = document.createElementNS(svgNS,'stop'); stop3.setAttribute('offset','100%'); stop3.setAttribute('stop-color','#d7e8e3'); stop3.setAttribute('stop-opacity','0.7');
     grad.appendChild(stop1); grad.appendChild(stop2); grad.appendChild(stop3);
     defs.appendChild(grad);
+    
     use.setAttribute('fill', `url(#${gid})`);
-    // slight gaussian blur
     const fId = `blurC${i}`;
     const f = document.createElementNS(svgNS,'filter'); f.setAttribute('id', fId);
     const fe = document.createElementNS(svgNS,'feGaussianBlur'); fe.setAttribute('stdDeviation','4'); f.appendChild(fe); defs.appendChild(f);
     use.setAttribute('filter', `url(#${fId})`);
+    
     cloudGroup.appendChild(use);
     clouds.push({use, x, y, sx, sy, speed: rand(0.01, 0.03), depth: rand(0.15,0.75)});
   }
 
- // MICRO-SPECULAR CHROME PARTICLES (B2)
-function createChromeStars() {
-  const starCount = 120;
-  const container = document.getElementById("orb-layer");
-  container.innerHTML = "";
-
-  for (let i = 0; i < starCount; i++) {
-    const star = document.createElement("div");
-    star.classList.add("chrome-star");
-
-    const size = Math.random() * 2 + 1; // tiny, micro-specular
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
-
-    star.style.left = `${Math.random() * 100}vw`;
-    star.style.top = `${Math.random() * 100}vh`;
-
-    // gentle galaxy swirl motion
-    star.style.animationDelay = `${Math.random() * 4}s`;
-
-    container.appendChild(star);
+  // --- CHROME PARTICLES (DOM) ---
+  const starContainer = document.getElementById("orb-layer");
+  if(starContainer) {
+    starContainer.innerHTML = "";
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement("div");
+      star.classList.add("chrome-star");
+      const size = Math.random() * 2 + 1; 
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.animationDelay = `${Math.random() * 4}s`;
+      starContainer.appendChild(star);
+    }
   }
-}
 
-createChromeStars();
-
-  // create a single chrome satellite: gentle abstract shape
+  // --- SATELLITE ---
   const sat = document.createElementNS(svgNS,'use');
   sat.setAttributeNS('http://www.w3.org/1999/xlink','href','#sym-sat');
   let satx = window.innerWidth*0.74;
   let saty = window.innerHeight*0.12;
   sat.setAttribute('transform', `translate(${satx},${saty}) scale(1)`);
-  // metallic fill (reused gradient)
+  
   const sG = document.createElementNS(svgNS,'linearGradient');
   sG.setAttribute('id','gsat'); sG.setAttribute('x1','0'); sG.setAttribute('x2','1');
   const sg1 = document.createElementNS(svgNS,'stop'); sg1.setAttribute('offset','0%'); sg1.setAttribute('stop-color','#ffffff'); sg1.setAttribute('stop-opacity','0.98');
   const sg2 = document.createElementNS(svgNS,'stop'); sg2.setAttribute('offset','60%'); sg2.setAttribute('stop-color','#d9ece6'); sg2.setAttribute('stop-opacity','0.85');
   sG.appendChild(sg1); sG.appendChild(sg2); defs.appendChild(sG);
   sat.setAttribute('fill','url(#gsat)');
-  sat.setAttribute('opacity','0.98');
   satGroup.appendChild(sat);
 
-  // append modified defs into svgWrap's defs if not present
-  const existingDefs = svgWrap.querySelector('defs');
-  if (!existingDefs) svgWrap.insertBefore(defs, svgWrap.firstChild);
-
-  // sky + sun control via scroll
+  // --- ANIMATION LOOP ---
   function getScrollT(){
     const dh = document.documentElement.scrollHeight - window.innerHeight;
     return dh > 0 ? clamp(window.scrollY / dh, 0, 1) : 0;
   }
 
-  // convert t to subtle sky gradient
   function skyFor(t){
-    // compress t for minimalism
     const u = Math.pow(t, 0.95);
-    // blend between three stops: top -> mid -> bottom
     const top = blend([247,239,230],[250,247,242], u*0.8);
     const mid = blend([250,247,242],[245,250,242], u*0.9);
     const bot = blend([245,250,242],[234,245,233], u*1.0);
@@ -176,17 +134,16 @@ createChromeStars();
   }
   function blend(a,b,t){ return [Math.round(a[0]+(b[0]-a[0])*t), Math.round(a[1]+(b[1]-a[1])*t), Math.round(a[2]+(b[2]-a[2])*t)]; }
 
-  // animation frame
   let last = performance.now();
+  
+  // THE FIXED FRAME LOOP
   function frame(now){
     const dt = (now - last) * 0.001;
     last = now;
     const t = getScrollT();
 
-    // update sky gradient (minimal)
-    sky.style.background = skyFor(t);
+    if(sky) sky.style.background = skyFor(t);
 
-    // move clouds softly (parallax)
     clouds.forEach((c, i) => {
       const wob = Math.sin(now*0.0004*(1+i*0.12) + i) * (6*(1-c.depth));
       const sink = t * (60 * c.depth);
@@ -197,15 +154,6 @@ createChromeStars();
       c.use.setAttribute('transform', `translate(${nx},${ny}) scale(${c.sx},${c.sy})`);
     });
 
-    // Animation loop — micro galaxy swirl
-function frame() {
-  requestAnimationFrame(frame);
-  // chrome-star motion handled by CSS — JS no longer needed here
-}
-
-frame();
-
-    // satellite gentle glide along an arc
     satx = window.innerWidth * (0.82 - t*0.18);
     saty = window.innerHeight * (0.08 + Math.sin(now*0.0004)*0.02 + t*0.06);
     sat.setAttribute('transform', `translate(${satx},${saty}) scale(1)`);
@@ -215,39 +163,27 @@ frame();
 
   requestAnimationFrame(frame);
 
-  // title sheen — one shot
+  // --- UI INTERACTION ---
   setTimeout(()=>{
     const sheen = document.querySelector('.title-sheen');
     sheen && sheen.classList.add('play');
   }, 420);
 
-  // button reflection tracking
   $$('.btn.orb').forEach(btn=>{
     if (window.matchMedia && window.matchMedia('(pointer:fine)').matches){
       btn.addEventListener('mousemove', e=>{
         const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-        btn.style.setProperty('--mx', `${x}px`);
-        btn.style.setProperty('--my', `${y}px`);
+        btn.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        btn.style.setProperty('--my', `${e.clientY - r.top}px`);
       });
     }
   });
 
-  // intersection observer for panels
   const obs = new IntersectionObserver(entries=>{
     entries.forEach(en=>{ if (en.isIntersecting) en.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('[data-animate]').forEach(n=>obs.observe(n));
 
-  // responsive: hide heavy visuals on mobile
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
-  if (isMobile){
-    svgWrap.style.display = 'none';
-    // keep the subtle sky gradient
-  }
-
-  // hide loader
   const loader = document.getElementById('page-loader');
   setTimeout(()=> loader && loader.classList.add('hidden'), 700);
 }
