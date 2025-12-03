@@ -1,16 +1,18 @@
 /* =========================
    BARE VISION — styles.css
-   Solarpunk Oasis | Liquid Chrome Bubbles
+   SOLARPUNK OASIS — SVG + JS hybrid visuals
    ========================= */
 
 /* tokens */
 :root{
-  --ivory: #FFFBF3;
-  --sand: #dbd6d0;
-  --sage: #b8cfb0; /* your accent */
-  --azur: #a5b4b9;
-  --text-dark: #0f0f10;
+  --ivory:#FFFBF3;
+  --sand:#dbd6d0;
+  --sage:#b8cfb0; /* accent */
+  --azur:#a5b4b9;
+  --text-dark:#0f0f10;
   --maxwidth:1100px;
+  --transition-fast:180ms;
+  --transition-med:420ms;
 }
 
 /* reset */
@@ -22,63 +24,71 @@ body{
   color:var(--text-dark);
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
-  --sky-top: #FFDCC0;      /* sunrise top */
-  --sky-mid: #FFF7E9;      /* midday */
-  --sky-bottom: #FFB78A;   /* sunset */
+  --sky-top: #FFD7C8;  /* peach */
+  --sky-mid: #FBDDE6;  /* rose */
+  --sky-bottom: #F4E7D9; /* sand */
+  --sky-sage: #EAF6EA;  /* sage hint */
 }
 
-/* sky (full-bleed) - uses CSS vars updated by script */
+/* sky container: CSS-driven gradient (updated by JS) */
 #sky{
-  position:fixed; inset:0; z-index:-5; pointer-events:none;
+  position:fixed; inset:0; z-index:-6; pointer-events:none;
   background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 52%, var(--sky-bottom));
   transition: background 420ms linear;
+  will-change: background;
 }
 
-/* orb layer */
-#orb-layer{ position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:visible }
+/* orb svg layer */
+#orb-layer{
+  position:fixed; inset:0; z-index:-3; pointer-events:none; overflow:visible;
+}
+
+/* subtle mirage overlay (SVG filter attached in JS) */
+#mirage-layer {
+  position:fixed; inset:0; z-index:-2; pointer-events:none; mix-blend-mode:overlay; opacity:0.08;
+}
 
 /* loader */
-#page-loader{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,250,0.9)); transition: opacity .6s ease; }
+#page-loader{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,250,0.94)); transition: opacity .6s ease; }
 #page-loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 .loader-title{ font-family:'Cormorant Garamond', serif; letter-spacing:.28em; color:var(--azur); font-size:1.8rem; }
-.loader-sub{ opacity:.7; font-size:.95rem; margin-top:6px }
+.loader-sub{ opacity:.72; font-size:.95rem; margin-top:6px }
 
 /* hero */
-.hero{ position:relative; z-index:3; padding:clamp(36px,6vh,120px) 20px; text-align:center; color:white; }
+.hero{ position:relative; z-index:3; padding:clamp(36px,6vh,110px) 20px; text-align:center; color:white; }
 .title{ display:inline-block; position:relative; margin:0 auto; }
 .title-text{
-  font-family: 'Cormorant Garamond', 'Baloo 2', serif;
-  font-weight:700;
-  font-size: clamp(2.6rem, 9vw, 5.6rem);
-  color: var(--sage); /* single-color hero as requested */
-  letter-spacing: 0.03em;
-  -webkit-text-stroke: 0.3px rgba(0,0,0,0.06);
+  font-family: 'Baloo 2', 'Cormorant Garamond', serif;
+  font-weight:800;
+  font-size: clamp(2.6rem, 9vw, 5.2rem);
+  color: var(--sage); /* single-color hero per request */
+  letter-spacing: 0.02em;
   text-shadow: 0 20px 40px rgba(6,6,8,0.42);
   display:inline-block;
-  padding:8px 18px;
-  border-radius:18px;
+  padding:10px 22px;
+  border-radius:20px;
 }
 
-/* sheen element for single-run shimmer */
+/* sheen overlay for one-shot shimmer */
 .title-sheen{
   position:absolute; left:0; right:0; top:6%; bottom:22%;
   pointer-events:none;
   background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.95) 40%, rgba(255,255,255,0));
-  transform: translateX(-120%) skewX(-10deg);
+  transform: translateX(-140%) skewX(-12deg);
   filter: blur(22px);
-  opacity:0.95;
+  opacity:0.9;
 }
-.title-sheen.play{ animation: sheen-slide 1.65s cubic-bezier(.2,.9,.2,1) forwards; }
+.title-sheen.play{ animation: sheen-slide 1.6s cubic-bezier(.2,.9,.2,1) forwards; }
 @keyframes sheen-slide{
-  0% { transform: translateX(-140%) skewX(-10deg); opacity:0; }
-  15% { opacity:0.05; }
-  55% { transform: translateX(40%) skewX(-10deg); opacity:0.9; }
-  100% { transform: translateX(240%) skewX(-10deg); opacity:0; }
+  0% { transform: translateX(-140%) skewX(-12deg); opacity:0; }
+  15% { opacity:0.06; }
+  55% { transform: translateX(40%) skewX(-12deg); opacity:0.95; }
+  100% { transform: translateX(260%) skewX(-12deg); opacity:0; }
 }
 
-.subtitle{ margin-top:12px; color: rgba(255,255,255,0.95); font-weight:600; }
+.subtitle{ margin-top:12px; color:rgba(255,255,255,0.95); font-weight:600; }
 
-/* CTA group */
+/* CTA group & panel CTA */
 .cta-group{ display:flex; gap:18px; justify-content:center; margin-top:18px; align-items:center; }
 .panel-cta{ display:flex; gap:14px; justify-content:center; margin-top:18px; }
 
@@ -87,7 +97,7 @@ body{
   position:relative; margin:18px auto; padding:28px; border-radius:14px; max-width:var(--maxwidth);
   background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,245,0.04));
   border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 24px 56px rgba(6,8,10,0.08);
+  box-shadow: 0 22px 52px rgba(6,8,10,0.08);
   backdrop-filter: blur(10px) saturate(1.06);
   color: rgba(255,255,255,0.96);
 }
@@ -98,7 +108,7 @@ body{
 .subheading{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; margin-top:16px; color:rgba(255,255,255,0.96); }
 .panel p, .panel li{ color: rgba(255,255,255,0.95); line-height:1.6; font-size:1rem; }
 
-/* lists */
+/* list */
 .star-list{ list-style:none; padding-left:0; margin:12px 0 }
 .star-list li{ margin:6px 0 }
 .star-list li::before{ content:"✦ "; margin-right:8px; color:var(--sand); opacity:0.95 }
@@ -107,23 +117,23 @@ body{
 .italic-break{ font-style:italic; color:rgba(255,255,255,0.94); text-align:center; margin:20px 0 }
 .italic-ender{ font-style:italic; color:rgba(255,255,255,0.97); text-align:center; margin:32px 0 18px; font-size:1.05rem; font-weight:600 }
 
-/* BUTTONS — orb is chrome body, only text turns sage */
+/* BUTTONS — orb body chrome, text-only hover to sage */
 .btn{ display:inline-flex; align-items:center; justify-content:center; padding:12px 22px; border-radius:999px; text-decoration:none; font-weight:700; position:relative; overflow:visible; cursor:pointer; border:none; transition: transform .18s ease; }
-.orb{ background: linear-gradient(180deg, #f6f8f7, #cfd8d7); color: #081015; box-shadow: 0 10px 30px rgba(6,6,10,0.12), inset 0 4px 12px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4); }
+.orb{ background: linear-gradient(180deg, #f6f8f7, #cfd8d7); color:#081015; box-shadow: 0 10px 30px rgba(6,6,10,0.12), inset 0 4px 12px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4); }
 .btn.orb:hover{ transform: translateY(-4px); }
-.btn.orb{ color: #081015; transition: color .28s ease, text-shadow .28s ease; }
-/* ONLY change text color on hover */
+.btn.orb{ color:#081015; transition: color .28s ease, text-shadow .28s ease; }
 .btn.orb:hover{ color: var(--sage); text-shadow: 0 0 12px rgba(184,207,176,0.45); }
 
-/* subtle reflection highlight (keeps orb body chrome) */
+/* orb reflection highlight */
 .orb::after{ content:""; position:absolute; width:140px; height:44px; left:var(--mx,32px); top:var(--my,8px); transform: translate(-50%,-50%) rotate(-18deg); background: radial-gradient(120px 48px at 20% 24%, rgba(255,255,255,0.82), transparent 35%); opacity:0; pointer-events:none; transition: opacity .22s ease; mix-blend-mode: overlay; }
 .orb:hover::after{ opacity:0.98; transform: translate(-50%,-62%) rotate(-18deg) scale(1.03) }
 
-/* responsive */
-@media (max-width:780px){
-  .title-text{ font-size: 2.4rem; }
-  #orb-layer{ display:none } /* hide heavy orbs on small screens */
-}
+/* small focus for accessibility */
+.btn:focus-visible{ outline: 2px solid rgba(184,207,176,0.9); outline-offset:3px; border-radius:999px; }
 
-/* tiny accessibility focus */
-.btn:focus-visible{ outline: 2px solid rgba(184,207,176,0.9); outline-offset: 3px; border-radius:999px; }
+/* responsive */
+@media(max-width:780px){
+  .title-text{ font-size:2.2rem; }
+  #orb-layer{ display:none } /* reduce complexity on phones */
+  #mirage-layer{ display:none }
+}
