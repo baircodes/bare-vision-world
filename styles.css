@@ -1,13 +1,12 @@
 /* =========================
    BARE VISION — styles.css
-   SOLARPUNK OASIS — SVG + JS hybrid visuals
+   SOLARPUNK OASIS — Couture Chrome Title (A3/B2) + refined scene
    ========================= */
 
-/* tokens */
 :root{
   --ivory:#FFFBF3;
   --sand:#dbd6d0;
-  --sage:#b8cfb0; /* accent */
+  --sage:#b8cfb0;
   --azur:#a5b4b9;
   --text-dark:#0f0f10;
   --maxwidth:1100px;
@@ -24,28 +23,34 @@ body{
   color:var(--text-dark);
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
-  --sky-top: #FFD7C8;  /* peach */
-  --sky-mid: #FBDDE6;  /* rose */
-  --sky-bottom: #F4E7D9; /* sand */
-  --sky-sage: #EAF6EA;  /* sage hint */
+  --sky-top:#f7efe6;   /* pale sand haze */
+  --sky-mid:#fbf8f3;   /* desert light */
+  --sky-bottom:#eef6ec;/* sage hint */
 }
 
-/* sky container: CSS-driven gradient (updated by JS) */
+/* sky container */
 #sky{
   position:fixed; inset:0; z-index:-6; pointer-events:none;
-  background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 52%, var(--sky-bottom));
+  background: linear-gradient(180deg, var(--sky-top), var(--sky-mid) 54%, var(--sky-bottom));
   transition: background 420ms linear;
   will-change: background;
+}
+
+/* subtle "sun" overlay (JS will position/opacity) */
+#sky::before{
+  content:"";
+  position:absolute; left:50%; top:18%; width:520px; height:520px; transform:translateX(-50%) translateY(-10%);
+  background: radial-gradient(circle at 40% 35%, rgba(255,250,236,0.95) 0%, rgba(255,244,220,0.6) 20%, rgba(255,230,190,0.18) 45%, rgba(255,230,190,0.02) 60%, transparent 70%);
+  border-radius:999px;
+  filter: blur(28px) saturate(1.02);
+  opacity:0.98;
+  pointer-events:none;
+  transition: transform 420ms linear, opacity 420ms linear;
 }
 
 /* orb svg layer */
 #orb-layer{
   position:fixed; inset:0; z-index:-3; pointer-events:none; overflow:visible;
-}
-
-/* subtle mirage overlay (SVG filter attached in JS) */
-#mirage-layer {
-  position:fixed; inset:0; z-index:-2; pointer-events:none; mix-blend-mode:overlay; opacity:0.08;
 }
 
 /* loader */
@@ -61,21 +66,71 @@ body{
   font-family: 'Baloo 2', 'Cormorant Garamond', serif;
   font-weight:800;
   font-size: clamp(2.6rem, 9vw, 5.2rem);
-  color: var(--sage); /* single-color hero per request */
+  color: transparent; /* we use layered text for chrome */
   letter-spacing: 0.02em;
-  text-shadow: 0 20px 40px rgba(6,6,8,0.42);
   display:inline-block;
   padding:10px 22px;
   border-radius:20px;
+  position:relative;
+  line-height:0.9;
+  transform-style:preserve-3d;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* sheen overlay for one-shot shimmer */
+/* --- Important: create chrome layers for title to simulate A3/B2 --- */
+/* base layer: deep subtle extrude (shadowed) */
+.title-text::before{
+  content:attr(data-text);
+  position:absolute; left:0; top:6px; right:0;
+  color: rgba(10,8,9,0.18);
+  z-index:0;
+  transform: translateZ(-1px);
+  filter: blur(0px);
+  letter-spacing:0.02em;
+  -webkit-text-stroke: 0.6px rgba(8,6,8,0.18);
+  opacity:0.98;
+}
+
+/* chrome filled layer */
+.title-text::after{
+  content:attr(data-text);
+  position:absolute; left:0; top:0; right:0;
+  z-index:2;
+  /* liquid metal gradient */
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.98) 0%,
+    rgba(245,249,247,0.95) 12%,
+    rgba(203,219,214,0.86) 28%,
+    rgba(134,162,154,0.65) 60%,
+    rgba(120,140,133,0.9) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* micro bevel using layered text-shadow for extrude */
+  text-shadow:
+    0 0 0 rgba(0,0,0,0),
+    0 1px 0 rgba(255,255,255,0.22),
+    0 4px 12px rgba(12,12,14,0.14);
+  transform: translateZ(1px);
+}
+
+/* added subtle rim lighting for couture edge */
+.title-text .rim{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  -webkit-text-stroke: 0.8px rgba(255,255,255,0.18);
+  mix-blend-mode:overlay;
+  pointer-events:none;
+}
+
+/* sheen overlay element -- one-shot */
 .title-sheen{
   position:absolute; left:0; right:0; top:6%; bottom:22%;
   pointer-events:none;
-  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.95) 40%, rgba(255,255,255,0));
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.96) 32%, rgba(255,255,255,0));
   transform: translateX(-140%) skewX(-12deg);
-  filter: blur(22px);
+  filter: blur(22px) saturate(1.04);
   opacity:0.9;
 }
 .title-sheen.play{ animation: sheen-slide 1.6s cubic-bezier(.2,.9,.2,1) forwards; }
@@ -86,54 +141,55 @@ body{
   100% { transform: translateX(260%) skewX(-12deg); opacity:0; }
 }
 
-.subtitle{ margin-top:12px; color:rgba(255,255,255,0.95); font-weight:600; }
+/* subtitle */
+.subtitle{ margin-top:12px; color:rgba(10,9,8,0.95); font-weight:600; opacity:0.95; }
 
-/* CTA group & panel CTA */
+/* CTA group */
 .cta-group{ display:flex; gap:18px; justify-content:center; margin-top:18px; align-items:center; }
 .panel-cta{ display:flex; gap:14px; justify-content:center; margin-top:18px; }
 
-/* panels glass */
+/* panels */
 .panel{
   position:relative; margin:18px auto; padding:28px; border-radius:14px; max-width:var(--maxwidth);
-  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,245,0.04));
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 22px 52px rgba(6,8,10,0.08);
-  backdrop-filter: blur(10px) saturate(1.06);
-  color: rgba(255,255,255,0.96);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,245,0.02));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 44px rgba(8,8,10,0.06);
+  backdrop-filter: blur(8px) saturate(1.03);
+  color: rgba(8,8,8,0.96);
 }
 .section{ padding:64px 20px; position:relative; z-index:3; opacity:0; transform:translateY(20px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.9,.2,1); }
 .section.visible{ opacity:1; transform:none; }
 
-.panel h2{ font-family:'Cormorant Garamond', serif; font-size:1.9rem; margin:0 0 12px; color:rgba(255,255,255,0.98); text-shadow: 0 6px 18px rgba(0,0,0,0.45); }
-.subheading{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; margin-top:16px; color:rgba(255,255,255,0.96); }
-.panel p, .panel li{ color: rgba(255,255,255,0.95); line-height:1.6; font-size:1rem; }
+.panel h2{ font-family:'Cormorant Garamond', serif; font-size:1.9rem; margin:0 0 12px; color:rgba(8,8,8,0.96); }
+.subheading{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; margin-top:16px; color:rgba(8,8,8,0.92); }
+.panel p, .panel li{ color: rgba(8,8,8,0.9); line-height:1.6; font-size:1rem; }
 
-/* list */
+/* star list */
 .star-list{ list-style:none; padding-left:0; margin:12px 0 }
 .star-list li{ margin:6px 0 }
 .star-list li::before{ content:"✦ "; margin-right:8px; color:var(--sand); opacity:0.95 }
 
 /* italic lines */
-.italic-break{ font-style:italic; color:rgba(255,255,255,0.94); text-align:center; margin:20px 0 }
-.italic-ender{ font-style:italic; color:rgba(255,255,255,0.97); text-align:center; margin:32px 0 18px; font-size:1.05rem; font-weight:600 }
+.italic-break{ font-style:italic; color:rgba(8,8,8,0.86); text-align:center; margin:20px 0 }
+.italic-ender{ font-style:italic; color:rgba(8,8,8,0.9); text-align:center; margin:32px 0 18px; font-size:1.05rem; font-weight:600 }
 
-/* BUTTONS — orb body chrome, text-only hover to sage */
+/* buttons */
 .btn{ display:inline-flex; align-items:center; justify-content:center; padding:12px 22px; border-radius:999px; text-decoration:none; font-weight:700; position:relative; overflow:visible; cursor:pointer; border:none; transition: transform .18s ease; }
-.orb{ background: linear-gradient(180deg, #f6f8f7, #cfd8d7); color:#081015; box-shadow: 0 10px 30px rgba(6,6,10,0.12), inset 0 4px 12px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4); }
+.orb{ background: linear-gradient(180deg, #fbfbfb, #dfe7e5); color:#081015; box-shadow: 0 10px 30px rgba(6,6,10,0.10), inset 0 4px 12px rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.45); }
 .btn.orb:hover{ transform: translateY(-4px); }
 .btn.orb{ color:#081015; transition: color .28s ease, text-shadow .28s ease; }
 .btn.orb:hover{ color: var(--sage); text-shadow: 0 0 12px rgba(184,207,176,0.45); }
 
 /* orb reflection highlight */
-.orb::after{ content:""; position:absolute; width:140px; height:44px; left:var(--mx,32px); top:var(--my,8px); transform: translate(-50%,-50%) rotate(-18deg); background: radial-gradient(120px 48px at 20% 24%, rgba(255,255,255,0.82), transparent 35%); opacity:0; pointer-events:none; transition: opacity .22s ease; mix-blend-mode: overlay; }
+.orb::after{ content:""; position:absolute; width:140px; height:44px; left:var(--mx,32px); top:var(--my,8px); transform: translate(-50%,-50%) rotate(-18deg); background: radial-gradient(120px 48px at 20% 24%, rgba(255,255,255,0.9), transparent 35%); opacity:0; pointer-events:none; transition: opacity .22s ease; mix-blend-mode: overlay; }
 .orb:hover::after{ opacity:0.98; transform: translate(-50%,-62%) rotate(-18deg) scale(1.03) }
 
-/* small focus for accessibility */
+/* small focus */
 .btn:focus-visible{ outline: 2px solid rgba(184,207,176,0.9); outline-offset:3px; border-radius:999px; }
 
 /* responsive */
 @media(max-width:780px){
   .title-text{ font-size:2.2rem; }
-  #orb-layer{ display:none } /* reduce complexity on phones */
+  #orb-layer{ display:none }
   #mirage-layer{ display:none }
 }
