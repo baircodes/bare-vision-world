@@ -33,15 +33,19 @@ body{
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(
-    to bottom,
-    #f7e9d3 0%,        /* pale dune sunrise */
-    #f3d7b5 20%,       /* warm peach sand */
-    #e8c6a3 45%,       /* mid-sand */
-    #d7b894 70%,       /* deeper dune */
-    #c3a986 100%       /* horizon fade */
-  );
-  transition: background 0.8s ease-out;
+
+  background: radial-gradient(
+      circle at 50% 55%,      /* sun position */
+      rgba(255, 235, 200, 0.45) 0%,
+      rgba(243, 215, 181, 0.25) 20%,
+      rgba(231, 198, 163, 0.15) 40%,
+      rgba(199, 171, 150, 0.1) 60%,
+      rgba(181, 160, 144, 0.08) 80%,
+      rgba(167, 150, 137, 0.06) 100%
+    ),
+    #c3a986;
+    
+  transition: background 1s ease-out;
 }
 
 /* subtle "sun" overlay (JS will position/opacity) */
