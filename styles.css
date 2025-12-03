@@ -53,16 +53,16 @@ body{
 /* HERO - Ultra Bubble Chrome Word-Art */
 .hero{position:relative;z-index:3;padding:clamp(36px,6vh,120px) 20px;text-align:center}
 .title{font-family:'Baloo 2', 'Cormorant Garamond', serif; font-weight:800; font-size:clamp(2.6rem,9vw,6rem); line-height:0.92; margin:0; display:inline-block; position:relative; color:#fff; }
-.title-text{
-/* Hero Title — sage green, no gradient */
-.hero-title .title-text {
-    color: #b8cfb0;
+/* CORRECTED CSS BLOCK */
+.title-text {
+    /* Hero Title — sage green, no gradient */
+    color: #b8cfb0; var(--sage);
     font-weight: 600;
     font-size: clamp(2.8rem, 6vw, 6rem);
     letter-spacing: 0.05em;
     filter: none;
     background: none;
-    -webkit-text-fill-color: #b8cfb0;
+    -webkit-text-fill-color: var(--sage);
 }
 
 /* Sheen Animation */
