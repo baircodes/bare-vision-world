@@ -112,30 +112,31 @@ function init(){
     clouds.push({use, x, y, sx, sy, speed: rand(0.01, 0.03), depth: rand(0.15,0.75)});
   }
 
-  // spawn editorial stars — much smaller & subtler
-  const stars = [];
-  for (let i=0;i<18;i++){
-    const use = document.createElementNS(svgNS,'use');
-    use.setAttributeNS('http://www.w3.org/1999/xlink','href','#sym-star');
-    const s = rand(8,34); // MUCH smaller sizes
-    const x = rand(0.03,0.97) * window.innerWidth;
-    const y = rand(0.02,0.48) * window.innerHeight;
-    const sc = s/100;
-    use.setAttribute('transform', `translate(${x},${y}) scale(${sc})`);
-    use.setAttribute('opacity', 0.85);
-    // metallic radial tiny gradient
-    const sid = `sstar${i}`;
-    const sgrad = document.createElementNS(svgNS,'radialGradient'); sgrad.setAttribute('id', sid);
-    const st0 = document.createElementNS(svgNS,'stop'); st0.setAttribute('offset','0%'); st0.setAttribute('stop-color','#ffffff'); st0.setAttribute('stop-opacity','1');
-    const st1 = document.createElementNS(svgNS,'stop'); st1.setAttribute('offset','60%'); st1.setAttribute('stop-color','#dbeee6'); st1.setAttribute('stop-opacity','0.76');
-    const st2 = document.createElementNS(svgNS,'stop'); st2.setAttribute('offset','100%'); st2.setAttribute('stop-color','#bcd6c8'); st2.setAttribute('stop-opacity','0.45');
-    sgrad.appendChild(st0); sgrad.appendChild(st1); sgrad.appendChild(st2); defs.appendChild(sgrad);
-    use.setAttribute('fill', `url(#${sid})`);
-    use.setAttribute('stroke','rgba(255,255,255,0.25)');
-    use.setAttribute('stroke-width','0.4');
-    starGroup.appendChild(use);
-    stars.push({use, x, y, s:sc, speed: rand(0.01,0.035), depth: rand(0.02,0.45)});
+ // MICRO-SPECULAR CHROME PARTICLES (B2)
+function createChromeStars() {
+  const starCount = 120;
+  const container = document.getElementById("orb-layer");
+  container.innerHTML = "";
+
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement("div");
+    star.classList.add("chrome-star");
+
+    const size = Math.random() * 2 + 1; // tiny, micro-specular
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+
+    star.style.left = `${Math.random() * 100}vw`;
+    star.style.top = `${Math.random() * 100}vh`;
+
+    // gentle galaxy swirl motion
+    star.style.animationDelay = `${Math.random() * 4}s`;
+
+    container.appendChild(star);
   }
+}
+
+createChromeStars();
 
   // create a single chrome satellite: gentle abstract shape
   const sat = document.createElementNS(svgNS,'use');
