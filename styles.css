@@ -45,29 +45,19 @@ body{
 }
 .hero-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; }
 
-/* --- FIX: PURE CHROME TITLE (No Sage) --- */
 .hero-title .title-text {
-  font-family: "Baloo 2", sans-serif;
-  font-weight: 800;
-  font-size: clamp(3.5rem, 9vw, 8rem);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  
-  /* Hard Chrome Gradient: White -> Dark Grey Horizon -> White */
-  background: linear-gradient(
-    180deg, 
-    #ffffff 20%, 
-    #e0e0e0 45%, 
-    #777777 50%, 
-    #cccccc 55%, 
-    #ffffff 90%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  
-  filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.15));
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.8rem, 6vw, 6rem);
+  color: #b8cfb0; /* sage */
+  letter-spacing: -0.5px;
+
+  /* subtle clean 3D depth */
+  text-shadow:
+      0 1px 0 rgba(255,255,255,0.3),
+      0 4px 12px rgba(0,0,0,0.12);
+
+  position: relative;
 }
 
 /* Glass Specular Highlight over Title */
