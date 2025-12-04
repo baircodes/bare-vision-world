@@ -1,0 +1,15 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="rgba(255,245,225,1)"/>
+      <stop offset="45%" stop-color="rgba(255,228,180,0.85)"/>
+      <stop offset="75%" stop-color="rgba(240,180,120,0.55)"/>
+      <stop offset="100%" stop-color="rgba(200,140,100,0.15)"/>
+    </radialGradient>
+    <filter id="sunBlur">
+      <feGaussianBlur stdDeviation="28" />
+    </filter>
+  </defs>
+
+  <circle cx="160" cy="160" r="140" fill="url(#sunGrad)" filter="url(#sunBlur)" opacity="0.8"/>
+</svg>
