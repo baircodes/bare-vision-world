@@ -33,14 +33,14 @@ function spawnSun(){
 spawnSun();
 
 /* PEARLS: very sparse, vertical drift */
-const PEARL_COUNT = 12; // very sparse runway
+const PEARL_COUNT = 8; // very sparse runway
 const pearls = [];
 function spawnPearls(){
   const w = window.innerWidth, h = window.innerHeight;
   for(let i=0;i<PEARL_COUNT;i++){
     const el = document.createElement("div");
     el.className = "pearl";
-    const size = 9 + Math.random()*8;
+    const size = 12 + Math.random()*10;
     el.style.setProperty("--s", size + "px");
     const x = Math.random()*w;
     const y = h*(0.25 + Math.random()*0.6);
