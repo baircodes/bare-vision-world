@@ -4,12 +4,10 @@
    ========================= */
 
 :root{
-  --ivory: #FFFBF3;
-  --sand: #dbd6d0;
-  --sage: #b8cfb0;
-  --azur: #a5b4b9;
-  --text-dark: #0f0f10;
-  --maxwidth: 1100px;
+  --ivory: #F9F7F2;        /* softer, cooler, more refined */
+  --sand: #E8E3DB;         /* dune beige */
+  --sage: #B7CBB8;         /* keep your brand sage but soften saturation */
+  --azur: #AEBEC4;         /* more desert-sky, less grey-blue */
 }
 
 /* RESET */
