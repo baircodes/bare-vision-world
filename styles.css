@@ -148,9 +148,12 @@ body{
 }
 
 /* CTA */
-.cta-group{
-  display:flex; justify-content:center; gap:18px;
-  margin-top:24px; flex-wrap:wrap;
+.cta-group {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+  text-align: center;
 }
 
 /* ------------ BUTTONS ------------ */
@@ -161,8 +164,13 @@ body{
   border:none; text-decoration:none;
   font-family:'Outfit';
   position:relative; overflow:hidden;
+   
 }
 
+.btn {
+  margin-left: auto;
+  margin-right: auto;
+}
 .btn.orb{
   background: rgba(255,255,255,0.03);
   color: rgba(12,12,12,0.95);
@@ -257,28 +265,40 @@ body{
   font-size:1.05rem;
 }
 
-/* ----------------- CHROME STAR ELEMENTS ----------------- */
-.chrome-star{
-  position:absolute;
-  border-radius:50%;
-  pointer-events:none;
+.limited-note {
+  text-align: center;
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.75;
+  margin-bottom: 0.8rem;
+  margin-top: 0.4rem;
+}
+/* ----------- FLOATING PEARLS (replacing chrome-stars) ----------- */
+.chrome-star {
+  width: var(--s, 18px);
+  height: var(--s, 18px);
+  border-radius: 50%;
+  position: absolute;
   background: radial-gradient(circle at 35% 30%,
     rgba(255,255,255,1) 0%,
-    rgba(220,235,230,0.9) 25%,
-    rgba(160,185,176,0.45) 65%,
-    rgba(130,150,142,0.15) 100%
+    rgba(250,245,245,0.9) 30%,
+    rgba(230,230,230,0.55) 65%,
+    rgba(255,255,255,0.1) 100%
   );
-  box-shadow: 0 0 6px rgba(255,255,255,0.7);
-  opacity:0.88;
-  will-change:transform,opacity;
+  box-shadow:
+    0 0 10px rgba(255,255,255,0.9),
+    0 0 20px rgba(255,255,255,0.5);
+  opacity: 0.9;
+  animation: pearlFloat 6s ease-in-out infinite alternate;
 }
 
-/* chrome clouds */
-.chrome-cloud{
-  position:absolute;
-  pointer-events:none;
-  filter: saturate(1.1) blur(1.2px);
-  opacity:0.5;
+@keyframes pearlFloat {
+  0%   { transform: translate(-6px, -4px) scale(1); }
+  100% { transform: translate(6px, 4px) scale(1.12); }
+}
+
+.chrome-cloud {
+  display: none !important;
 }
 
 /* sun orb */
