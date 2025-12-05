@@ -86,35 +86,39 @@ function spawnSun() {
 spawnSun();
 
 /* ============================================
-   3) ETHEREAL PEARLS (NO CLOUDS, NO STARS)
+   3) ETHEREAL RUNWAY PEARLS (ultra-sparse + vertical drift)
    ============================================ */
 
-const PEARL_COUNT = 48;  // balanced, spaced, elegant
+const PEARL_COUNT = 18;   // SUPER sparse, high-fashion, minimal
 const pearls = [];
 
 function spawnPearls() {
-  for (let i=0; i<PEARL_COUNT; i++){
+  for (let i = 0; i < PEARL_COUNT; i++) {
     const p = document.createElement("div");
     p.className = "pearl";
 
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 80 + Math.random() * 180;
+    // Vertical distribution
+    const x = Math.random() * window.innerWidth;
+    const y = window.innerHeight * (0.25 + Math.random() * 0.55);
 
     const size = 10 + Math.random()*6;
     p.style.setProperty("--s", size + "px");
 
     pearls.push({
       el: p,
-      angle,
-      speed: 0.0007 + Math.random()*0.0014,
-      radius: radius,
+      baseX: x,
+      baseY: y,
+      drift: Math.random()*20 + 20   // how high they float
     });
+
+    p.style.left = x + "px";
+    p.style.top = y + "px";
 
     orbLayer.appendChild(p);
   }
 }
-spawnPearls();
 
+spawnPearls();
 /* ============================================
    4) MOTION LOOP
    ============================================ */
