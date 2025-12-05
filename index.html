@@ -5,15 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BLOOM YOUR VISION - BARE VISION</title>
 
-  <!-- Styles -->
-<link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 
-  <!-- Fonts: hybrid bubble serif + rounded accents -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 </head>
 <body>
 
-  <!-- Lightweight loader -->
   <div id="page-loader" class="loader">
     <div class="loader-inner">
       <h1 class="loader-title">BARE VISION</h1>
@@ -21,19 +20,18 @@
     </div>
   </div>
 
-  <!-- Sky container (background rendered by CSS vars updated by JS) -->
   <div id="sky" aria-hidden="true"></div>
 
-  <!-- Floating chrome orbs container -->
   <div id="orb-layer" aria-hidden="true"></div>
 
   <main id="site">
     <header class="hero" id="hero">
       <div class="hero-inner">
         <h1 class="title hero-title">
-          <span class="title-text">BARE VISION</span>
-          <span class="title-sheen" aria-hidden="true"></span>
+          <span class="title-text" data-text="BARE VISION">BARE VISION</span>
         </h1>
+        
+        <p class="hero-bloom">Bloom Your Vision</p>
 
         <p class="subtitle">Strategic Foresight for a New Economy</p>
 
@@ -44,12 +42,10 @@
       </div>
     </header>
 
-    <!-- MIRROR -->
     <section class="section mirror" id="mirror" data-animate>
       <div class="panel">
         <h2>The Mirror™ : 2h Consultation</h2>
         <p>Two hours of high-clarity decision support. Designed for the moment where commitment ignites destiny.</p>
-
         <p>The Mirror slows time. It clears the interference to reflect your true essence. Learn how to navigate what ambition demands of you with courage, grace and confidence</p>
 
         <p>For creative leaders who are:</p>
@@ -62,9 +58,6 @@
         </ul>
 
         <p class="limited-note">The mirror is limited to 4 sessions per year per client</p>
-<div class="cta-group">
-</div>
-
         <div class="panel-cta">
           <a href="#" class="btn orb primary">Face Your Mirror</a>
           <a href="#" class="btn orb secondary">Inquire</a>
@@ -72,8 +65,7 @@
       </div>
     </section>
 
-    <!-- BLUEPRINT + PLAYBOOK -->
-   <section class="section blueprint" id="blueprint" data-animate>
+    <section class="section blueprint" id="blueprint" data-animate>
       <div class="panel glass-ice">
         <h2>The Blueprint™ & The Playbook™</h2>
 
@@ -146,7 +138,6 @@
     </footer>
   </main>
 
-  <!-- Script -->
   <script type="module" src="main3d.js"></script>
 </body>
 </html>
