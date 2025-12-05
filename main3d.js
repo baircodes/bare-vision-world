@@ -1,205 +1,225 @@
-/**
- * main3d.js — final Solarpunk engine
- * - tiny micro chrome stars (density A)
- * - swirling motion (user chose Swirling)
- * - alternating swirl directions (C)
- * - asymmetric sun position (option C)
- * - automatic day/night gradient switch (4:59am-4:59pm day; 5pm-4:59am night)
- * - safe, dependency-free
- */
+/* ===============================
+   BARE VISION — main3d.js (vC)
+   chrome clouds + micro stars + time-of-day sky
+   =============================== */
 
-/* helpers */
-const $ = s => document.querySelector(s);
-const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
-const rand = (a,b) => a + Math.random()*(b-a);
+const sky = document.getElementById("sky");
+const orbLayer = document.getElementById("orb-layer");
 
-/* config (tweakable) */
-const CONFIG = {
-  starCount: 18,                // ultra-sparse / luxury
-  starSizeMin: 1.5,
-  starSizeMax: 4.0,
-  swirlRadius: 220,             // base radius of swirl
-  swirlSpeed: 0.0009 * 1.6,     // base speed, multiplied for "Swirling"
-  sunPos: { xPct: 0.62, yPct: 0.28 }, // asymmetric (C)
-  dayRange: { startH: 4, startM:59, endH:16, endM:59 }, // 4:59 -> 16:59 day
-  fadeInMs: 900
-};
+/* ============================================
+   1) CLOCK ENGINE — true time-of-day lighting
+   ============================================ */
 
-/* DOM refs */
-const orbLayer = $('#orb-layer');
-const sky = $('#sky');
-const loader = $('#page-loader');
+function getSkyGradient() {
+  const now = new Date();
+  let h = now.getHours();
+  let m = now.getMinutes();
 
-/* bail gracefully on mobile (keep performance) */
-const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
-if (isMobile) {
-  // hide visual layer and remove loader quickly
-  orbLayer.style.display = 'none';
-  loader && loader.classList.add('hidden');
-} else {
-  initScene();
-}
+  // convert to decimal hour
+  const time = h + m / 60;
 
-/* helpers for time */
-function timeIsDay(date = new Date()){
-  // returns true if local time between 4:59 and 16:59 inclusive
-  const h = date.getHours();
-  const m = date.getMinutes();
-  const start = CONFIG.dayRange.startH * 60 + CONFIG.dayRange.startM;
-  const end = CONFIG.dayRange.endH * 60 + CONFIG.dayRange.endM;
-  const now = h*60 + m;
-  return now >= start && now <= end;
-}
-
-/* Gradients */
-function applySkyGradient(isDay){
-  if (isDay){
-    // minimal real desert haze
-    sky.style.background = `
-      radial-gradient(circle at ${CONFIG.sunPos.xPct*100}% ${CONFIG.sunPos.yPct*100}%, 
-        rgba(255,244,224,0.45) 0%,
-        rgba(245,230,205,0.24) 18%,
-        rgba(235,215,185,0.12) 42%,
-        rgba(220,200,170,0.06) 70%,
-        rgba(200,180,152,0.04) 100%)
-    `;
-  } else {
-    // dark romance dusk / night
-    sky.style.background = `
-      radial-gradient(circle at ${CONFIG.sunPos.xPct*100}% ${CONFIG.sunPos.yPct*100}%, 
-        rgba(220,145,115,0.18) 0%,
-        rgba(140,80,105,0.12) 20%,
-        rgba(60,40,80,0.10) 48%,
-        rgba(20,18,34,0.06) 80%,
-        rgba(7,6,18,0.02) 100%)
-    `;
-  }
-}
-
-/* create stars */
-function createStars(){
-  const w = window.innerWidth, h = window.innerHeight;
-  const cx = CONFIG.sunPos.xPct * w;
-  const cy = CONFIG.sunPos.yPct * h;
-
-  const stars = [];
-  for (let i=0;i<CONFIG.starCount;i++){
-    const el = document.createElement('div');
-    el.className = 'chrome-star';
-    const size = rand(CONFIG.starSizeMin, CONFIG.starSizeMax);
-    el.style.width = `${size}px`;
-    el.style.height = `${size}px`;
-    // initial polar angle and radius (set around sun center)
-    const angle = rand(0, Math.PI*2);
-    const radius = rand(CONFIG.swirlRadius*0.35, CONFIG.swirlRadius*1.1);
-    // choose alternating swirl direction: some clockwise, some ccw
-    const dir = (i % 3 === 0) ? -1 : 1; // alternating-ish pattern (gives variety)
-    // position
-    const x = cx + Math.cos(angle) * radius + rand(-14,14);
-    const y = cy + Math.sin(angle) * radius + rand(-10,10);
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
-    el.style.opacity = '0';
-    orbLayer.appendChild(el);
-    stars.push({ el, angle, radius, dir, baseX:cx, baseY:cy, size });
+  // ----- 4:59 → 4:59 pm (Golden) -----
+  if (time >= 4.98 && time < 16.99) {
+    return {
+      top:   "rgba(255,239,218,1)",
+      mid:   "rgba(253,246,236,1)",
+      bottom:"rgba(237,245,230,1)"
+    };
   }
 
-  // fade-in
-  setTimeout(()=> stars.forEach(s=> s.el.style.opacity = (0.7).toString()), 90);
-
-  return stars;
-}
-
-/* animate stars swirl */
-function animateStars(stars){
-  let last = performance.now();
-  function frame(now){
-    const dt = (now - last);
-    last = now;
-    const t = now * CONFIG.swirlSpeed;
-
-    // optional: slow radius wobble for organic feeling
-    for (let i=0;i<stars.length;i++){
-      const s = stars[i];
-      const wobble = Math.sin(t * (0.8 + i*0.03) + i) * (6 + i*0.2);
-      // alternating direction changes slowly to create hypnotic motion
-      const dir = s.dir * (1 + 0.06 * Math.sin(now*0.0005 + i));
-      const ang = s.angle + dir * (t * (0.8 + (i%4)*0.06));
-      const r = s.radius + Math.sin((now*0.0008) + i) * (4 + i*0.5);
-      const x = s.baseX + Math.cos(ang) * r + wobble;
-      const y = s.baseY + Math.sin(ang) * r + Math.cos(t*0.12 + i)*2;
-      s.el.style.transform = `translate3d(${x - (s.size/2)}px, ${y - (s.size/2)}px, 0)`;
-      // small glint pulse
-      const pulse = 0.55 + 0.37 * Math.abs(Math.sin(now*0.002 + i*0.6));
-      s.el.style.opacity = pulse.toFixed(2);
-      // tiny scale breathing
-      const sc = 0.92 + Math.abs(Math.sin(now*0.0012 + i))*0.14;
-      s.el.style.width = `${s.size * sc}px`;
-      s.el.style.height = `${s.size * sc}px`;
-    }
-
-    requestAnimationFrame(frame);
+  // ----- 5pm → 8pm (Sunset melt) -----
+  if (time >= 17 && time < 20) {
+    return {
+      top:   "rgba(255,210,180,1)",
+      mid:   "rgba(255,170,140,0.9)",
+      bottom:"rgba(210,150,120,0.7)"
+    };
   }
-  requestAnimationFrame(frame);
-}
 
-/* single chrome satellite (subtle) */
-function createSatellite(){
-  const sat = document.createElement('div');
-  sat.className = 'chrome-star';
-  sat.style.width = '18px';
-  sat.style.height = '18px';
-  sat.style.opacity = '0';
-  orbLayer.appendChild(sat);
-
-  let start = performance.now();
-  function frame(now){
-    const w = window.innerWidth, h = window.innerHeight;
-    const cx = CONFIG.sunPos.xPct * w;
-    const cy = CONFIG.sunPos.yPct * h;
-    const elapsed = (now - start) * 0.00012;
-    const angle = elapsed * 0.9;
-    const orbitR = CONFIG.swirlRadius * 0.6;
-    const x = cx + Math.cos(angle) * orbitR * 1.6;
-    const y = cy + Math.sin(angle*0.96) * (orbitR * 0.32) + Math.cos(elapsed*0.9)*8;
-    sat.style.transform = `translate3d(${x - 9}px, ${y - 9}px, 0)`;
-    sat.style.opacity = (0.85 + 0.15*Math.sin(now*0.001)).toFixed(2);
-    requestAnimationFrame(frame);
+  // ----- 8pm → 5am (Desert Night) -----
+  if (time >= 20 || time < 5) {
+    return {
+      top:   "rgba(28,32,38,1)",
+      mid:   "rgba(40,45,52,1)",
+      bottom:"rgba(52,60,66,1)"
+    };
   }
-  requestAnimationFrame(frame);
-  // return element in case needed
-  return sat;
+
+  // fallback dawn
+  return {
+    top:   "rgba(255,228,200,1)",
+    mid:   "rgba(245,225,210,1)",
+    bottom:"rgba(225,240,225,1)"
+  };
 }
 
-/* init scene */
-function initScene(){
-  applySkyGradient(timeIsDay());
-  // create stars & animate
-  const stars = createStars();
-  animateStars(stars);
-  // sat
-  createSatellite();
+function updateSky() {
+  const g = getSkyGradient();
+  sky.style.background = `
+      linear-gradient(
+        to bottom,
+        ${g.top},
+        ${g.mid},
+        ${g.bottom}
+      )`;
+}
 
-  // respond to resize: reposition base center
-  window.addEventListener('resize', ()=> {
-    // update base positions for stars
-    const w = window.innerWidth, h = window.innerHeight;
-    const cx = CONFIG.sunPos.xPct * w;
-    const cy = CONFIG.sunPos.yPct * h;
-    stars.forEach(s => {
-      s.baseX = cx;
-      s.baseY = cy;
+setInterval(updateSky, 60000);
+updateSky();
+
+/* ============================================
+   2) SOFT SUN BEACON
+   ============================================ */
+
+function spawnSun() {
+  const img = document.createElement("img");
+  img.src = "assets/sun-soft.svg";
+  img.className = "sun-orb";
+
+  Object.assign(img.style, {
+    position: "fixed",
+    width: "420px",
+    height: "420px",
+    left: "50%",
+    top: "46%",
+    transform: "translate(-50%, -50%)",
+    opacity: "0.72",
+    pointerEvents: "none",
+    filter: "blur(2px)"
+  });
+
+  orbLayer.appendChild(img);
+}
+spawnSun();
+
+/* ============================================
+   3) CHROME CLOUDS — floating minimal shapes
+   ============================================ */
+
+const CLOUD_COUNT = 4;
+const clouds = [];
+
+function spawnChromeClouds() {
+  for (let i = 0; i < CLOUD_COUNT; i++) {
+    const img = document.createElement("img");
+    img.src = "assets/chrome-cloud.svg";
+    img.className = "chrome-cloud";
+
+    const x = Math.random() * 100;
+    const y = Math.random() * 40 + 5;
+
+    Object.assign(img.style, {
+      position: "fixed",
+      width: `${200 + Math.random()*90}px`,
+      left: x + "vw",
+      top: y + "vh",
+      opacity: 0.42 + Math.random() * 0.15,
+      transform: "translateZ(0)",
+      pointerEvents: "none",
+      filter: "blur(1px)"
     });
-  }, { passive:true });
 
-  // optionally auto-switch day/night if user's local time crosses threshold while browsing
-  setInterval(()=> {
-    applySkyGradient(timeIsDay());
-  }, 30_000);
+    clouds.push({
+      el: img,
+      baseX: x,
+      baseY: y,
+      drift: Math.random() * 0.6 + 0.2,
+      offset: Math.random() * 360
+    });
 
-  // small reveal: hide loader
-  setTimeout(()=> loader && loader.classList.add('hidden'), CONFIG.fadeInMs);
+    orbLayer.appendChild(img);
+  }
 }
+spawnChromeClouds();
 
-/* optional: expose for debugging - remove later if you like */
-window._BV_config = CONFIG;
+/* ============================================
+   4) MICRO CHROME STARS — swirling galaxy
+   ============================================ */
+
+const STAR_COUNT = 90; // High density (A)
+const stars = [];
+
+function spawnStars() {
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const img = document.createElement("img");
+    img.src = "assets/chrome-star.svg";
+    img.className = "chrome-star";
+
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 28 + Math.random() * 55;
+
+    stars.push({
+      el: img,
+      angle,
+      speed: 0.001 + Math.random() * 0.002,
+      radius,
+      size: 8 + Math.random()*6
+    });
+
+    Object.assign(img.style, {
+      position: "fixed",
+      width: stars[stars.length-1].size + "px",
+      height: stars[stars.length-1].size + "px",
+      pointerEvents: "none",
+      opacity: 0.75
+    });
+
+    orbLayer.appendChild(img);
+  }
+}
+spawnStars();
+
+/* ============================================
+   5) Frame loop (motion)
+   ============================================ */
+
+function animate() {
+  const t = performance.now() * 0.001;
+
+  // clouds float (slow, elegant)
+  clouds.forEach((c, i) => {
+    const x = c.baseX + Math.sin(t * c.drift + c.offset) * 2.5;
+    const y = c.baseY + Math.cos(t * c.drift + c.offset) * 1.2;
+
+    c.el.style.left = x + "vw";
+    c.el.style.top = y + "vh";
+  });
+
+  // stars swirl (galaxy-like)
+  stars.forEach((s) => {
+    s.angle += s.speed;
+
+    const cx = window.innerWidth * 0.5;
+    const cy = window.innerHeight * 0.48;
+
+    const x = cx + Math.cos(s.angle) * s.radius;
+    const y = cy + Math.sin(s.angle) * (s.radius * 0.55);
+
+    s.el.style.left = x + "px";
+    s.el.style.top = y + "px";
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ============================================
+   6) SCROLL REVEAL
+   ============================================ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll("[data-animate]").forEach(el => observer.observe(el));
+
+/* ============================================
+   7) LOADER FADE
+   ============================================ */
+window.addEventListener("load", () => {
+  const loader = document.getElementById("page-loader");
+  setTimeout(() => loader.classList.add("hidden"), 600);
+});
