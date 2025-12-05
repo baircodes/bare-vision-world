@@ -1,25 +1,28 @@
 /* =========================
    BARE VISION — styles.css
-   Final Couture — Pearls A (complete)
+   Refined Architecture v2.0
    ========================= */
 
 :root{
-  --ivory: #F9F7F2;        /* softer, cooler, more refined */
-  --sand: #E8E3DB;         /* dune beige */
-  --sage: #B7CBB8;         /* keep your brand sage but soften saturation */
-  --azur: #AEBEC4;         /* more desert-sky, less grey-blue */
+  --ivory: #F9F7F2;
+  --sand: #E8E3DB;
+  --sage: #B7CBB8;
+  --azur: #AEBEC4;
+  --chrome-grad: linear-gradient(135deg, #ffffff 0%, #e8eaea 50%, #c4c6c6 51%, #f3f3f3 100%);
+  --glass-border: rgba(255, 255, 255, 0.4);
 }
 
-/* RESET */
+/* RESET & BASE */
 *{ margin:0; padding:0; box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 
 body{
-  font-family: 'Outfit', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
   line-height:1.65;
   color:#0b0b0b;
   background:var(--ivory);
   overflow-x:hidden;
+  -webkit-font-smoothing: antialiased; /* Critical for high-end typography */
 }
 
 /* SKY */
@@ -33,88 +36,119 @@ body{
 #orb-layer{
   position:fixed; inset:0; z-index:-8;
   pointer-events:none; overflow:visible;
+  perspective: 1000px; /* Adds depth to the pearls */
 }
 
 /* LOADER */
 #page-loader{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:#fff; transition:opacity .6s ease; }
-#page-loader.hidden{ opacity:0; visibility:hidden; }
+#page-loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
 .loader-title{ font-family:'Cormorant Garamond', serif; letter-spacing:.28em; color:var(--azur); }
 
 /* HERO */
 .hero{ min-height:100vh; display:flex; justify-content:center; align-items:center; padding:0 2rem; text-align:center; position:relative; z-index:20; }
-.hero-inner{ display:flex; flex-direction:column; align-items:center; gap:1.2rem; width:100%; max-width:1200px; }
+.hero-inner{ display:flex; flex-direction:column; align-items:center; gap:1.5rem; width:100%; max-width:1200px; }
 
-/* TITLE */
-.title-text{ font-family:'Outfit'; font-weight:700; font-size:clamp(3rem,6vw,6rem); letter-spacing:-0.4px; color:var(--sage); position:relative; line-height:0.9; display:inline-block; }
-.title-text::before{ content:attr(data-text); position:absolute; left:0; top:6px; color:rgba(0,0,0,0.12); }
-.title-text::after{ content:attr(data-text); position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,0.98), rgba(235,245,238,0.9), rgba(170,190,180,0.5)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+/* TITLE - OPTIMIZED CHROME */
+.title-text{
+  font-family:'Outfit';
+  font-weight:700;
+  font-size:clamp(3rem,6vw,6rem);
+  letter-spacing:-1px;
+  line-height:0.9;
+  display:inline-block;
+  /* Pure Chrome Gradient - No Sage */
+  background: linear-gradient(180deg, #FFFFFF 15%, #D0D5D8 48%, #8A9699 50%, #E8F0F2 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 2px 0px rgba(0,0,0,0.05));
+}
 
 /* subtitle */
-.subtitle{ margin-top:10px; max-width:580px; color:rgba(10,10,10,0.78); }
+.subtitle{ margin-top:10px; max-width:580px; color:rgba(10,10,10,0.65); letter-spacing: 0.5px; font-weight: 400; }
 
 /* CTA note */
-.limited-note{ text-align:center; font-size:0.83rem; font-style:italic; opacity:0.75; margin-bottom:0.6rem; }
+.limited-note{ text-align:center; font-size:0.8rem; text-transform: uppercase; letter-spacing: 0.1em; opacity:0.6; margin-bottom:1rem; }
 
-.italic-line {
-  font-style: italic;
-  text-align: center;
-  margin: 24px 0;
-  opacity: 0.85;
-}
-
-.cta-italic {
-  font-style: italic;
-  text-align: center;
-  margin-bottom: 12px;
-  opacity: 0.82;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.italic-line { font-style: italic; text-align: center; margin: 24px 0; opacity: 0.85; }
+.cta-italic { font-style: italic; text-align: center; margin-bottom: 12px; opacity: 0.82; max-width: 600px; margin-left: auto; margin-right: auto; }
 
 /* CTA group */
-.cta-group{ display:flex; gap:10px; justify-content:center; align-items:center; margin-top:6px; }
+.cta-group{ display:flex; gap:16px; justify-content:center; align-items:center; margin-top:12px; }
 
-/* BUTTONS */
-.btn{ display:flex; align-items:center; justify-content:center; padding:10px 18px; border-radius:999px; font-weight:600; font-family:'Outfit'; text-decoration:none; margin:0 auto; }
-.btn.orb{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.18); color:#0b0b0b; backdrop-filter:blur(12px) saturate(130%); transition:all .25s ease; }
-.btn.orb:hover{ color:var(--sage); border-color:var(--sage); transform:translateY(-3px); }
+/* BUTTONS - VISION COMPLIANT */
+.btn{ display:flex; align-items:center; justify-content:center; padding:12px 24px; border-radius:999px; font-weight:500; font-family:'Outfit'; text-decoration:none; margin:0 auto; letter-spacing: 0.02em; transition:all .4s cubic-bezier(0.23, 1, 0.32, 1); }
 
-/* PANELS */
-.panel{ margin:28px auto; padding:36px; max-width:var(--maxwidth); border-radius:24px; background:rgba(255,255,255,0.12); backdrop-filter:blur(26px) saturate(150%); border:1px solid rgba(255,255,255,0.22); box-shadow:0 24px 50px rgba(18,20,20,0.06), inset 0 0 20px rgba(255,255,255,0.06); color:rgba(10,10,10,0.92); position:relative; }
-.panel h2{ font-family:'Cormorant Garamond'; font-size:2.2rem; text-align:center; margin-bottom:12px; }
-.subheading{ font-family:'Cormorant Garamond'; text-transform:uppercase; letter-spacing:.08em; font-size:1rem; color:#444; text-align:center; }
+.btn.orb{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(174, 190, 196, 0.3); /* Subtle azure tint border */
+  color:#0b0b0b;
+  backdrop-filter:blur(8px);
+}
+
+/* HOVER: Only text changes to Sage. Structure remains Chrome/Ice. */
+.btn.orb:hover{
+  color: var(--sage);
+  border-color: rgba(174, 190, 196, 0.6); /* Border gets slightly clearer, not sage */
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 4px 20px rgba(183, 203, 184, 0.15);
+  transform: translateY(-2px);
+}
+
+/* PANELS - "THE ICE CUBE" */
+.panel{
+  margin:28px auto;
+  padding:48px;
+  max-width:var(--maxwidth, 900px);
+  border-radius:24px;
+  /* Multi-layered background for depth */
+  background: linear-gradient(145deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(40px) saturate(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(120%);
+  /* The "Ice" Border */
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow:
+    0 20px 40px -10px rgba(0,0,0,0.05),
+    inset 0 0 0 1px rgba(255,255,255,0.3),
+    inset 0 0 20px rgba(255,255,255,0.2);
+  color:rgba(10,10,10,0.92);
+  position:relative;
+}
+
+.panel h2{ font-family:'Cormorant Garamond'; font-size:2.4rem; text-align:center; margin-bottom:12px; color: #1a1a1a; font-weight: 300; }
+.subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:0.85rem; color: #666; text-align:center; margin-bottom: 1rem; }
 
 /* SECTION REVEAL */
-.section{ opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .8s ease; padding:64px 20px; z-index:3; }
+.section{ opacity:0; transform:translateY(30px) scale(0.98); transition:opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1); padding:80px 20px; z-index:3; }
 .section.visible{ opacity:1; transform:none; }
 
 /* BOOK SPREAD */
-.book-spread{ display:flex; gap:36px; margin-top:36px; }
+.book-spread{ display:flex; gap:48px; margin-top:48px; }
 .book-page{ flex:1; }
-.book-divider{ width:1px; background:linear-gradient(180deg,transparent,rgba(0,0,0,0.08),transparent); }
+.book-divider{ width:1px; background:linear-gradient(180deg, transparent, rgba(174,190,196,0.3), transparent); }
 
 /* STAR LIST */
 .star-list{ list-style:none; margin:12px 0; padding:0; }
-.star-list li{ margin:8px 0; display:flex; align-items:flex-start; }
-.star-list li::before{ content:"✦"; margin-right:12px; color:var(--sand); opacity:0.9; }
+.star-list li{ margin:12px 0; display:flex; align-items:flex-start; font-size: 0.95rem; color: #333; }
+.star-list li::before{ content:"✦"; margin-right:12px; color:var(--azur); opacity:0.8; font-size: 0.8em; margin-top: 3px; }
 
-/* ============= PEARLS (final) ============= */
-.pearl{ position:absolute; width:var(--s,12px); height:var(--s,12px); border-radius:50%; pointer-events:none;
-  background:radial-gradient(circle at 32% 30%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.75) 25%, rgba(240,225,230,0.45) 55%, rgba(200,215,200,0.25) 80%, rgba(255,255,255,0.05) 100%);
-  box-shadow:0 0 6px rgba(255,255,255,0.9), inset 0 0 6px rgba(255,255,255,0.6);
-  opacity:0.94; filter:blur(0.4px); animation:pearl-drift-vertical 14s ease-in-out infinite alternate; transform-origin:center;
+/* PEARLS REFINED */
+.pearl{
+  position:absolute;
+  width:var(--s,12px); height:var(--s,12px);
+  border-radius:50%; pointer-events:none;
+  /* More metallic, less milky */
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0e0e0 20%, #aebec4 60%, #8a9699 100%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  opacity:0.8;
+  /* Setup for JS Transform */
+  will-change: transform;
 }
-@keyframes pearl-drift-vertical{ 0%{ transform:translateY(0px) translateX(-3px) scale(1); } 100%{ transform:translateY(-60px) translateX(3px) scale(1.08); } }
-
-/* Sun + cloud hiding (cloud assets not used) */
-.sun-orb{ position:absolute; pointer-events:none; filter:blur(6px) saturate(1.15); opacity:0.78; }
 
 /* RESPONSIVE */
 @media (max-width:880px){
   .title-text{ font-size:clamp(2.4rem,8vw,4rem); }
-  .panel{ padding:22px; border-radius:16px; }
-  .book-spread{ flex-direction:column; }
+  .panel{ padding:24px; border-radius:16px; }
+  .book-spread{ flex-direction:column; gap: 24px; }
   .book-divider{ display:none; }
-  .pearl{ display:none; }
 }
