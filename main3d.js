@@ -1,162 +1,80 @@
 /* =========================
    BARE VISION — main3d.js
-   Ethereal Pearl Galaxy A
+   Ethereal Pearls (final)
    ========================= */
 
 const sky = document.getElementById("sky");
 const orbLayer = document.getElementById("orb-layer");
+const loader = document.getElementById("page-loader");
 
-/* ============================================
-   1) TIME-OF-DAY SKY GRADIENT
-   ============================================ */
-
+/* TIME-OF-DAY SKY (keeps simple elegant gradient) */
 function getSkyGradient() {
   const now = new Date();
   const h = now.getHours() + now.getMinutes()/60;
-
-  // 4:59am → 4:59pm (Golden)
   if (h >= 4.98 && h < 16.99) {
-    return {
-      top:   "rgba(255,238,218,1)",
-      mid:   "rgba(253,246,236,1)",
-      bot:   "rgba(237,245,230,1)"
-    };
+    return ["#fff0db","#fbf7f0","#eef4ea"];
   }
-
-  // 5pm → 8pm (Sunset)
   if (h >= 17 && h < 20) {
-    return {
-      top:   "rgba(255,210,180,1)",
-      mid:   "rgba(255,170,140,0.9)",
-      bot:   "rgba(210,150,120,0.7)"
-    };
+    return ["#ffd2b4","#ffc49a","#d29a78"];
   }
-
-  // 8pm → 5am (Night Cool)
-  if (h >= 20 || h < 5) {
-    return {
-      top:   "rgba(30,34,40,1)",
-      mid:   "rgba(38,44,50,1)",
-      bot:   "rgba(52,60,66,1)"
-    };
-  }
-
-  return {
-    top:   "rgba(255,230,205,1)",
-    mid:   "rgba(245,225,210,1)",
-    bot:   "rgba(225,240,225,1)"
-  };
+  return ["#1e2228","#2b3240","#384250"];
 }
+function updateSky(){ const g=getSkyGradient(); sky.style.background = `linear-gradient(to bottom, ${g[0]}, ${g[1]}, ${g[2]})`; }
+updateSky(); setInterval(updateSky,60000);
 
-function updateSky() {
-  const g = getSkyGradient();
-  sky.style.background = `
-    linear-gradient(to bottom,
-      ${g.top},
-      ${g.mid},
-      ${g.bot}
-    )`;
-}
-
-updateSky();
-setInterval(updateSky, 60000);
-
-/* ============================================
-   2) SOFT SUN ORB
-   ============================================ */
-
-function spawnSun() {
+/* sun soft */
+function spawnSun(){
   const img = document.createElement("img");
   img.src = "assets/sun-soft.svg";
   img.className = "sun-orb";
-
-  Object.assign(img.style, {
-    position:"fixed",
-    width:"420px",
-    height:"420px",
-    left:"50%", top:"46%",
-    transform:"translate(-50%,-50%)",
-    opacity:"0.72",
-    pointerEvents:"none",
-    filter:"blur(2px)"
-  });
-
+  Object.assign(img.style,{position:"fixed",width:"420px",height:"420px",left:"52%",top:"46%",transform:"translate(-50%,-50%)",opacity:"0.72",pointerEvents:"none",filter:"blur(2px)"});
   orbLayer.appendChild(img);
 }
 spawnSun();
 
-/* ============================================
-   3) ETHEREAL RUNWAY PEARLS (ultra-sparse + vertical drift)
-   ============================================ */
-
-const PEARL_COUNT = 18;   // SUPER sparse, high-fashion, minimal
+/* PEARLS: very sparse, vertical drift */
+const PEARL_COUNT = 12; // very sparse runway
 const pearls = [];
-
-function spawnPearls() {
-  for (let i = 0; i < PEARL_COUNT; i++) {
-    const p = document.createElement("div");
-    p.className = "pearl";
-
-    // Vertical distribution
-    const x = Math.random() * window.innerWidth;
-    const y = window.innerHeight * (0.25 + Math.random() * 0.55);
-
-    const size = 10 + Math.random()*6;
-    p.style.setProperty("--s", size + "px");
-
-    pearls.push({
-      el: p,
-      baseX: x,
-      baseY: y,
-      drift: Math.random()*20 + 20   // how high they float
-    });
-
-    p.style.left = x + "px";
-    p.style.top = y + "px";
-
-    orbLayer.appendChild(p);
+function spawnPearls(){
+  const w = window.innerWidth, h = window.innerHeight;
+  for(let i=0;i<PEARL_COUNT;i++){
+    const el = document.createElement("div");
+    el.className = "pearl";
+    const size = 9 + Math.random()*8;
+    el.style.setProperty("--s", size + "px");
+    const x = Math.random()*w;
+    const y = h*(0.25 + Math.random()*0.6);
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    pearls.push({el, baseX:x, baseY:y, drift: 30 + Math.random()*80, speed: 0.0003 + Math.random()*0.0009});
+    orbLayer.appendChild(el);
   }
 }
-
 spawnPearls();
-/* ============================================
-   4) MOTION LOOP
-   ============================================ */
 
+/* animate: slow vertical incense drift */
 function animate(){
+  const now = performance.now();
   const cx = window.innerWidth * 0.5;
   const cy = window.innerHeight * 0.48;
-
-  pearls.forEach(p=>{
-    p.angle += p.speed;
-    const x = cx + Math.cos(p.angle) * p.radius;
-    const y = cy + Math.sin(p.angle) * (p.radius * 0.52);
-
+  for(let i=0;i<pearls.length;i++){
+    const p = pearls[i];
+    // vertical sinusoidal drift + slow upward movement modulated by speed
+    const t = now * p.speed;
+    const dx = Math.sin(t*0.8 + i) * 6;
+    const dy = -Math.abs(Math.cos(t*0.6 + i)) * (p.drift*0.6) ; // gentle upward bias
+    const x = p.baseX + dx;
+    const y = p.baseY + dy * 0.01;
     p.el.style.left = x + "px";
     p.el.style.top = y + "px";
-  });
-
+  }
   requestAnimationFrame(animate);
 }
 animate();
 
-/* ============================================
-   5) SCROLL REVEAL
-   ============================================ */
+/* Intersection reveal */
+const io = new IntersectionObserver(entries=>{ entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('visible'); }); }, {threshold:0.12});
+document.querySelectorAll('[data-animate]').forEach(el=>io.observe(el));
 
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add("visible");
-  });
-},{ threshold:0.12 });
-
-document.querySelectorAll("[data-animate]").forEach(el=>observer.observe(el));
-
-/* ============================================
-   6) LOADER
-   ============================================ */
-window.addEventListener("load", ()=>{
-  setTimeout(()=>{
-    document.getElementById("page-loader").classList.add("hidden");
-  },600);
-});
+/* loader hide */
+window.addEventListener('load', ()=> setTimeout(()=> loader && loader.classList.add('hidden'), 500));
