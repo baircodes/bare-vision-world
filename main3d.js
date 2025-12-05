@@ -7,27 +7,42 @@ const sky = document.getElementById("sky");
 const orbLayer = document.getElementById("orb-layer");
 const loader = document.getElementById("page-loader");
 
-/* TIME-OF-DAY SKY (keeps simple elegant gradient) */
 function getSkyGradient() {
   const now = new Date();
-  const h = now.getHours() + now.getMinutes()/60;
-  if (h >= 4.98 && h < 16.99) {
-    return ["#fff0db","#fbf7f0","#eef4ea"];
+  const time = now.getHours() + now.getMinutes() / 60;
+
+  // ----- 5am → 5pm (Editorial Desert Day) -----
+  if (time >= 5 && time < 17) {
+    return {
+      top:   "rgba(242,240,234,1)",   // ivory mist
+      mid:   "rgba(235,230,222,1)",   // dune sand
+      bottom:"rgba(223,218,210,1)"    // warm neutral base
+    };
   }
-  if (h >= 17 && h < 20) {
-    return ["#ffd2b4","#ffc49a","#d29a78"];
+
+  // ----- 5pm → 8pm (Editorial Sunset) -----
+  if (time >= 17 && time < 20) {
+    return {
+      top:   "rgba(245,220,210,1)",   // soft clay-peach
+      mid:   "rgba(230,190,175,0.9)", // terracotta haze
+      bottom:"rgba(210,175,150,0.7)"  // muted amber
+    };
   }
-  return ["#1e2228","#2b3240","#384250"];
+
+  // ----- 8pm → 5am (Desert Night) -----
+  return {
+    top:   "rgba(30,36,42,1)",        // deep blue
+    mid:   "rgba(40,46,52,1)",        // slate
+    bottom:"rgba(50,58,64,1)"         // muted obsidian
+  };
 }
-function updateSky(){ const g=getSkyGradient(); sky.style.background = `linear-gradient(to bottom, ${g[0]}, ${g[1]}, ${g[2]})`; }
-updateSky(); setInterval(updateSky,60000);
 
 /* sun soft */
 function spawnSun(){
   const img = document.createElement("img");
   img.src = "assets/sun-soft.svg";
   img.className = "sun-orb";
-  Object.assign(img.style,{position:"fixed",width:"420px",height:"420px",left:"52%",top:"46%",transform:"translate(-50%,-50%)",opacity:"0.72",pointerEvents:"none",filter:"blur(2px)"});
+  Object.assign(img.style,{position:"fixed",width:"260px",height:"260px",left:"52%",top:"46%",transform:"translate(-50%,-50%)",opacity:"0.48",pointerEvents:"none",filter:"blur(3px)"});
   orbLayer.appendChild(img);
 }
 spawnSun();
