@@ -14,7 +14,7 @@ function getSkyGradient() {
   // ----- 5am → 5pm (Editorial Desert Day) -----
   if (time >= 5 && time < 17) {
     return {
-      top:   "rgba(242,240,234,1)",   // ivory mist
+      top: "rgba(236,240,244,1)"   // whisper blue
       mid:   "rgba(235,230,222,1)",   // dune sand
       bottom:"rgba(223,218,210,1)"    // warm neutral base
     };
