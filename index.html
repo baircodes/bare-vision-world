@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="styles.css?v=3" />
 
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -29,8 +31,7 @@
       <div class="hero-inner">
         <h1 class="title hero-title">
           <span class="title-text" data-text="BARE VISION">BARE VISION</span>
-        </h1>
-        
+        </h1> 
         <p class="hero-bloom">Bloom Your Vision</p>
 
         <p class="subtitle">Strategic Foresight for a New Economy</p>
@@ -59,7 +60,7 @@
 
         <p class="limited-note">The mirror is limited to 4 sessions per year per client</p>
         <div class="panel-cta">
-          <a href="#" class="btn orb primary">Face Your Mirror</a>
+          <a href="https://buy.stripe.com/YOUR_CHECKOUT_LINK" class="btn orb primary">Face Your Mirror </a>
           <a href="#" class="btn orb secondary">Inquire</a>
         </div>
       </div>
@@ -114,7 +115,10 @@
 
 
         <div class="panel-cta">
-          <a href="#" class="btn orb secondary">Schedule Discovery Call</a>
+          <a href="#"
+            class="btn orb secondary"
+            onclick="Calendly.initPopupWidget({url: 'https://calendly.com/YOUR_USERNAME/blueprint'});return false;">
+  Schedule Discovery Call</a>
         </div>
       </div>
     </section>
@@ -125,7 +129,31 @@
         <p>BARE VISION is the consulting pillar of BAIR Atmospheres — shaping natural + digital landscapes with ethical foresight, creative strategy and careful stewardship.</p>
       </div>
     </section>
+<section class="section proof" id="proof" data-animate>
+  <div class="panel">
+    <h2>Proven Clarity. Measurable Shift.</h2>
 
+    <div class="proof-grid">
+
+      <div class="proof-item">
+        <h3>01 — Strategic Alignment</h3>
+        <p>Guided a creative team through a high-stakes launch window, restructuring their decision architecture and increasing operational clarity within 48 hours.</p>
+      </div>
+
+      <div class="proof-item">
+        <h3>02 — Artistic Direction Audit</h3>
+        <p>Supported an independent artist in redefining their brand-world, resulting in a streamlined release flow and renewed momentum across channels.</p>
+      </div>
+
+      <div class="proof-item">
+        <h3>03 — Founder Foresight Session</h3>
+        <p>Helped an early-stage founder map a sustainable expansion path, resolve competing priorities, and execute their next-quarter roadmap with precision.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+    
     <section class="section contact" id="contact" data-animate>
       <div class="panel">
         <h2>Contact</h2>
