@@ -116,6 +116,7 @@ body{
 }
 
 .btn.orb:hover {
+  color: var(--sage); /* Text turns Sage */
   border-color: rgba(150,170,160,0.55);
   background: rgba(255,255,255,0.18);
   transform: translateY(-3px);
