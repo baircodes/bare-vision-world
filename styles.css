@@ -110,6 +110,7 @@ body{
 .btn{ display:flex; align-items:center; justify-content:center; padding:12px 28px; border-radius:999px; font-weight:500; font-family:'Outfit'; text-decoration:none; margin:0 auto; letter-spacing: 0.02em; transition:all .4s ease; }
 
 .btn.orb {
+  color: var(--sage-dark); 
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(150,170,160,0.35);
   backdrop-filter: blur(14px) saturate(140%);
