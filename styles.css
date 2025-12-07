@@ -190,6 +190,37 @@ body{
   opacity: 1;
 }
 
+/* PROOF OF COMPETENCE */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.proof-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.proof-item p {
+  font-family: 'Outfit', sans-serif;
+  color: rgba(30,30,30,0.75);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 880px) {
+  .proof-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width:880px){
   .title-text{ font-size:clamp(3rem,9vw,5rem); }
