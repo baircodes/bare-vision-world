@@ -51,20 +51,28 @@ body{
 .hero{ min-height:100vh; display:flex; justify-content:center; align-items:center; padding:0 2rem; text-align:center; position:relative; z-index:20; }
 .hero-inner{ display:flex; flex-direction:column; align-items:center; gap:0.5rem; width:100%; max-width:1200px; }
 
-/* TITLE - SAGE SILK */
-.title-text{
+/* EMBOSSED SNOW-PRESS EFFECT */
+.title-text {
   font-family:'Outfit';
   font-weight:700;
   font-size:clamp(3rem,6vw,6.5rem);
   letter-spacing:-1.5px;
   line-height:0.95;
   display:inline-block;
-  /* Silk Texture Gradient */
-  background: linear-gradient(135deg, var(--sage) 20%, #C9DBC9 50%, var(--sage) 80%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0px 2px 10px rgba(183, 203, 184, 0.2));
+
+  /* Soft Sage but flatter, so the emboss reads */
+  color: #9bb4a3;
+
+  /* Snow indentation illusion */
+  text-shadow:
+      0px 2px 3px rgba(255,255,255,0.8),   /* top highlight */
+      0px -2px 4px rgba(0,0,0,0.08),      /* bottom shadow */
+      0px 1px 0px rgba(255,255,255,0.6),  /* delicate inner ridge */
+      0px -1px 2px rgba(0,0,0,0.05);      /* depth */
+
+  /* A tiny push inward so it feels pressed */
+  transform: translateY(1px);
+
   margin-bottom: 0px;
 }
 
