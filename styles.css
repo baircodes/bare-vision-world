@@ -57,23 +57,22 @@ body{
   font-weight:700;
   font-size:clamp(3rem,6vw,6.5rem);
   letter-spacing:-1.5px;
-  line-height:0.95;
+  line-height:0.92;
   display:inline-block;
 
-  /* Soft Sage but flatter, so the emboss reads */
-  color: #9bb4a3;
+  color: #a8b9ac;  /* muted sage-gray for sophistication */
 
   /* Snow indentation illusion */
   text-shadow:
-      0px 2px 3px rgba(255,255,255,0.8),   /* top highlight */
-      0px -2px 4px rgba(0,0,0,0.08),      /* bottom shadow */
-      0px 1px 0px rgba(255,255,255,0.6),  /* delicate inner ridge */
+      0px 2px 3px rgba(255,255,255,0.9),   /* top highlight */
+      0px -2px 4px rgba(0,0,0,0.10),      /* bottom shadow */
+      0px 1px 0px rgba(255,255,255,0.7),  /* delicate inner ridge */
       0px -1px 2px rgba(0,0,0,0.05);      /* depth */
 
   /* A tiny push inward so it feels pressed */
   transform: translateY(1px);
 
-  margin-bottom: 0px;
+  margin-bottom: 4px;
 }
 
 /* SLOGAN - The Editorial touch */
