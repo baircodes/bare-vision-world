@@ -62,10 +62,13 @@ body{
   margin-bottom: 0.4rem;
 }
 
-.hero-bloom {
-  margin-top: -10px;
-  margin-bottom: 14px;
+/* Bloom Your Vision Title */
+.bloom-title {
+  font-size: clamp(2rem, 4vw, 3rem); /* smaller than hero */
+  margin-top: -20px; /* pulls it closer to hero */
+  font-family: 'Audiowide', sans-serif;
 }
+
 /* EMBOSSED SNOW-PRESS EFFECT */
 .title-text {
   font-family:'Outfit';
@@ -104,6 +107,16 @@ body{
 
 /* subtitle */
 .subtitle{ margin-top:8px; max-width:580px; color:rgba(10,10,10,0.6); font-weight: 400; font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase; }
+
+/* Section Titles (Non-Hero) */
+section h1:not(.hero h1),
+.panel h1:not(.hero h1),
+section h2,
+.panel h2 {
+  font-family: 'Audiowide', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
 
 /* BUTTONS */
 .cta-group{ display:flex; gap:16px; justify-content:center; align-items:center; margin-top:24px; }
