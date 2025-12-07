@@ -42,8 +42,8 @@ function spawnPearls(){
       el,
       baseX: startX,
       baseY: startY,
-      speed: 0.0001 + Math.random() * 0.0003, // Slower, heavier movement
-      driftRange: 30 + Math.random() * 40,
+      speed: 0.00008 + Math.random() * 0.00016,
+driftRange: 18 + Math.random() * 28,
       phase: Math.random() * Math.PI * 2
     });
 
