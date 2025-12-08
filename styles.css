@@ -65,7 +65,7 @@ body{
 /* Bloom Your Vision Title */
 .bloom-title {
   color: var(--ivory:); 
-  font-size: clamp(2rem, 4vw, 3rem); /* smaller than hero */
+  font-size: clamp(1rem, 3vw, 2rem); /* smaller than hero */
   margin-top: -20px; /* pulls it closer to hero */
   font-family: 'Audiowide', sans-serif;
 }
