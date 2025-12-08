@@ -169,7 +169,91 @@ section h2,
   margin: 0 auto;
 }
 .section.visible{ opacity:1; transform:none; }
+/* GENERAL LAYOUT */
+.bv-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  text-align: center;
+}
 
+/* HEADERS */
+.bv-header {
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.bv-header span {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* SUBHEADERS */
+.bv-subheader {
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+}
+
+/* SECTION TITLES */
+.bv-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* DIVIDER */
+.bv-divider {
+  font-size: 1.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.bv-divider span {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+/* BODY TEXT */
+.bv-text {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  opacity: 0.85;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* FADE-IN ANIMATION */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TYPOGRAPHY REFINEMENT */
+.bv-section strong {
+  font-weight: 600;
+}
 /* BOOK LAYOUT */
 .book-spread{ display:flex; gap:60px; margin-top:48px; }
 .book-page{ flex:1; text-align: left; } /* Editorial alignment */
