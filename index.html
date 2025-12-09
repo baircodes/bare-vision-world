@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BLOOM YOUR VISION - BARE VISION</title>
+  <title>BARE VISION — Home</title>
 
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/styles.css?v=5" />
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 
+  <!-- Calendly widget (used on other pages via popup) -->
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
 </head>
 <body>
 
@@ -23,273 +27,102 @@
   </div>
 
   <div id="sky" aria-hidden="true"></div>
-
   <div id="orb-layer" aria-hidden="true"></div>
+
+  <nav class="bv-nav">
+    <a class="nav-brand" href="index.html">BARE VISION</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="stewardship.html">Project Stewardship</a>
+      <a href="mirror.html">Private 1:1</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
 
   <main id="site">
     <header class="hero" id="hero">
       <div class="hero-inner">
         <h1 class="title hero-title">
           <span class="title-text" data-text="BARE VISION">BARE VISION</span>
-        <h1 class="bloom-title">Bloom Your Vision</h1>
+        </h1>
+
+        <h2 class="bloom-title">Bloom Your Vision</h2>
+
         <p class="subtitle">Strategic Foresight for a New Economy</p>
 
         <div class="cta-group">
-          <a href="#mirror" class="btn orb primary">Step Into The Mirror</a>
-          <a href="#blueprint" class="btn orb secondary">Play The Long Game</a>
+          <a href="mirror.html" class="btn orb primary">Step Into The Mirror</a>
+          <a href="stewardship.html" class="btn orb secondary">Play The Long Game</a>
         </div>
+
       </div>
     </header>
 
-    <section class="section mirror" id="mirror" data-animate>
+    <!-- Short About Summary on Home -->
+    <section class="section about-summary" data-animate>
       <div class="panel">
-        <h2>The Mirror™ : 2h Consultation</h2>
-        <p>Two hours of high-clarity decision support. Designed for the moment where commitment ignites destiny.</p>
-        <p>The Mirror slows time. It clears the interference to reflect your true essence. Learn how to navigate what ambition demands of you with courage, grace and confidence</p>
-
-        <p>For creative leaders who are:</p>
-        <ul class="star-list">
-          <li>navigating a sudden opening or challenge</li>
-          <li>preparing for a negotiation or launch</li>
-          <li>scaling or restructuring</li>
-          <li>stepping into a tour, event, or performance</li>
-          <li>making a decision that will echo</li>
-        </ul>
-
-        <p class="cta-micro">The mirror is limited to 4 sessions per year per client</p>
-        <div class="panel-cta">
-          <a href="https://buy.stripe.com/YOUR_CHECKOUT_LINK" class="btn orb primary">Face Your Mirror </a>
-          <a href="#" class="btn orb secondary">Inquire</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section blueprint" id="blueprint" data-animate>
-      <div class="panel glass-ice">
-        <h2>The Blueprint™ & The Playbook™</h2>
-
-        <p>BARE VISION dissects your current operating system and fine tunes it with Slow Down 2 Speed Up™ mechanics.</p>
-
+        <h2>About — Bare Vision</h2>
+        <p class="lead">
+          Orchestrating clarity for legacies that require absolute precision. Bare Vision is a private advisory atelier shaping natural + digital landscapes with ethical foresight and careful stewardship.
+        </p>
         <p class="cta-micro">Everything grows when the foundation breathes. You are the architect of your initiative.</p>
-
-
-        <div class="book-spread">
-            
-            <div class="book-page left">
-                <h3 class="subheading">THE BLUEPRINT</h3>
-                <p>The Blueprint is an internal architecture audit: a clarity system designed to raise your operational baseline.</p>
-                <p>We examine your flow, decision-making patterns, leadership style, creative economy, and the hidden architecture shaping your outcomes.</p>
-
-                <ul class="star-list">
-                  <li>strategic foundation</li>
-                  <li>agile leadership structure</li>
-                  <li>communication ecosystem</li>
-                  <li>rhythm of progress</li>
-                  <li>clarity-based operating model</li>
-                </ul>
-            </div>
-
-            <div class="book-divider" aria-hidden="true"></div>
-
-            <div class="book-page right">
-                <h3 class="subheading">THE PLAYBOOK</h3>
-                <p>The Playbook is a tailor-made expansion roadmap for artists, founders, and organizations entering their next era. It evaluates your organizational landscape — resources, opportunities, challenges, bandwidth, and scopes out the trajectory of your future defined by today's actions.</p>
-
-                <ul class="star-list">
-                  <li>sustainable expansion models</li>
-                  <li>brand-world building</li>
-                  <li>ecosystem architecture</li>
-                  <li>global & local scaling pathways</li>
-                  <li>operational choreography</li>
-                  <li>strategic alliances & collaborations</li>
-                </ul>
-            </div>
-        </div>
-
-<p class="cta-micro">Move with precision. Expand with clarity.</p>
-
-<p class="cta-micro">Your long game begins with one conversation.</p>
-
-        <div class="panel-cta">
-          <a href="#"
-            class="btn orb secondary"
-            onclick="Calendly.initPopupWidget({url: 'https://calendly.com/YOUR_USERNAME/blueprint'});return false;">
-  Initiate Dialogue</a>
-        </div>
       </div>
     </section>
 
-    <section class="section about" id="about" data-animate>
+    <!-- Services Teaser -->
+    <section class="section services-teaser" data-animate>
       <div class="panel">
-        <h1>About BARE VISION</h1>
-        <p>Orchestrating clarity for legacies that require absolute precision, BARE VISION is the consulting pillar of BAIR Atmospheres — shaping natural + digital landscapes with ethical foresight, creative strategy and careful stewardship.</p>
-      </p>
-      </p>
-      <!-- ABOUT – THE INSTITUTION -->
-<section class="bv-section fade-in">
-  <h2 class="bv-subheader">The Initiative</h2>
-</section>
-
-<!-- FOUNDING PRINCIPLE -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">The Founding Principle</h3>
-  <p class="bv-text">
-    BARE VISION operates on a single law:<br><br>
-    <strong>Keep it simple.</strong><br><br>
-    Clarity emerges when the breath steadies, the heart coheres, and awareness
-    centers between the brows.<br><br>
-    From this state, timing sharpens, intuition becomes direction, and success
-    becomes something you draw toward you.
-  </p>
-</section>
-
-<!-- WHO THIS WORLD IS BUILT FOR -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">For Whom This Work Exists</h3>
-  <p class="bv-text">
-    This practice is built for individuals who understand the deeper mechanics
-    of reality, for those fluent in philosophy, moved by consciousness, and responsible
-    for others.<br><br>
-    Leaders, creators, diplomats, visionaries; People observed by many, guided by few.
-  </p>
-</section>
-
-<!-- STANDARD OF ENTRY -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">The Standard</h3>
-  <p class="bv-text">
-    To enter this environment, one must embody or commit to embodying:<br><br>
-    mental agility<br>
-    an expansive, quiet mind<br>
-    curiosity without ego<br>
-    integrity and respect<br>
-    a contemplative discipline<br>
-    mastery of slowing down to accelerate<br>
-    progress → profit → philanthropy → planetary benefit
-  </p>
-</section>
-
-<!-- UNSPOKEN OUTCOME -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">The Unspoken Outcome</h3>
-  <p class="bv-text">
-    Clients seek what cannot be written in an email:<br><br>
-    the ability to mute noise,<br>
-    read through illusion,<br>
-    follow signal over chaos,<br>
-    and act from mission instead of distortion.
-  </p>
-</section>
-
-<!-- DOCTRINE -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">The Doctrine</h3>
-  <p class="bv-text">
-    BARE VISION functions as an institution of<br><br>
-    <strong>The Art of Detachment and Observation.</strong><br><br>
-    A discipline devoted to elevating humanity’s ability of discernment by simultaneously thinking clearly and critically
-    as well as feeling deeply and intuitively.
-  </p>
-</section>
-
-<!-- FOUNDER SECTION DIVIDER -->
-<section class="bv-section fade-in">
-  <h2 class="bv-divider">THE FOUNDER<br><span>In First Person</span></h2>
-</section>
-
-<!-- ORIGIN STORY -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">How This Began</h3>
-  <p class="bv-text">
-    I have been difficult to influence for as long as I can remember. Independent
-    in thought, quietly observing others, unafraid to express my perception or experience.<br><br>
-    My twenties fractured that. A decade partly shadowed with chaos, lessons, and misalignment forced
-    me inward and upward.<br><br>
-    BARE VISION exists as the place that the world I wanted to serve never had.
-  </p>
-</section>
-
-<!-- WHAT I SEE -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">What I See in People</h3>
-  <p class="bv-text">
-    I read the layer beneath the surface:<br>
-    their soul, their patterning, their singularity, their unused opportunity.
-  </p>
-</section>
-
-<!-- INVISIBLE PROMISE -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">The Invisible Promise</h3>
-  <p class="bv-text">
-    A slower inner world.<br>
-    A steadier nervous system.<br>
-    Sharper listening.<br>
-    Cleaner intuition.<br>
-    Fewer words, greater impact.
-  </p>
-</section>
-
-<!-- WHY SILENCE -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">Why Silence</h3>
-  <p class="bv-text">
-    Most influential decisions occur in the quietest rooms or when the
-    world is distracted by noise.<br><br>
-    Silence is not emptiness.<br>
-    Silence is strategy.
-  </p>
-</section>
-
-
-<!-- PREQUALIFICATION -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">Prequalification</h3>
-  <p class="bv-text">
-    I work only with individuals whose “why” already serves others and the earth.
-  </p>
-</section>
-
-<!-- EXPERIENCE -->
-<section class="bv-section fade-in">
-  <h3 class="bv-title">The Experience</h3>
-  <p class="bv-text">
-    Collaborating with me feels like relief, clarity, and a quiet surge of confidence. A recalibration that sharpens your inner world.
-  </p>
-</section>
-        
+        <h2>Mandates</h2>
+        <div class="teaser-grid">
+          <div class="teaser-card">
+            <h3>Project Stewardship</h3>
+            <p>Blueprint & Playbook: structural audits, expansion roadmaps, operational choreography.</p>
+            <a class="text-link" href="stewardship.html">Enter Stewardship →</a>
+          </div>
+          <div class="teaser-card">
+            <h3>Private 1:1</h3>
+            <p>The Mirror™ — 2h consultation for high-clarity decisions and strategic alignment.</p>
+            <a class="text-link" href="mirror.html">Enter The Mirror →</a>
+          </div>
+          <div class="teaser-card">
+            <h3>Institutional Advice</h3>
+            <p>Quiet interventions and mission-centered counsel for visible leaders and institutions.</p>
+            <a class="text-link" href="about.html">Learn More →</a>
+          </div>
+        </div>
       </div>
     </section>
-<section class="section proof" id="proof" data-animate>
-  <div class="panel">
-    <h2>Proven Clarity. Measurable Shift.</h2>
 
-    <div class="proof-grid">
+    <!-- Proof stays at bottom of main, above contact (per request) -->
+    <section class="section proof" id="proof" data-animate>
+      <div class="panel">
+        <h2>Proven Clarity. Measurable Shift.</h2>
 
-      <div class="proof-item">
-        <h3>01 — The Quiet Intervention</h3>
-        <p class="bv-text">
-    Highly visible figures within a foreign government-funded corporation completing the first of many privately-funded transaction.<br>
-    I stepped in unexpectedly, stabilized the environment, aligned cultures, and ensured flawless execution.<br>
-    Outcome: influenced international political ties strengthening and proof of calm leadership under pressure.</p>
+        <div class="proof-grid">
+          <div class="proof-item">
+            <h3>01 — The Quiet Intervention</h3>
+            <p>Highly visible figures within a government-funded context. I stepped in, stabilized the environment, aligned cultures and ensured flawless execution. Outcome: strengthened political ties and a smooth initial transaction.</p>
+          </div>
+
+          <div class="proof-item">
+            <h3>02 — The Stoic Mind</h3>
+            <p>A disciplined, old-world thinker. Objective: defuse tension across hundreds of transactions. Intervention: pre-emptive resolution, warmth and consistency. Outcome: sustainable relational trust.</p>
+          </div>
+
+          <div class="proof-item">
+            <h3>03 — Founder Foresight</h3>
+            <p>Advising a creative founder on timing, resource choreography and ritualized decision-making. Outcome: streamlined roadmap and higher runway clarity.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="proof-item">
-        <h3>02 — The Stoic Mind</h3>
-         A disciplined, old-world thinker.<br>
-    Objective: diffuse tension with a notoriously demanding client.<br>
-    Intervention: resolve obstacles before they appear and soften rigidity with warmth and consistency.<br>
-    Outcome: service excellence and a relational shift during a challenging transaction.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-    
-    <section class="section contact" id="contact" data-animate>
+    <!-- Contact / Footer -->
+    <section class="section contact-preview" data-animate>
       <div class="panel">
         <h2>Contact</h2>
-        <p>Interested in an exploratory conversation? Reach out: <a href="mailto:dare222bare@gmail.com">dare222bare@gmail.com</a></p>
+        <p class="bv-text">Inquiries accepted by invitation. <a href="contact.html">Inquire →</a></p>
       </div>
     </section>
 
@@ -298,6 +131,6 @@
     </footer>
   </main>
 
-  <script type="module" src="main3d.js"></script>
+  <script type="module" src="assets/js/main3d.js"></script>
 </body>
 </html>
