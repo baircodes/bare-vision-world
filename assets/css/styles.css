@@ -464,6 +464,149 @@ h2,
   line-height: 1.55;
 }
 
+/* PAGE HERO */
+.page-hero {
+  padding: 120px 20px 60px;
+  text-align: center;
+}
+
+.page-title {
+  font-family: "Audiowide", sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+}
+
+.page-sub {
+  margin-top: 10px;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* NAVIGATION */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.25);
+  padding: 12px 0;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.nav-logo {
+  font-family: "Audiowide", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: "Outfit", sans-serif;
+  padding: 4px 0;
+  opacity: 0.9;
+}
+
+.nav-links a.active {
+  opacity: 1;
+  border-bottom: 1px solid white;
+}
+
+/* MOBILE NAV */
+.mobile-nav {
+  display: none;
+}
+
+.mobile-toggle {
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  padding: 10px 20px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+@media (max-width: 820px) {
+  .nav { display: none; }
+  .mobile-nav {
+    display: block;
+    padding: 12px 20px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.25);
+  }
+}
+
+/* PROOF GRID */
+.proof-grid {
+  margin-top: 40px;
+  display: grid;
+  gap: 40px;
+}
+
+.proof-item {
+  padding: 30px;
+  border-radius: 20px;
+}
+
+/* BV Typography */
+.bv-subheader {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  font-family: "Audiowide", sans-serif;
+}
+
+.bv-title {
+  font-family: "Audiowide", sans-serif;
+  font-size: 1.3rem;
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+.bv-text {
+  font-size: 1rem;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.bv-divider {
+  margin: 60px 0 20px;
+  text-align: center;
+  font-family: "Audiowide", sans-serif;
+}
+
+.bv-divider span {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
 @media (max-width: 880px) {
   .proof-grid {
     grid-template-columns: 1fr;
