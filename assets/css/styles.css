@@ -772,3 +772,113 @@ h2,
   .proof-grid { grid-template-columns: 1fr; }
   .section .panel { padding:28px; margin: 18px auto; }
 }
+/* PAGE HERO */
+.steward-hero {
+  padding: 160px 20px 120px;
+  text-align: center;
+  background: radial-gradient(circle at center,
+    rgba(255,255,255,0.08) 0%,
+    rgba(20,20,20,1) 80%);
+}
+
+.page-title {
+  font-family: "Audiowide", sans-serif;
+  font-size: 42px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  font-family: "Outfit", sans-serif;
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+/* SECTIONS */
+.steward-section {
+  max-width: 900px;
+  margin: 140px auto;
+  padding: 0 20px;
+}
+
+.section-header {
+  font-family: "Audiowide", sans-serif;
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+
+.steward-text {
+  font-size: 17px;
+  line-height: 1.8;
+  opacity: 0.85;
+  margin-bottom: 24px;
+}
+
+/* LISTS */
+.steward-list {
+  margin: 20px 0 40px;
+  padding-left: 20px;
+}
+
+.steward-list li {
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+/* CARDS */
+.steward-card {
+  padding: 40px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  margin-bottom: 60px;
+}
+
+.card-title {
+  font-family: "Audiowide", sans-serif;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.card-text {
+  line-height: 1.7;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  padding: 120px 20px;
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.cta-title {
+  font-family: "Audiowide", sans-serif;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 32px;
+  background: white;
+  color: black;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  opacity: 0.8;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .steward-card {
+    padding: 28px;
+  }
+}
