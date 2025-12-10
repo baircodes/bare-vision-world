@@ -2,153 +2,190 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — BARE VISION</title>
 
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Styles (ensure path matches your project structure) -->
+  <link rel="stylesheet" href="assets/css/styles.css?v=7" />
+
+  <!-- Smooth scroll + scene (keep your main3d.js in assets/js) -->
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 </head>
+<body class="about-page">
 
-<body>
+  <!-- SKY + ORB LAYER (keeps the atmosphere consistent) -->
+  <div id="sky" aria-hidden="true"></div>
+  <div id="orb-layer" aria-hidden="true"></div>
 
-<!-- MOBILE NAV -->
-<nav class="mobile-nav">
-  <div class="mobile-nav-header">
-    <span class="nav-logo">BARE VISION</span>
-    <button id="mobileMenuToggle" class="mobile-toggle">☰</button>
-  </div>
+  <!-- NAV: Centered Logo above links (luxury editorial) -->
+  <header class="center-nav-bar" role="banner">
+    <div class="center-nav-inner">
+      <a class="center-brand" href="index.html">BARE VISION</a>
 
-  <ul id="mobileMenu" class="mobile-menu">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="project-stewardship.html">Project Stewardship</a></li>
-    <li><a href="mirror.html">Private 1:1</a></li>
-    <li><a class="active" href="about.html">About & Proof</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+      <nav class="center-nav-links" role="navigation" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="stewardship.html">Project Stewardship</a>
+        <a href="mirror.html">Private 1:1</a>
+        <a class="active" href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
 
-<!-- DESKTOP NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="nav-logo" href="index.html">BARE VISION</a>
+      <!-- mobile toggle -->
+      <button id="centerHamburger" class="center-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
 
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="project-stewardship.html">Project Stewardship</a></li>
-      <li><a href="mirror.html">Private 1:1</a></li>
-      <li><a class="active" href="about.html">About & Proof</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<div id="sky"></div>
-<div id="orb-layer"></div>
-
-<main id="site">
-
-  <header class="page-hero">
-    <h1 class="page-title">About BARE VISION</h1>
-    <p class="page-sub">The institution behind the discipline.</p>
+    <!-- mobile panel -->
+    <div id="centerMobile" class="center-mobile" aria-hidden="true">
+      <a href="index.html">Home</a>
+      <a href="stewardship.html">Project Stewardship</a>
+      <a href="mirror.html">Private 1:1</a>
+      <a class="active" href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </header>
 
-  <section class="section about">
-    <div class="panel">
+  <main id="site" class="site-content">
 
-      <h2 class="bv-subheader">The Initiative</h2>
+    <!-- Page hero -->
+    <section class="about-hero panel glass-ice" data-animate>
+      <h1 class="page-title">About — Bare Vision</h1>
+      <p class="page-lead">Clarity for leaders shaping the next era.</p>
+      <p class="page-sub">Orchestrating clarity for legacies that require absolute precision. Bare Vision is the consulting atelier for high-influence leaders seeking a quieter vantage point.</p>
+    </section>
 
-      <h3 class="bv-title">The Founding Principle</h3>
-      <p class="bv-text">
-        BARE VISION operates on one law:<br><br>
-        <strong>Keep it simple.</strong><br><br>
-        Clarity emerges when the breath steadies, the heart coheres, and awareness centers between the brows.
-      </p>
+    <!-- THE INITIATIVE (clear, distinct paragraphs but same section) -->
+    <section class="section institution" data-animate>
+      <div class="panel">
+        <h2 class="bv-subheader">THE INITIATIVE</h2>
 
-      <h3 class="bv-title">For Whom This Work Exists</h3>
-      <p class="bv-text">
-        For individuals fluent in philosophy, moved by consciousness, and responsible for others.
-      </p>
+        <p class="bv-paragraph">
+          <strong>The Founding Principle</strong><br>
+          BARE VISION operates on one law: <em>Keep it simple.</em> Clarity emerges when the breath steadies, the heart coheres, and awareness centers between the brows. From this state, timing sharpens and intuition becomes direction.
+        </p>
 
-      <h3 class="bv-title">The Standard</h3>
-      <p class="bv-text">
-        mental agility • contemplative discipline • curiosity without ego • integrity • precision in timing
-      </p>
+        <p class="bv-paragraph">
+          <strong>For whom this work exists</strong><br>
+          Those fluent in philosophy and consciousness; leaders, creators, diplomats and visionaries who move publicly but act privately. People observed by many, guided by few.
+        </p>
 
-      <h3 class="bv-title">The Unspoken Outcome</h3>
-      <p class="bv-text">
-        The ability to mute noise, read through illusion, and act from mission instead of distortion.
-      </p>
+        <p class="bv-paragraph">
+          <strong>The Standard</strong><br>
+          Mental agility. A practice of slowing down to speed up. Integrity, curiosity, and an expansive mind disciplined into action. Progress → Profit → Philanthropy.
+        </p>
 
-      <h3 class="bv-title">The Doctrine</h3>
-      <p class="bv-text">
-        <strong>The Art of Detachment and Observation.</strong><br><br>
-        A discipline devoted to elevating discernment by thinking clearly and feeling deeply.
-      </p>
+        <p class="bv-paragraph">
+          <strong>The Unspoken Outcome</strong><br>
+          The ability to mute noise, read through illusion, and act from mission instead of distortion.
+        </p>
 
-      <h2 class="bv-divider">THE FOUNDER <span>In First Person</span></h2>
-
-      <h3 class="bv-title">How This Began</h3>
-      <p class="bv-text">
-        Independent in thought. Observant. Difficult to influence.<br><br>
-        A decade of misalignment carved out clarity and responsibility.<br>
-        BARE VISION is the place the world I wanted to serve never had.
-      </p>
-
-      <h3 class="bv-title">What I See in People</h3>
-      <p class="bv-text">I read the layer beneath the surface — their patterning, their singularity, their unused opportunity.</p>
-
-      <h3 class="bv-title">Why Silence</h3>
-      <p class="bv-text">
-        Silence is not emptiness.<br>
-        Silence is strategy.
-      </p>
-
-    </div>
-  </section>
-
-  <!-- PROOF SECTION -->
-  <section class="section proof">
-    <div class="panel">
-      <h2 class="bv-subheader">Proof of Competence</h2>
-
-      <div class="proof-grid">
-
-        <div class="proof-item glass-ice">
-          <h3>01 — The Quiet Intervention</h3>
-          <p class="bv-text">
-            Stabilizing a politically sensitive, high-stakes international transaction.<br>
-            Cultural alignment → clean execution → strengthened diplomatic ties.
-          </p>
-        </div>
-
-        <div class="proof-item glass-ice">
-          <h3>02 — The Stoic Mind</h3>
-          <p class="bv-text">
-            Diffusing tension with a notoriously demanding client through consistency,
-            warmth, and anticipation.<br>
-            Result: a relational shift and a frictionless closing.
-          </p>
-        </div>
-
+        <p class="bv-paragraph">
+          <strong>The Doctrine</strong><br>
+          <em>The Art of Detachment and Observation.</em> A discipline devoted to elevating humanity’s capacity to think clearly and feel deeply.
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="footer">
-    <p>© BARE VISION — a division of BAIR Atmospheres</p>
-  </footer>
+    <!-- Founder block with photo placeholder between about & proof -->
+    <section class="section founder" data-animate>
+      <div class="panel founder-panel glass-ice">
+        <div class="founder-grid">
+          <div class="founder-copy">
+            <h2 class="bv-subheader small">THE FOUNDER</h2>
 
-</main>
+            <p class="bv-paragraph">
+              I have been difficult to influence for as long as I can remember — independent in thought, quietly observing others, unafraid to express perception and to test it in the world. My twenties fractured that clarity; a decade of misalignment, grief and learning shaped a steady approach to leadership and decision.
+            </p>
 
-<script>
-  // Simple mobile menu toggle
-  document.getElementById("mobileMenuToggle").onclick = () => {
-    document.getElementById("mobileMenu").classList.toggle("open");
-  };
-</script>
+            <p class="bv-paragraph">
+              The whole BAIR ecosystems exists as the place the world I wanted to serve never had. I build conditions for decisive action by training attention — breath, heart, brow — and by refining the systems that allow high-stakes choices to land with precision.
+            </p>
+
+            <p class="bv-paragraph small">
+              <strong>My promise:</strong> After working together you will be quieter inside, faster where it counts, and steadier when everything else accelerates.
+            </p>
+          </div>
+
+          <div class="founder-photo">
+            <!-- Placeholder image; replace with your portrait when ready -->
+            <div class="photo-frame">
+              <img src="assets/img/founder-placeholder.jpg" alt="Founder portrait placeholder" />
+            </div>
+            <p class="photo-caption">Founder — Daphné Jerbi </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF (kept concise here; detailed case pages later if desired) -->
+    <section class="section proof" data-animate>
+      <div class="panel">
+        <h2 class="bv-subheader">PROVEN CLARITY</h2>
+
+        <div class="proof-grid">
+          <div class="proof-item">
+            <h3 class="proof-title">01 — The Quiet Intervention</h3>
+            <p class="bv-text">Stabilized the environment's atmosphere during a politically sensitive international transaction. Cultural alignment → clean execution → indirectly strengthened diplomatic ties.</p>
+          </div>
+
+          <div class="proof-item">
+            <h3 class="proof-title">02 — The Stoic Mind</h3>
+            <p class="bv-text">Diffused tension with a notoriously demanding client through anticipatory structure and human presence. Result: sustained trust and a frictionless transaction process.</p>
+          </div>
+
+          <div class="proof-item">
+            <h3 class="proof-title">03 — Founder Foresight</h3>
+            <p class="bv-text">Advised a creative founder on timing, ritualized decision, and resource choreography. Outcome: clearer runway and strategic confidence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREQUAL & CTAs -->
+    <section class="section prequal" data-animate>
+      <div class="panel glass-ice">
+        <h3 class="bv-title">Prequalification</h3>
+        <p class="bv-text">We work with individuals whose "why" already serves others and the earth. If your aim is purely self-centered, this is not the right place.</p>
+
+        <p class="cta-micro">Collaborating with BARE VISION feels like relief, clarity, and a quiet surge of confidence.</p>
+
+        <div class="panel-cta">
+          <a href="contact.html" class="btn orb primary">Inquire</a>
+          <a href="mirror.html" class="btn orb secondary">Face Your Mirror</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© BARE VISION ☺ a division of BAIR Atmospheres</p>
+    </footer>
+  </main>
+
+  <!-- main3d script (keeps lenis + pearls) -->
+  <script type="module" src="assets/js/main3d.js"></script>
+
+  <!-- NAV + MOBILE script -->
+  <script>
+    // centered mobile toggle
+    const ham = document.getElementById('centerHamburger');
+    const mobile = document.getElementById('centerMobile');
+    ham && ham.addEventListener('click', () => {
+      const open = ham.getAttribute('aria-expanded') === 'true';
+      ham.setAttribute('aria-expanded', open ? 'false' : 'true');
+      mobile.classList.toggle('open');
+      mobile.setAttribute('aria-hidden', open ? 'true' : 'false');
+    });
+
+    // enable intersection reveals already in your main3d.js but keep fallback
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      el.classList.add('visible');
+    });
+  </script>
 
 </body>
 </html>
