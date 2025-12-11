@@ -5,75 +5,56 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — BARE VISION</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Styles (ensure path matches your project structure) -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=7" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=8" />
 
-  <!-- Smooth scroll + scene (keep your main3d.js in assets/js) -->
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 </head>
+
 <body class="about-page">
 
-  <!-- SKY + ORB LAYER (keeps the atmosphere consistent) -->
   <div id="sky" aria-hidden="true"></div>
   <div id="orb-layer" aria-hidden="true"></div>
 
-  <!-- NAV: Force Tranquille (top sleek bar) -->
- <header class="bv-header-bar">
-  <div class="bv-nav-wrapper">
-    <a href="index.html" class="bv-logo">BARE VISION</a>
-    <nav class="bv-nav">
-      <a href="about.html">About</a>
-      <a href="stewardship.html">Project Stewardship</a>
-      <a href="mirror.html">Private 1:1</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="bv-mobile-toggle">☰</div>
-  </div>
-</header>
-  
-<div class="bv-mobile-menu">
-  <a href="about.html">About</a>
-  <a href="stewardship.html">Project Stewardship</a>
-  <a href="mirror.html">Private 1:1</a>
-  <a href="contact.html">Contact</a>
-</div>
-      <!-- mobile toggle -->
-      <button id="centerHamburger" class="center-hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+  <header class="bv-header-bar">
+    <div class="bv-nav-wrapper">
+      <a href="index.html" class="bv-logo">BARE VISION</a>
+      
+      <nav class="bv-nav">
+        <a href="about.html">About</a>
+        <a href="stewardship.html">Project Stewardship</a>
+        <a href="mirror.html">Private 1:1</a>
+        <a href="contact.html">Contact</a>
+      </nav>
 
-    <!-- mobile panel -->
-    <div id="centerMobile" class="center-mobile" aria-hidden="true">
-      <a href="index.html">Home</a>
-      <a href="stewardship.html">Project Stewardship</a>
-      <a href="mirror.html">Private 1:1</a>
-      <a class="active" href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <div class="bv-mobile-toggle" aria-label="Open menu">☰</div>
     </div>
   </header>
 
+  <div class="bv-mobile-menu">
+    <a href="about.html">About</a>
+    <a href="stewardship.html">Project Stewardship</a>
+    <a href="mirror.html">Private 1:1</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
   <main id="site" class="site-content">
 
-    <!-- Page hero -->
     <section class="about-hero panel glass-ice" data-animate>
       <h1 class="page-title">About — Bare Vision</h1>
       <p class="page-lead">Clarity for leaders shaping the next era.</p>
       <p class="page-sub">Orchestrating clarity for legacies that require absolute precision. Bare Vision is the consulting atelier for high-influence leaders seeking a quieter vantage point.</p>
     </section>
 
-    <!-- THE INITIATIVE (clear, distinct paragraphs but same section) -->
     <section class="section institution" data-animate>
       <div class="panel">
         <h2 class="bv-subheader">THE INITIATIVE</h2>
 
         <p class="bv-paragraph">
           <strong>The Founding Principle</strong><br>
-          BARE VISION operates on the principle: <em>Keep it simple (stupid ☺︎).</em> <br> 
+          BARE VISION operates on the principle: <em>Keep it simple.</em> <br> 
           Clarity emerges when the breath steadies, the heart coheres, and awareness centers between the brows. From this state, timing sharpens and intuition becomes direction.
         </p>
 
@@ -99,7 +80,6 @@
       </div>
     </section>
 
-    <!-- Founder block with photo placeholder between about & proof -->
     <section class="section founder" data-animate>
       <div class="panel founder-panel glass-ice">
         <div class="founder-grid">
@@ -111,7 +91,7 @@
             </p>
 
             <p class="bv-paragraph">
-              The whole BAIR ecosystems exists as the place the world I wanted to serve never had. I build conditions for decisive action by training attention — breath, heart, brow — and by refining the systems that allow high-stakes choices to land with precision.
+              The BAIR ecosystem acts as the space you need it to be. I build conditions for decisive action by training attention — breath, heart, brow — and by refining the systems that allow high-stakes choices to land with precision.
             </p>
 
             <p class="bv-paragraph small">
@@ -120,17 +100,15 @@
           </div>
 
           <div class="founder-photo">
-            <!-- Placeholder image; replace with your portrait when ready -->
             <div class="photo-frame">
               <img src="assets/img/founder-placeholder.jpg" alt="Founder portrait placeholder" />
             </div>
-            <p class="photo-caption">Founder — Daphné Jerbi </p>
+            <p class="photo-caption">Founder — Daphné Jerbi</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROOF (kept concise here; detailed case pages later if desired) -->
     <section class="section proof" data-animate>
       <div class="panel">
         <h2 class="bv-subheader">PROVEN CLARITY</h2>
@@ -154,7 +132,6 @@
       </div>
     </section>
 
-    <!-- PREQUAL & CTAs -->
     <section class="section prequal" data-animate>
       <div class="panel glass-ice">
         <h3 class="bv-title">Prequalification</h3>
@@ -162,39 +139,11 @@
 
         <p class="cta-micro">Collaborating with BARE VISION feels like relief, clarity, and a quiet surge of confidence.</p>
 
-        <div class="panel-cta">
-          <a href="contact.html" class="btn orb primary">Inquire</a>
+        <div class="cta-group"> <a href="contact.html" class="btn orb primary">Inquire</a>
           <a href="mirror.html" class="btn orb secondary">Face Your Mirror</a>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
-      <p>© BARE VISION ☺ a division of BAIR Atmospheres</p>
-    </footer>
-  </main>
-
-  <!-- main3d script (keeps lenis + pearls) -->
-  <script type="module" src="assets/js/main3d.js"></script>
-
-  <!-- NAV + MOBILE script -->
-  <script>
-    // centered mobile toggle
-    const ham = document.getElementById('centerHamburger');
-    const mobile = document.getElementById('centerMobile');
-    ham && ham.addEventListener('click', () => {
-      const open = ham.getAttribute('aria-expanded') === 'true';
-      ham.setAttribute('aria-expanded', open ? 'false' : 'true');
-      mobile.classList.toggle('open');
-      mobile.setAttribute('aria-hidden', open ? 'true' : 'false');
-    });
-
-    // enable intersection reveals already in your main3d.js but keep fallback
-<script>
-document.querySelector(".bv-mobile-toggle").addEventListener("click", () => {
-  document.querySelector(".bv-mobile-menu").classList.toggle("active");
-});
-</script>
-  
-</body>
-</html>
+    <footer class="footer" style="text-align:center; padding: 40px; opacity:0.6; font-size: 0.8rem;">
+      <p>© BARE VISION ☺
