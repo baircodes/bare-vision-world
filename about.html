@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=8" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=9" />
 
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
 </head>
@@ -21,14 +21,12 @@
   <header class="bv-header-bar">
     <div class="bv-nav-wrapper">
       <a href="index.html" class="bv-logo">BARE VISION</a>
-      
       <nav class="bv-nav">
         <a href="about.html">About</a>
         <a href="stewardship.html">Project Stewardship</a>
         <a href="mirror.html">Private 1:1</a>
         <a href="contact.html">Contact</a>
       </nav>
-
       <div class="bv-mobile-toggle" aria-label="Open menu">☰</div>
     </div>
   </header>
@@ -42,19 +40,19 @@
 
   <main id="site" class="site-content">
 
-    <section class="about-hero panel glass-ice" data-animate>
+    <section class="about-hero section panel glass-ice">
       <h1 class="page-title">About — Bare Vision</h1>
       <p class="page-lead">Clarity for leaders shaping the next era.</p>
       <p class="page-sub">Orchestrating clarity for legacies that require absolute precision. Bare Vision is the consulting atelier for high-influence leaders seeking a quieter vantage point.</p>
     </section>
 
-    <section class="section institution" data-animate>
+    <section class="section institution">
       <div class="panel">
         <h2 class="bv-subheader">THE INITIATIVE</h2>
 
         <p class="bv-paragraph">
           <strong>The Founding Principle</strong><br>
-          BARE VISION operates on the principle: <em>Keep it simple.</em> <br> 
+          BARE VISION operates on the principle: <em>Keep it simple (stupid ☺︎).</em> <br> 
           Clarity emerges when the breath steadies, the heart coheres, and awareness centers between the brows. From this state, timing sharpens and intuition becomes direction.
         </p>
 
@@ -80,25 +78,21 @@
       </div>
     </section>
 
-    <section class="section founder" data-animate>
+    <section class="section founder">
       <div class="panel founder-panel glass-ice">
         <div class="founder-grid">
           <div class="founder-copy">
             <h2 class="bv-subheader small">THE FOUNDER</h2>
-
             <p class="bv-paragraph">
               I have been difficult to influence for as long as I can remember — independent in thought, quietly observing others, unafraid to express perception and to test it in the world. My twenties fractured that clarity; a decade of misalignment, grief and learning shaped a steady approach to leadership and decision.
             </p>
-
             <p class="bv-paragraph">
-              The BAIR ecosystem acts as the space you need it to be. I build conditions for decisive action by training attention — breath, heart, brow — and by refining the systems that allow high-stakes choices to land with precision.
+              The whole BAIR ecosystems exists as the place the world I wanted to serve never had. I build conditions for decisive action by training attention — breath, heart, brow — and by refining the systems that allow high-stakes choices to land with precision.
             </p>
-
             <p class="bv-paragraph small">
               <strong>My promise:</strong> After working together you will be quieter inside, faster where it counts, and steadier when everything else accelerates.
             </p>
           </div>
-
           <div class="founder-photo">
             <div class="photo-frame">
               <img src="assets/img/founder-placeholder.jpg" alt="Founder portrait placeholder" />
@@ -109,21 +103,18 @@
       </div>
     </section>
 
-    <section class="section proof" data-animate>
+    <section class="section proof">
       <div class="panel">
         <h2 class="bv-subheader">PROVEN CLARITY</h2>
-
         <div class="proof-grid">
           <div class="proof-item">
             <h3 class="proof-title">01 — The Quiet Intervention</h3>
             <p class="bv-text">Stabilized the environment's atmosphere during a politically sensitive international transaction. Cultural alignment → clean execution → indirectly strengthened diplomatic ties.</p>
           </div>
-
           <div class="proof-item">
             <h3 class="proof-title">02 — The Stoic Mind</h3>
             <p class="bv-text">Diffused tension with a notoriously demanding client through anticipatory structure and human presence. Result: sustained trust and a frictionless transaction process.</p>
           </div>
-
           <div class="proof-item">
             <h3 class="proof-title">03 — Founder Foresight</h3>
             <p class="bv-text">Advised a creative founder on timing, ritualized decision, and resource choreography. Outcome: clearer runway and strategic confidence.</p>
@@ -132,18 +123,68 @@
       </div>
     </section>
 
-    <section class="section prequal" data-animate>
+    <section class="section prequal">
       <div class="panel glass-ice">
         <h3 class="bv-title">Prequalification</h3>
         <p class="bv-text">We work with individuals whose "why" already serves others and the earth. If your aim is purely self-centered, this is not the right place.</p>
-
         <p class="cta-micro">Collaborating with BARE VISION feels like relief, clarity, and a quiet surge of confidence.</p>
-
-        <div class="cta-group"> <a href="contact.html" class="btn orb primary">Inquire</a>
+        <div class="cta-group">
+          <a href="contact.html" class="btn orb primary">Inquire</a>
           <a href="mirror.html" class="btn orb secondary">Face Your Mirror</a>
         </div>
       </div>
     </section>
 
     <footer class="footer" style="text-align:center; padding: 40px; opacity:0.6; font-size: 0.8rem;">
-      <p>© BARE VISION ☺
+      <p>© BARE VISION ☺ a division of BAIR Atmospheres</p>
+    </footer>
+  </main>
+
+  <script type="module" src="assets/js/main3d.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. MOBILE MENU LOGIC
+      const toggleBtn = document.querySelector(".bv-mobile-toggle");
+      const mobileMenu = document.querySelector(".bv-mobile-menu");
+      const navLinks = document.querySelectorAll(".bv-mobile-menu a");
+
+      if(toggleBtn && mobileMenu) {
+        toggleBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("active");
+          toggleBtn.innerHTML = mobileMenu.classList.contains("active") ? "✕" : "☰";
+        });
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove("active");
+            toggleBtn.innerHTML = "☰";
+          });
+        });
+      }
+
+      // 2. FADE-IN REVEALER (The Fix)
+      // This forces the "visible" class onto elements so they stop being invisible
+      const observerOptions = { threshold: 0.1 };
+      
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target); // Stop watching once visible
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.section').forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Force hero visible immediately just in case
+      const hero = document.querySelector('.about-hero');
+      if(hero) hero.classList.add('visible');
+    });
+  </script>
+
+</body>
+</html>
