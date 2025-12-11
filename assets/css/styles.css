@@ -602,9 +602,7 @@ h2,
 .steward-hero {
   padding: 160px 20px 120px;
   text-align: center;
-  background: radial-gradient(circle at center,
-    rgba(255,255,255,0.08) 0%,
-    rgba(20,20,20,1) 80%);
+background: radial-gradient(900px at 50% 40%, rgba(235,243,238,0.8), transparent 70%),linear-gradient(to bottom, #F9F7F2, #F4F2EC);
 }
 
 .page-title {
@@ -650,14 +648,40 @@ h2,
   margin-bottom: 10px;
   opacity: 0.85;
 }
-
 /* CARDS */
 .steward-card {
+  /* 1. Layout & Spacing */
   padding: 40px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 16px;
   margin-bottom: 60px;
+  
+  /* 2. The "Glass" Effect */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+
+  /* UX UPGRADE: Frost the glass so text is readable regardless of the background image */
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+
+  /* UX UPGRADE: Smooth transition for hover effects (subconscious quality cue) */
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* UX UPGRADE: Add a subtle lift on hover. 
+   Investors love tactile, responsive interfaces. */
+.steward-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* TYPOGRAPHY */
+.steward-card p,
+.steward-card li {
+  /* Ensure this contrasts well against your page background */
+  color: rgba(20, 20, 20, 0.82); 
+  
+  /* UX UPGRADE: specific line-height improves reading speed */
+  line-height: 1.6; 
 }
 
 .card-title {
