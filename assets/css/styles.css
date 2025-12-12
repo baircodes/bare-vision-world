@@ -232,6 +232,37 @@ body{
 .card-title{ font-family:'Audiowide',sans-serif; font-size:1.1rem; margin-bottom:12px; }
 .card-text{ margin-bottom:14px; }
 
+.steward-section {
+  padding: 90px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-header {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 24px;
+  color:#111;
+}
+
+.steward-text {
+  font-size: 1.05rem;
+  color: rgba(10,10,10,0.85);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.steward-hero {
+  padding: 160px 20px 110px;
+  text-align: center;
+  background: radial-gradient(
+        900px at center,
+        rgba(240,244,239,0.65),
+        rgba(249,247,242,1)
+  );
+}
+
 /* CTA */
 .cta-section{ text-align:center; padding:120px 20px; border-top:1px solid rgba(0,0,0,0.02); background:transparent; }
 .cta-title{ font-family:'Audiowide',sans-serif; font-size:1.6rem; margin-bottom:10px; }
