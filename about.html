@@ -14,42 +14,52 @@
 
   <!-- Lenis -->
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+  
 </head>
 <body class="about-page">
 
- <div id="sky"></div>
+<!-- GLOBAL BACKGROUND (must be present on every page) -->
+<div id="sky"></div>
 <div id="orb-layer"></div>
 
-  
-  <!-- NAV -->
-  <header class="bv-header-bar" role="banner">
-    <div class="bv-nav">
-      <a class="bv-logo" href="index.html">BARE VISION</a>
+<!-- FORCE TRANQUILLE NAV — single source of truth for every page -->
+<header class="bv-header-bar" role="banner">
+  <div class="bv-nav">
+    <a class="bv-logo" href="index.html">BARE VISION</a>
 
-      <nav aria-label="Main" class="bv-nav-links">
-        <a href="about.html" aria-current="page">About</a>
-        <div class="nav-work">
-          <button class="work-toggle" id="workToggleAbout" aria-expanded="false">Work ▾</button>
-          <div class="work-dropdown" id="workDropdownAbout" aria-hidden="true">
-            <a href="mirror.html">The Mirror™</a>
-            <a href="stewardship.html">Blueprint & Playbook™</a>
-          </div>
+    <nav aria-label="Main" class="bv-nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+
+      <div class="nav-work">
+        <!-- DO NOT EDIT the ids below — used by shared script -->
+        <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
+        <div class="work-dropdown" id="workDropdown" aria-hidden="true">
+          <a href="mirror.html">The Mirror™</a>
+          <a href="stewardship.html">Blueprint & Playbook™</a>
         </div>
-        <a href="contact.html">Contact</a>
-      </nav>
+      </div>
 
-      <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+      <a href="contact.html">Contact</a>
+    </nav>
 
-  <div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <details class="mobile-work"><summary>Work</summary><a href="mirror.html">The Mirror™</a><a href="stewardship.html">Blueprint & Playbook™</a></details>
-    <a href="contact.html">Contact</a>
+    <!-- mobile hamburger (same for all pages) -->
+    <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</header>
+
+<!-- Mobile menu (same for all pages) -->
+<div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <details class="mobile-work"><summary>Work</summary>
+    <a href="mirror.html">The Mirror™</a>
+    <a href="stewardship.html">Blueprint & Playbook™</a>
+  </details>
+  <a href="contact.html">Contact</a>
+</div>
 
   <main id="site">
     <section class="about-hero panel" data-animate>
@@ -158,28 +168,48 @@
   <!-- main3d script -->
   <script type="module" src="assets/js/main3d.js"></script>
 
-  <script>
-    // About page dropdown + mobile behaviour (same single-script approach)
-    (function(){
-      const toggle = document.getElementById('workToggleAbout');
-      const dropdown = document.getElementById('workDropdownAbout');
-      toggle && toggle.addEventListener('click', ()=>{
-        const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        dropdown.classList.toggle('open');
-        dropdown.setAttribute('aria-hidden', expanded ? 'true' : 'false');
-      });
+ <!-- GLOBAL BACKGROUND (must be present on every page) -->
+<div id="sky"></div>
+<div id="orb-layer"></div>
 
-      // Mobile menu re-use
-      const burger = document.getElementById('bv-hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      burger && burger.addEventListener('click', ()=>{
-        const open = burger.getAttribute('aria-expanded') === 'true';
-        burger.setAttribute('aria-expanded', open ? 'false' : 'true');
-        mobileMenu.classList.toggle('open');
-        mobileMenu.setAttribute('aria-hidden', open ? 'true' : 'false');
-      });
-    })();
-  </script>
+<!-- FORCE TRANQUILLE NAV — single source of truth for every page -->
+<header class="bv-header-bar" role="banner">
+  <div class="bv-nav">
+    <a class="bv-logo" href="index.html">BARE VISION</a>
+
+    <nav aria-label="Main" class="bv-nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+
+      <div class="nav-work">
+        <!-- DO NOT EDIT the ids below — used by shared script -->
+        <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
+        <div class="work-dropdown" id="workDropdown" aria-hidden="true">
+          <a href="mirror.html">The Mirror™</a>
+          <a href="stewardship.html">Blueprint & Playbook™</a>
+        </div>
+      </div>
+
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- mobile hamburger (same for all pages) -->
+    <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu (same for all pages) -->
+<div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <details class="mobile-work"><summary>Work</summary>
+    <a href="mirror.html">The Mirror™</a>
+    <a href="stewardship.html">Blueprint & Playbook™</a>
+  </details>
+  <a href="contact.html">Contact</a>
+</div>
+  
 </body>
 </html>
