@@ -71,44 +71,35 @@
 <div id="sky"></div>
 <div id="orb-layer"></div>
 
-<!-- FORCE TRANQUILLE NAV — single source of truth for every page -->
-<header class="bv-header-bar" role="banner">
-  <div class="bv-nav">
-    <a class="bv-logo" href="index.html">BARE VISION</a>
+ <!-- FORCE TRANQUILLE NAV -->
+ <header class="bv-header-bar" role="banner">
+    <div class="bv-nav">
+      <a class="bv-logo" href="index.html">BARE VISION</a>
 
-    <nav aria-label="Main" class="bv-nav-links">
+    <nav class="bv-nav-links">
       <a href="index.html">Home</a>
+      <a href="stewardship.html" class="active">Project Stewardship</a>
+      <a href="mirror.html">Private 1:1</a>
       <a href="about.html">About</a>
-
-      <div class="nav-work">
-        <!-- DO NOT EDIT the ids below — used by shared script -->
-        <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
-        <div class="work-dropdown" id="workDropdown" aria-hidden="true">
-          <a href="mirror.html">The Mirror™</a>
-          <a href="stewardship.html">Blueprint & Playbook™</a>
-        </div>
-      </div>
-
       <a href="contact.html">Contact</a>
     </nav>
-
-    <!-- mobile hamburger (same for all pages) -->
-    <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
+      
+ </div>
+    <button class="bv-hamburger" onclick="document.querySelector('.bv-mobile-menu').classList.toggle('open')">
       <span></span><span></span><span></span>
     </button>
+
   </div>
 </header>
 
-<!-- Mobile menu (same for all pages) -->
-<div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
+<div class="bv-mobile-menu">
   <a href="index.html">Home</a>
+  <a href="stewardship.html" class="active">Project Stewardship</a>
+  <a href="mirror.html">Private 1:1</a>
   <a href="about.html">About</a>
-  <details class="mobile-work"><summary>Work</summary>
-    <a href="mirror.html">The Mirror™</a>
-    <a href="stewardship.html">Blueprint & Playbook™</a>
-  </details>
   <a href="contact.html">Contact</a>
 </div>
+
 
   <main id="site">
     <section class="about-hero panel" data-animate>
