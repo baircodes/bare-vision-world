@@ -9,86 +9,58 @@
 
 <body class="about-page">
 
-  <!-- NAV (shared with About page for consistency) -->
-  <div class="center-nav-bar">
-    <div class="center-nav-inner">
-      <a href="index.html" class="center-brand">BARE VISION</a>
+  <div id="sky" aria-hidden="true"></div>
+  <div id="orb-layer" aria-hidden="true"></div>
 
-      <nav class="center-nav-links">
+  <!-- NAV -->
+  <header class="bv-header-bar" role="banner">
+    <div class="bv-nav">
+      <a class="bv-logo" href="index.html">BARE VISION</a>
+
+      <nav aria-label="Main" class="bv-nav-links">
         <a href="index.html">Home</a>
-        <a href="project-stewardship.html" class="active">Project Stewardship</a>
-        <a href="mirror.html">Private 1:1</a>
+        <div class="nav-work">
+          <button class="work-toggle" id="workToggleStew" aria-expanded="false">Work ▾</button>
+          <div class="work-dropdown" id="workDropdownStew" aria-hidden="true">
+            <a href="mirror.html">The Mirror™</a>
+            <a href="stewardship.html">Blueprint & Playbook™</a>
+          </div>
+        </div>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </nav>
 
-      <!-- Mobile -->
-      <button class="center-hamburger" onclick="document.querySelector('.center-mobile').classList.toggle('open')">
+      <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
-  </div>
+  </header>
 
-  <div class="center-mobile">
+  <div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
     <a href="index.html">Home</a>
-    <a href="project-stewardship.html" class="active">Project Stewardship</a>
-    <a href="mirror.html">Private 1:1</a>
     <a href="about.html">About</a>
+    <details class="mobile-work"><summary>Work</summary><a href="mirror.html">The Mirror™</a><a href="stewardship.html">Blueprint & Playbook™</a></details>
     <a href="contact.html">Contact</a>
   </div>
 
   <!-- HERO -->
-  <section class="steward-hero" style="
-      background: radial-gradient(
-        900px at center,
-        rgba(240,244,239,0.75),
-        rgba(249,247,242,1)
-      );
-      color:#111;
-    ">
+  <section class="steward-hero" style="background:radial-gradient(900px at center, rgba(240,244,239,0.75), rgba(249,247,242,1)); color:#111;">
     <h1 class="page-title">Project Stewardship</h1>
-    <p class="page-subtitle">
-      The strategic scaffolding that elevates a mind, a mission, and a timeline.
-    </p>
+    <p class="page-subtitle">The strategic scaffolding that elevates a mind, a mission, and a timeline.</p>
   </section>
 
-  <!-- SECTION: INTRO -->
-  <section class="steward-section fade-in">
+  <!-- INTRO -->
+  <section class="steward-section">
     <h2 class="section-header">Architecting the Future You’re Meant to Lead</h2>
-    <p class="steward-text">
-      Project Stewardship is the private, structured container for founders, creators,
-      diplomats, artists, innovators and ethical leaders who understand something rare:
-      <strong>your consciousness is the engine of your impact.</strong><br><br>
-
-      You already sense the mission.  
-      You already feel the responsibility.  
-      You already know that the world you’re building requires clarity, emotional mastery and a 
-      timeline strategy that keeps you aligned rather than reactive.
-    </p>
-
-    <p class="steward-text">
-      This is where we refine your *mental architecture* — your ethical leadership, your 
-      intuitive sharpness, your decisions, your visibility, your voice, your timing, your meaning.  
-      Together we sculpt the version of you that can steward the people, resources and opportunities 
-      your mission will inevitably attract.
-    </p>
+    <p class="steward-text">Project Stewardship is the private, structured container for founders, creators, diplomats, artists, innovators and ethical leaders who understand something rare: <strong>your consciousness is the engine of your impact.</strong></p>
+    <p class="steward-text">This is where we refine your mental architecture — your ethical leadership, your intuitive sharpness, your decisions, your visibility, your voice, your timing, your meaning.</p>
   </section>
 
-
-  <!-- BLUEPRINT CARD -->
-  <section class="steward-section fade-in">
-    <div class="steward-card" style="
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(120,130,120,0.15);
-      backdrop-filter: blur(16px) saturate(130%);
-    ">
+  <!-- BLUEPRINT -->
+  <section class="steward-section">
+    <div class="steward-card">
       <h3 class="card-title">THE BLUEPRINT</h3>
-
-      <p class="card-text">
-        Your mind, your patterns, your performance and your environment form a system.
-        The Blueprint is where we make that system visible.
-      </p>
-
+      <p class="card-text">Your mind, your patterns, your performance and your environment form a system. The Blueprint is where we make that system visible.</p>
       <ul class="steward-list">
         <li>Pattern detection across behaviour, habits and environmental triggers</li>
         <li>Timeline mapping — identifying optimal windows for action vs stillness</li>
@@ -96,28 +68,14 @@
         <li>The silent skills: observation, neutrality, precision, rhythm</li>
         <li>Where your intuition has been right all along — and why</li>
       </ul>
-
-      <p class="card-text">
-        The Blueprint provides the clarity most people spend a lifetime unconsciously seeking.
-      </p>
     </div>
   </section>
 
-
-  <!-- PLAYBOOK CARD -->
-  <section class="steward-section fade-in">
-    <div class="steward-card" style="
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(120,130,120,0.15);
-      backdrop-filter: blur(16px) saturate(130%);
-    ">
+  <!-- PLAYBOOK -->
+  <section class="steward-section">
+    <div class="steward-card">
       <h3 class="card-title">THE PLAYBOOK</h3>
-
-      <p class="card-text">
-        The Playbook is where the strategy becomes embodied — moment by moment,
-        conversation by conversation, decision by decision.
-      </p>
-
+      <p class="card-text">The Playbook is where the strategy becomes embodied — moment by moment, conversation by conversation, decision by decision.</p>
       <ul class="steward-list">
         <li>Communication refinement (public, private, and silent)</li>
         <li>Decision architecture: how to select correctly under pressure</li>
@@ -125,25 +83,40 @@
         <li>Conflict dissolution & tension navigation</li>
         <li>Maintaining neutrality, integrity and calm while raising standards</li>
       </ul>
-
-      <p class="card-text">
-        The Playbook is the operating system that ensures your mission scales
-        with precision, elegance and discernment.
-      </p>
     </div>
   </section>
 
-
-  <!-- CTA -->
   <section class="cta-section">
     <h3 class="cta-title">You’re building something the world will feel.</h3>
-    <p class="steward-text" style="text-align:center; max-width:700px; margin:0 auto;">
-      Let’s architect the leader who can hold it.
-    </p>
-
+    <p class="steward-text" style="text-align:center; max-width:700px; margin:0 auto;">Let’s architect the leader who can hold it.</p>
     <a class="cta-btn" href="contact.html">Begin the Conversation</a>
   </section>
 
-  <script src="main.js"></script>
+  <footer class="footer">
+    <p>© BARE VISION ☺ a division of BAIR Atmospheres</p>
+  </footer>
+
+  <script>
+    // dropdown + mobile menu for stewardship page
+    (function(){
+      const t = document.getElementById('workToggleStew');
+      const d = document.getElementById('workDropdownStew');
+      t && t.addEventListener('click', ()=>{
+        const e = t.getAttribute('aria-expanded') === 'true';
+        t.setAttribute('aria-expanded', e ? 'false' : 'true');
+        d.classList.toggle('open');
+        d.setAttribute('aria-hidden', e ? 'true' : 'false');
+      });
+
+      const burger = document.getElementById('bv-hamburger');
+      const mobile = document.getElementById('mobileMenu');
+      burger && burger.addEventListener('click', ()=>{
+        const open = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+        mobile.classList.toggle('open');
+        mobile.setAttribute('aria-hidden', open ? 'true' : 'false');
+      });
+    })();
+  </script>
 </body>
 </html>
