@@ -17,26 +17,35 @@
   <div id="sky"></div>
 <div id="orb-layer"></div>
   
-    <!-- NAV: Force Tranquille (top sleek bar) -->
- <header class="bv-header-bar">
-  <div class="bv-nav-wrapper">
-    <a href="index.html" class="bv-logo">BARE VISION</a>
-    <nav class="bv-nav">
-      <a href="about.html">About</a>
-      <a href="stewardship.html">Project Stewardship</a>
+ <!-- FORCE TRANQUILLE NAV -->
+ <header class="bv-header-bar" role="banner">
+    <div class="bv-nav">
+      <a class="bv-logo" href="index.html">BARE VISION</a>
+
+    <nav class="bv-nav-links">
+      <a href="index.html">Home</a>
+      <a href="stewardship.html" class="active">Project Stewardship</a>
       <a href="mirror.html">Private 1:1</a>
+      <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <div class="bv-mobile-toggle">☰</div>
+      
+ </div>
+    <button class="bv-hamburger" onclick="document.querySelector('.bv-mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+
   </div>
 </header>
-  
+
 <div class="bv-mobile-menu">
-  <a href="about.html">About</a>
-  <a href="stewardship.html">Project Stewardship</a>
+  <a href="index.html">Home</a>
+  <a href="stewardship.html" class="active">Project Stewardship</a>
   <a href="mirror.html">Private 1:1</a>
+  <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
 </div>
+
 
   <main id="site">
     <section class="section" data-animate>
