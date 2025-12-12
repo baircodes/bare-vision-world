@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css" />
 
   <!-- Lenis -->
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
@@ -32,44 +32,40 @@
   <div id="orb-layer" aria-hidden="true"></div>
 
   <!-- NAV: FORCE TRANQUILLE -->
-  <header class="bv-header-bar">
-    <nav class="bv-nav" role="navigation" aria-label="Main navigation">
-      <a class="nav-brand" href="index.html">BARE VISION</a>
+  <header class="bv-header-bar" role="banner">
+    <div class="bv-nav">
+      <a class="bv-logo" href="index.html">BARE VISION</a>
 
-      <div class="nav-actions">
-        <ul class="nav-links" id="nav-links">
-          <li><a href="about.html">About</a></li>
+      <nav aria-label="Main" class="bv-nav-links">
+        <a href="about.html">About</a>
 
-          <li class="nav-work" aria-haspopup="true">
-            <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
-            <div class="work-dropdown" id="workDropdown" role="menu" aria-hidden="true">
-              <a role="menuitem" href="mirror.html">The Mirror™</a>
-              <a role="menuitem" href="stewardship.html">Blueprint & Playbook™</a>
-            </div>
-          </li>
+        <div class="nav-work">
+          <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
+          <div class="work-dropdown" id="workDropdown" aria-hidden="true">
+            <a href="mirror.html">The Mirror™</a>
+            <a href="stewardship.html">Blueprint & Playbook™</a>
+          </div>
+        </div>
 
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <a href="contact.html">Contact</a>
+      </nav>
 
-        <!-- mobile hamburger -->
-        <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- mobile slide menu -->
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <details class="mobile-work" aria-label="Work menu">
-        <summary>Work</summary>
-        <a href="mirror.html">The Mirror™</a>
-        <a href="stewardship.html">Blueprint & Playbook™</a>
-      </details>
-      <a href="contact.html">Contact</a>
+      <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <details class="mobile-work">
+      <summary>Work</summary>
+      <a href="mirror.html">The Mirror™</a>
+      <a href="stewardship.html">Blueprint & Playbook™</a>
+    </details>
+    <a href="contact.html">Contact</a>
+  </div>
 
   <main id="site">
     <header class="hero" id="hero">
@@ -116,7 +112,7 @@
 
     <!-- BLUEPRINT / PLAYBOOK -->
     <section class="section blueprint" id="blueprint" data-animate>
-      <div class="panel glass-ice">
+      <div class="panel">
         <h2>The Blueprint™ & The Playbook™</h2>
 
         <p>BARE VISION dissects your current operating system and fine tunes it with Slow Down 2 Speed Up™ mechanics.</p>
@@ -164,103 +160,15 @@
       </div>
     </section>
 
-    <!-- ABOUT (full restored copy below) -->
+    <!-- ABOUT SUMMARY (concise) -->
     <section class="section about" id="about" data-animate>
       <div class="panel">
         <h1>About BARE VISION</h1>
         <p>Orchestrating clarity for legacies that require absolute precision, BARE VISION is the consulting pillar of BAIR Atmospheres — shaping natural + digital landscapes with ethical foresight, creative strategy and careful stewardship.</p>
       </div>
-
-      <!-- Institution (restored refined copy) -->
-      <div class="panel">
-        <h2>The Initiative</h2>
-        <p class="bv-text">
-          BARE VISION operates on a single law:<br><br>
-          <strong>Keep it simple.</strong><br><br>
-          Clarity emerges when the breath steadies, the heart coheres, and awareness centers between the brows.<br><br>
-          From this state, timing sharpens, intuition becomes direction, and success becomes something you draw toward you.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>For Whom This Work Exists</h2>
-        <p class="bv-text">
-          This practice is built for individuals who understand the deeper mechanics of reality — those fluent in philosophy, moved by consciousness, and responsible for others.<br><br>
-          Leaders, creators, diplomats, visionaries: people observed by many, guided by few.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>The Standard</h2>
-        <p class="bv-text">
-          To enter this environment, one must embody or commit to embodying:<br><br>
-          mental agility<br>
-          an expansive, quiet mind<br>
-          curiosity without ego<br>
-          integrity and respect<br>
-          a contemplative discipline<br>
-          mastery of slowing down to accelerate<br>
-          progress → profit → philanthropy → planetary benefit
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>The Unspoken Outcome</h2>
-        <p class="bv-text">
-          Clients seek what cannot be written in an email:<br><br>
-          the ability to mute noise,<br>
-          read through illusion,<br>
-          follow signal over chaos,<br>
-          and act from mission instead of distortion.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>The Doctrine</h2>
-        <p class="bv-text">
-          <strong>The Art of Detachment and Observation.</strong><br><br>
-          A discipline devoted to elevating humanity’s capacity to think clearly and feel deeply—simultaneously.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>The Founder</h2>
-        <p class="bv-text">
-          I have been difficult to influence for as long as I can remember — independent in thought, quietly observing others, unafraid to express perception or experience.<br><br>
-          My twenties fractured that. A decade partly shadowed with chaos, lessons, and misalignment forced me inward and upward.<br><br>
-          BARE VISION exists as the place that the world I wanted to serve never had.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>What I See</h2>
-        <p class="bv-text">I read the layer beneath the surface: their soul, their patterning, their singularity, their unused opportunity.</p>
-      </div>
-
-      <div class="panel">
-        <h2>The Invisible Promise</h2>
-        <p class="bv-text">
-          A slower inner world.<br>
-          A steadier nervous system.<br>
-          Sharper listening.<br>
-          Cleaner intuition.<br>
-          Fewer words, greater impact.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2>Why Silence</h2>
-        <p class="bv-text">Most influential decisions occur in the quietest rooms or when the world is distracted by noise. Silence is not emptiness. Silence is strategy.</p>
-      </div>
-
-      <div class="panel">
-        <h2>Prequalification</h2>
-        <p class="bv-text">I work only with individuals whose “why” already serves others and the earth.</p>
-        <p class="cta-micro">A conversation with me feels like relief, clarity, and a quiet surge of confidence.</p>
-      </div>
     </section>
 
-    <!-- PROOF (at bottom of page per request) -->
+    <!-- PROOF bottom -->
     <section class="section proof" id="proof" data-animate>
       <div class="panel">
         <h2>Proven Clarity. Measurable Shift.</h2>
@@ -297,64 +205,58 @@
     </footer>
   </main>
 
-  <!-- main3d script -->
+  <!-- main3d (pearls + lenis) -->
   <script type="module" src="assets/js/main3d.js"></script>
 
-  <!-- NAV + UI SCRIPT -->
+  <!-- NAV & UI SCRIPT (single script for all pages) -->
   <script>
-    // nav transparency on scroll
+    // NAV transparency on scroll
     const headerBar = document.querySelector('.bv-header-bar');
     const hero = document.getElementById('hero');
-    function updateNav() {
-      if (!hero) return;
+    function updateNav(){
+      if(!hero) return;
       const heroBottom = hero.getBoundingClientRect().bottom;
-      if (heroBottom < 90) {
-        headerBar.classList.add('bv-nav-solid');
-      } else {
-        headerBar.classList.remove('bv-nav-solid');
-      }
+      headerBar.classList.toggle('bv-nav-solid', heroBottom < 90);
     }
     window.addEventListener('scroll', updateNav);
     window.addEventListener('resize', updateNav);
     updateNav();
 
-    // Work dropdown fade
+    // Work dropdown
     const workToggle = document.getElementById('workToggle');
     const workDropdown = document.getElementById('workDropdown');
-    workToggle && workToggle.addEventListener('click', (e) => {
+    workToggle && workToggle.addEventListener('click', (e)=>{
       const expanded = workToggle.getAttribute('aria-expanded') === 'true';
       workToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
       workDropdown.classList.toggle('open');
       workDropdown.setAttribute('aria-hidden', expanded ? 'true' : 'false');
     });
-    // close on outside click
+
+    // Close dropdown on outside click
     document.addEventListener('click', (e) => {
-      if (!workDropdown) return;
-      if (!workDropdown.contains(e.target) && e.target !== workToggle) {
+      if(!workDropdown) return;
+      if(!workDropdown.contains(e.target) && e.target !== workToggle){
         workDropdown.classList.remove('open');
-        workDropdown.setAttribute('aria-hidden', 'true');
-        workToggle && workToggle.setAttribute('aria-expanded', 'false');
+        workDropdown.setAttribute('aria-hidden','true');
+        workToggle && workToggle.setAttribute('aria-expanded','false');
       }
     });
 
-    // Mobile hamburger
+    // Mobile menu
     const burger = document.getElementById('bv-hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    burger && burger.addEventListener('click', () => {
+    burger && burger.addEventListener('click', ()=>{
       const open = burger.getAttribute('aria-expanded') === 'true';
       burger.setAttribute('aria-expanded', open ? 'false' : 'true');
       mobileMenu.classList.toggle('open');
       mobileMenu.setAttribute('aria-hidden', open ? 'true' : 'false');
     });
 
-    // Smooth anchor scroll fallback if links point to same page anchors
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function(e) {
+    // Smooth anchor fallback
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-        }
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
       });
     });
   </script>
