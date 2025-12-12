@@ -34,41 +34,42 @@
   <div id="sky" aria-hidden="true"></div>
   <div id="orb-layer" aria-hidden="true"></div>
 
-  <!-- NAV: FORCE TRANQUILLE -->
-  <header class="bv-header-bar" role="banner">
+    
+    <!-- FORCE TRANQUILLE NAV -->
+ <header class="bv-header-bar" role="banner">
     <div class="bv-nav">
       <a class="bv-logo" href="index.html">BARE VISION</a>
 
-      <nav aria-label="Main" class="bv-nav-links">
-        <a href="about.html">About</a>
-
-        <div class="nav-work">
-          <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
+    <nav class="bv-nav-links">
+      <a href="index.html">Home</a>
+      <a href="stewardship.html" class="active">Project Stewardship</a>
+      <a href="mirror.html">Private 1:1</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+      
+ <div class="nav-work">
+          <button class="work-toggle" id="workToggle" aria-expanded="false">Project Stewardship</button>
           <div class="work-dropdown" id="workDropdown" aria-hidden="true">
             <a href="mirror.html">The Mirror™</a>
             <a href="stewardship.html">Blueprint & Playbook™</a>
           </div>
-        </div>
+ </div>
+    <button class="bv-hamburger" onclick="document.querySelector('.bv-mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
 
-        <a href="contact.html">Contact</a>
-      </nav>
-
-      <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
-
-  <div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <details class="mobile-work">
-      <summary>Work</summary>
-      <a href="mirror.html">The Mirror™</a>
-      <a href="stewardship.html">Blueprint & Playbook™</a>
-    </details>
-    <a href="contact.html">Contact</a>
   </div>
+</header>
+
+<div class="bv-mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="stewardship.html" class="active">Project Stewardship</a>
+  <a href="mirror.html">Private 1:1</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
 
   <main id="site">
     <header class="hero" id="hero">
