@@ -16,6 +16,55 @@
   <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
   
 </head>
+  
+<!-- Shared NAV + Mobile script (single source) -->
+<script>
+(function(){
+  const workToggle = document.getElementById('workToggle');
+  const workDropdown = document.getElementById('workDropdown');
+
+  if (workToggle && workDropdown) {
+    workToggle.addEventListener('click', () => {
+      const expanded = workToggle.getAttribute('aria-expanded') === 'true';
+      workToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      workDropdown.classList.toggle('open');
+      workDropdown.setAttribute('aria-hidden', expanded ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!workDropdown.contains(e.target) && e.target !== workToggle) {
+        workDropdown.classList.remove('open');
+        workDropdown.setAttribute('aria-hidden', 'true');
+        workToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  const burger = document.getElementById('bv-hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (burger && mobileMenu) {
+    burger.addEventListener('click', () => {
+      const open = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+      mobileMenu.classList.toggle('open');
+      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+  }
+
+  const headerBar = document.querySelector('.bv-header-bar');
+  const hero = document.querySelector('.about-hero');
+  function updateNav() {
+    if (!headerBar || !hero) return;
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    if (heroBottom < 90) headerBar.classList.add('bv-nav-solid');
+    else headerBar.classList.remove('bv-nav-solid');
+  }
+  window.addEventListener('scroll', updateNav);
+  window.addEventListener('resize', updateNav);
+  updateNav();
+})();
+</script>
+  
 <body class="about-page">
 
 <!-- GLOBAL BACKGROUND (must be present on every page) -->
@@ -167,49 +216,6 @@
 
   <!-- main3d script -->
   <script type="module" src="assets/js/main3d.js"></script>
-
- <!-- GLOBAL BACKGROUND (must be present on every page) -->
-<div id="sky"></div>
-<div id="orb-layer"></div>
-
-<!-- FORCE TRANQUILLE NAV — single source of truth for every page -->
-<header class="bv-header-bar" role="banner">
-  <div class="bv-nav">
-    <a class="bv-logo" href="index.html">BARE VISION</a>
-
-    <nav aria-label="Main" class="bv-nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-
-      <div class="nav-work">
-        <!-- DO NOT EDIT the ids below — used by shared script -->
-        <button class="work-toggle" id="workToggle" aria-expanded="false">Work ▾</button>
-        <div class="work-dropdown" id="workDropdown" aria-hidden="true">
-          <a href="mirror.html">The Mirror™</a>
-          <a href="stewardship.html">Blueprint & Playbook™</a>
-        </div>
-      </div>
-
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <!-- mobile hamburger (same for all pages) -->
-    <button id="bv-hamburger" class="bv-hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<!-- Mobile menu (same for all pages) -->
-<div id="mobileMenu" class="bv-mobile-menu" aria-hidden="true">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <details class="mobile-work"><summary>Work</summary>
-    <a href="mirror.html">The Mirror™</a>
-    <a href="stewardship.html">Blueprint & Playbook™</a>
-  </details>
-  <a href="contact.html">Contact</a>
-</div>
   
 </body>
 </html>
