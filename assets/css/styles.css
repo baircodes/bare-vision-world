@@ -317,8 +317,6 @@ body{
 .steward-card{ padding:40px; border-radius:12px; background:rgba(255,255,255,0.55); border:1px solid rgba(120,130,120,0.12); backdrop-filter: blur(12px); transition:transform .28s ease; }
 .steward-card:hover{ 
    transform:translateY(-2px); }
-.steward-card { 
-   box-shadow: 0 30px 60px -30px rgba(0,0,0,0.08);}
 .steward-list{ margin:18px 0 28px; padding-left:18px; }
 .card-title{ font-family:'Audiowide',sans-serif; font-size:1.1rem; margin-bottom:12px; }
 .card-text{ margin-bottom:14px; }
@@ -337,7 +335,7 @@ body{
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 24px;
-  color:#111;
+  color:#8ea59a;
 }
 
 .steward-text {
@@ -403,6 +401,10 @@ body{
   text-decoration: none;
   font-weight: 500;
   font-family: 'Outfit';
+  .cta-btn:hover {
+  border-color: var(--sage);
+  color: var(--sage-dark);
+  transform: translateY(-2px);
 
   background: rgba(255,255,255,0.18);
   border: 1px solid rgba(183,203,184,0.35);
