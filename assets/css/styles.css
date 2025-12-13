@@ -318,7 +318,7 @@ body{
 .steward-card:hover{ 
    transform:translateY(-2px); }
 .steward-list{ margin:18px 0 28px; padding-left:18px; }
-.card-title{ font-family:'Audiowide',sans-serif; font-size:1.1rem; margin-bottom:12px; }
+.card-title{ font-family:'Audiowide',sans-serif; font-size:1.1rem; margin-bottom:12px; color:#8ea59a; }
 .card-text{ margin-bottom:14px; }
 
 /* tighten narrative sections, let cards breathe */
@@ -401,11 +401,6 @@ body{
   text-decoration: none;
   font-weight: 500;
   font-family: 'Outfit';
-  .cta-btn:hover {
-  border-color: var(--sage);
-  color: var(--sage-dark);
-  transform: translateY(-2px);
-
   background: rgba(255,255,255,0.18);
   border: 1px solid rgba(183,203,184,0.35);
   color: rgba(10,10,10,0.9);
