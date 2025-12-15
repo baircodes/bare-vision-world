@@ -14,6 +14,21 @@
   --maxwidth: 1200px;
 }
 
+/* =========================
+   TYPOGRAPHY SCALE — GLOBAL
+   ========================= */
+
+:root {
+  --title-xl: clamp(2.6rem, 4.5vw, 3.4rem);
+  --title-lg: clamp(1.9rem, 3vw, 2.4rem);
+  --title-md: 1.4rem;
+  --title-sm: 0.95rem;
+
+  --body-lg: 1.05rem;
+  --body-md: 0.98rem;
+  --body-sm: 0.9rem;
+}
+
 /* RESET */
 *{ margin:0; padding:0; box-sizing:border-box; }
 html,body{ height:100%; }
@@ -301,16 +316,14 @@ body{
 
 /* BV TYPOGRAPHY */
 .bv-subheader{ font-family:'Audiowide',sans-serif; text-transform:uppercase; letter-spacing:.12em; font-size:.95rem; color:rgba(10,10,10,0.85); margin-bottom:14px; }
-.bv-text{ font-size:1.02rem; line-height:1.8; color:rgba(10,10,10,0.88); max-width:740px; margin:0 auto; }
-
-.bv-paragraph {
-  margin-bottom: 1.4rem;
-  line-height: 1.85;
-}
 
 /* STewardship specific */
 .steward-hero{ padding:140px 20px 90px; text-align:center; }
-.page-title{ font-family:'Audiowide',sans-serif; font-size:clamp(1.9rem,4vw,2.8rem); }
+.page-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: var(--title-xl);
+  letter-spacing: 0.02em;
+}
 .page-subtitle{ font-family:'Outfit',sans-serif; opacity:.78; margin-top:8px; }
 
 /* steward cards */
@@ -318,7 +331,11 @@ body{
 .steward-card:hover{ 
    transform:translateY(-2px); }
 .steward-list{ margin:18px 0 28px; padding-left:18px; }
-.card-title{ font-family:'Audiowide',sans-serif; font-size:1.1rem; margin-bottom:12px; color:#8ea59a; }
+.card-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: var(--title-md);
+  letter-spacing: 0.08em;
+   color:#8ea59a; }
 .card-text{ margin-bottom:14px; }
 
 /* tighten narrative sections, let cards breathe */
@@ -332,16 +349,18 @@ body{
 
 .section-header {
   font-family: 'Audiowide', sans-serif;
-  font-size: 1.8rem;
+  font-size: var(--title-lg);
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   color:#8ea59a;
 }
 
-.steward-text {
-  font-size: 1.05rem;
+.steward-text, 
+.bv-text
+.bv-paragraph {
+  font-size: var(--body-lg);
   color: rgba(10,10,10,0.85);
-  line-height: 1.75;
+  line-height: 1.8;
   margin-bottom: 20px;
 }
 
