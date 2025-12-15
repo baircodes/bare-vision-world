@@ -34,6 +34,17 @@
   --line-normal: 1.7;
 }
 
+/* =========================
+   VERTICAL RHYTHM SYSTEM
+   ========================= */
+
+:root {
+  --space-xl: 140px;
+  --space-lg: 110px;
+  --space-md: 80px;
+  --space-sm: 48px;
+}
+
 /* RESET */
 *{ margin:0; padding:0; box-sizing:border-box; }
 html,body{ height:100%; }
@@ -153,8 +164,20 @@ body{
   z-index:130;
   flex-direction:column;
   gap:8px;
-}
+  will-change: transform, opacity;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .28s ease, opacity .28s ease;
+  }
+
 .bv-mobile-menu a { color: rgba(10,10,10,0.9); text-decoration:none; padding:8px 6px; display:block; }
+
+.bv-mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* show mobile controls on small screens */
 @media (max-width:900px){
@@ -210,7 +233,8 @@ body{
   height: var(--s);
   border-radius: 50%;
   pointer-events: none;
-
+  z-index: -6;
+   
   /* STEP 1: REMOVE BLEND MODE 
      We want these to feel solid and heavy, not like holograms. */
   mix-blend-mode: normal; 
@@ -327,7 +351,11 @@ body{
                margin-bottom:16px; }
 
 /* STewardship specific */
-.steward-hero{ padding:140px 20px 90px; text-align:center; }
+.steward-hero{ padding: var(--space-xl) 20px var(--space-lg); }
+.steward-hero + .steward-section {
+  padding-top: var(--space-sm);
+}
+
 .page-title {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-xl);
@@ -337,7 +365,7 @@ body{
 .page-subtitle{ font-family:'Outfit',sans-serif; opacity:.78; margin-top:8px; }
 
 /* steward cards */
-.steward-card{ padding:40px; border-radius:12px; background:rgba(255,255,255,0.55); border:1px solid rgba(120,130,120,0.12); backdrop-filter: blur(12px); transition:transform .28s ease; }
+.steward-card{ padding:40px; border-radius:12px; background: rgba(255,255,255,0.48); border:1px solid rgba(120,130,120,0.12); backdrop-filter: blur(12px); transition:transform .28s ease; }
 .steward-card:hover{ 
    transform:translateY(-2px); }
 .steward-list{ margin:18px 0 28px; padding-left:18px; }
@@ -349,15 +377,17 @@ body{
    margin-bottom: 14px; }
 .card-text{ margin-bottom:14px; }
 
-/* tighten narrative sections, let cards breathe */
-.steward-section:not(:has(.steward-card)) {
-  padding: 70px 20px;
+.steward-section {
+  padding: var(--space-md) 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-.steward-section:has(.steward-card) {
-  padding: 100px 20px;
+.steward-section .steward-card {
+  margin-top: 12px;
 }
-
 .section-header {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-lg);
