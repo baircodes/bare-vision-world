@@ -4,16 +4,20 @@
    ========================= */
 
 // 1. Initialize Lenis (The Smooth Scroll)
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
-  direction: 'vertical', 
-  gestureDirection: 'vertical',
-  smooth: true,
-  mouseMultiplier: 1,
-  smoothTouch: false,
-  touchMultiplier: 2,
-});
+let lenis = null;
+
+if (window.Lenis) {
+  lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+  });
+}
 
 const sky = document.getElementById("sky");
 const orbLayer = document.getElementById("orb-layer");
@@ -70,7 +74,8 @@ spawnSun();
 function animate(time) {
   // A. Update Lenis Scroll
   lenis.raf(time);
-
+  if (lenis) lenis.raf(time);
+   
   // B. Update Pearls
   for(let i=0; i < pearls.length; i++){
     const p = pearls[i];
