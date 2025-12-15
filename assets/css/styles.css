@@ -496,6 +496,101 @@ body{
   transform: translateY(-2px);
 }
 
+/* =========================
+   CONTACT FORM — REFINED / EDITORIAL
+   ========================= */
+
+.refined-form {
+  max-width: 620px;
+  margin: 40px auto 0;
+}
+
+.refined-form .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 34px;
+}
+
+/* Labels: quiet authority */
+.refined-form .label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(10,10,10,0.55);
+  margin-bottom: 10px;
+}
+
+/* Inputs & textarea — underline only */
+.refined-form input,
+.refined-form textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(10,10,10,0.25);
+  padding: 8px 2px 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  color: rgba(10,10,10,0.9);
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+/* Focus state — confident, not loud */
+.refined-form input:focus,
+.refined-form textarea:focus {
+  border-bottom-color: rgba(10,10,10,0.7);
+}
+
+/* Textarea refinement */
+.refined-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.7;
+}
+
+/* Placeholder tone */
+.refined-form ::placeholder {
+  color: rgba(10,10,10,0.35);
+  font-style: italic;
+}
+
+/* CTA area spacing */
+.refined-form .panel-cta {
+  margin-top: 60px;
+  justify-content: center;
+}
+
+/* Submit button — ceremonial */
+.refined-form button.btn.orb.primary {
+  background: transparent;
+  border: 1px solid rgba(10,10,10,0.6);
+  color: rgba(10,10,10,0.85);
+  padding: 14px 34px;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.refined-form button.btn.orb.primary:hover {
+  background: rgba(10,10,10,0.85);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Soft divider */
+.hr-soft {
+  border: none;
+  height: 1px;
+  margin: 80px auto 60px;
+  max-width: 480px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(10,10,10,0.25),
+    transparent
+  );
+}
+
 /* FOOTER */
 .footer{ padding:48px 20px; text-align:center; font-size:.95rem; opacity:.85; }
 
