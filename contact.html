@@ -48,58 +48,82 @@
 
 
   <main id="site">
+    
     <section class="section" data-animate>
-      <div class="panel">
-        <h1 class="page-title">Contact</h1> 
-        <p class="lead">Inquiries accepted by invitation. Please complete the form and we will respond via the email you provide.</p>
+  <div class="panel">
 
-        <!-- Formspree example (replace FORM_ID) -->
-        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <label class="form-row">
-            <span class="label">Name</span>
-            <input type="text" name="name" required />
-          </label>
-          <label class="form-row">
-            <span class="label">Email</span>
-            <input type="email" name="_replyto" required />
-          </label>
-          <label class="form-row">
-            <span class="label">Subject</span>
-            <input type="text" name="subject" />
-          </label>
-          <label class="form-row">
-            <span class="label">Message</span>
-            <textarea name="message" rows="6" required></textarea>
-          </label>
+    <h1 class="page-title">Contact</h1>
+    <p class="lead">
+      Private inquiries only. Please write with clarity and intention.
+    </p>
 
-          <!-- Optional hidden honeypot -->
-          <input type="text" name="_gotcha" style="display:none" />
+    <p class="bv-text">
+      BARE VISION works with a limited number of individuals and projects each year.
+      If your inquiry aligns, you will receive a response via the email you provide.
+    </p>
 
-          <div class="panel-cta">
-            <button class="btn orb primary" type="submit">Send Inquiry</button>
-          </div>
-        </form>
+    <!-- CONTACT FORM -->
+    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 
-        <hr class="hr-soft" />
+      <label class="form-row">
+        <span class="label">Name</span>
+        <input type="text" name="name" required />
+      </label>
 
-        <div class="podcast-links">
-          <p>Listen: <a href="https://yourpodcastsite.example" target="_blank" rel="noopener">Podcast Site</a></p>
-          <p>Social: <a href="https://instagram.com/yourpodcast" target="_blank" rel="noopener">Podcast Instagram</a></p>
-        </div>
+      <label class="form-row">
+        <span class="label">Email</span>
+        <input type="email" name="_replyto" required />
+      </label>
 
+      <label class="form-row">
+        <span class="label">Context</span>
+        <input type="text" name="subject" placeholder="e.g. Project Stewardship / Private 1:1 / Other" />
+      </label>
+
+      <label class="form-row">
+        <span class="label">Message</span>
+        <textarea name="message" rows="6" placeholder="Briefly describe the situation or decision at hand." required></textarea>
+      </label>
+
+      <!-- Honeypot -->
+      <input type="text" name="_gotcha" style="display:none" />
+
+      <div class="panel-cta">
+        <button class="btn orb primary" type="submit">Submit Inquiry</button>
       </div>
-    </section>
+    </form>
+
+    <!-- DIVIDER -->
+    <hr class="hr-soft" />
+
+    <!-- D2B EXP INTRO -->
+    <div class="auxiliary-block">
+      <h2 class="bv-subheader small">D2B EXP</h2>
+
+      <p class="bv-text">
+        D2B EXP is the design and execution arm for founders and cultural operators
+        building ecosystems — not just brands.
+      </p>
+
+      <p class="bv-text">
+        This includes digital environments, websites, narrative systems, and social
+        architecture designed to scale with coherence and restraint.
+      </p>
+
+      <p class="bv-text small">
+        If your inquiry relates to ecosystem design, platform presence, or digital world-building,
+        please indicate <strong>D2B EXP</strong> in your message.
+      </p>
+    </div>
+
+  </div>
+</section>
 
     <footer class="footer" data-animate>
       <p>© BARE VISION ☺ a division of BAIR Atmospheres</p>
     </footer>
   </main>
 
-  <script> 
-    type="module" src="assets/js/main3d.js"> 
-document.querySelector(".bv-mobile-toggle").addEventListener("click", () => {
-  document.querySelector(".bv-mobile-menu").classList.toggle("active");
-});
-</script>
+  <script type="module" src="assets/js/main3d.js"></script>
 </body>
 </html>
