@@ -15,18 +15,23 @@
 }
 
 /* =========================
-   TYPOGRAPHY SCALE — GLOBAL
+   TYPOGRAPHY SYSTEM — EDITORIAL
    ========================= */
 
 :root {
-  --title-xl: clamp(2.6rem, 4.5vw, 3.4rem);
-  --title-lg: clamp(1.9rem, 3vw, 2.4rem);
-  --title-md: 1.4rem;
-  --title-sm: 0.95rem;
-
+  /* Titles — Audiowide */
+  --title-xl: clamp(2.6rem, 4.5vw, 3.2rem); /* Hero */
+  --title-lg: clamp(1.8rem, 3vw, 2.3rem); /* Section headers */
+  --title-md: 1.25rem; /* Card titles */
+  --title-sm: 0.85rem;  /* Small caps / labels */
+   
+  /* Body — Outfit */
   --body-lg: 1.05rem;
   --body-md: 0.98rem;
   --body-sm: 0.9rem;
+
+  --line-loose: 1.85;
+  --line-normal: 1.7;
 }
 
 /* RESET */
@@ -315,14 +320,19 @@ body{
 .proof-item h3{ font-family:'Audiowide',sans-serif; font-size:1.05rem; margin-bottom:8px; }
 
 /* BV TYPOGRAPHY */
-.bv-subheader{ font-family:'Audiowide',sans-serif; text-transform:uppercase; letter-spacing:.12em; font-size:.95rem; color:rgba(10,10,10,0.85); margin-bottom:14px; }
+.bv-subheader{ font-family:'Audiowide',sans-serif; 
+               text-transform:uppercase; 
+               letter-spacing: 0,18em; 
+               font-size: var(--title-sm); 
+               margin-bottom:16px; }
 
 /* STewardship specific */
 .steward-hero{ padding:140px 20px 90px; text-align:center; }
 .page-title {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-xl);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
 }
 .page-subtitle{ font-family:'Outfit',sans-serif; opacity:.78; margin-top:8px; }
 
@@ -334,8 +344,9 @@ body{
 .card-title {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-md);
-  letter-spacing: 0.08em;
-   color:#8ea59a; }
+  letter-spacing: 0.1em;
+   color:#8ea59a;
+   margin-bottom: 14px; }
 .card-text{ margin-bottom:14px; }
 
 /* tighten narrative sections, let cards breathe */
@@ -350,18 +361,31 @@ body{
 .section-header {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-lg);
+  letter-spacing: 0.06em;
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   color:#8ea59a;
 }
 
-.steward-text, 
-.bv-text
-.bv-paragraph {
+.steward-text {
+  font-family: 'Outfit', sans-serif;
   font-size: var(--body-lg);
+  line-height: var(--line-loose);
   color: rgba(10,10,10,0.85);
-  line-height: 1.8;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+}
+
+.bv-paragraph {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--body-md);
+  line-height: var(--line-loose);
+  margin-bottom: 1.6rem;
+}
+
+.bv-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--body-md);
+  line-height: var(--line-normal);
 }
 
 .steward-hero {
@@ -387,6 +411,14 @@ body{
   text-transform: uppercase;
   color: rgba(10,10,10,0.6);
   margin: 18px 0 10px;
+}
+
+.steward-list {
+  font-family: 'Outfit', sans-serif;
+  font-size: var(--body-md);
+  line-height: var(--line-loose);
+  margin: 22px 0 30px;
+  padding-left: 22px;
 }
 
 .steward-list {
