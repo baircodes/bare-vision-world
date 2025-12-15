@@ -105,3 +105,13 @@ window.addEventListener('load', () => {
         loader.classList.add('hidden');
     }, 600);
 });
+
+const burger = document.querySelector('.bv-hamburger');
+const mobileMenu = document.querySelector('.bv-mobile-menu');
+
+if (burger && mobileMenu) {
+  burger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+}
