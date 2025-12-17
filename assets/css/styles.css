@@ -90,7 +90,7 @@ body{
   right: 0;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 120;
   pointer-events: auto;
   background: transparent;
   transition: background .28s ease, box-shadow .28s ease;
