@@ -61,14 +61,24 @@ body{
 
 /* SKY + ORB LAYER (global atmosphere) */
 #sky{
-  position:fixed; inset:0; z-index:-10;
+  position:fixed; inset:0; pointer-events:none; z-index:-10;
   background:linear-gradient(to bottom, #FCFBF8, #F7F5F0, #EDF1EE);
 }
 #orb-layer{ position:fixed; inset:0; z-index:-8; pointer-events:none; }
 
 /* LOADER */
-#page-loader{ position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; background:#fff; transition:opacity .6s ease; }
-#page-loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+#page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .loader-title{ font-family:'Cormorant Garamond', serif; letter-spacing:.28em; color:var(--sage); }
 
 /* =========================
@@ -79,7 +89,8 @@ body{
   left: 0;
   right: 0;
   top: 0;
-  z-index: 120;
+  width: 100%;
+  z-index: 1000;
   pointer-events: auto;
   background: transparent;
   transition: background .28s ease, box-shadow .28s ease;
