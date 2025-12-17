@@ -49,14 +49,20 @@
     </nav>
       
  </div>
-    <button class="bv-hamburger" onclick="document.querySelector('.bv-mobile-menu').classList.toggle('open')">
+   
+    <button id="bv-hamburger"
+        class="bv-hamburger"
+        aria-expanded="false"
+        aria-controls="mobileMenu">
       <span></span><span></span><span></span>
     </button>
 
   </div>
 </header>
 
-<div class="bv-mobile-menu">
+<div id="mobileMenu"
+  class="bv-mobile-menu"
+     aria-hidden="true">
   <a href="index.html">Home</a>
   <a href="stewardship.html" class="active">Project Stewardship</a>
   <a href="mirror.html">Private 1:1</a>
