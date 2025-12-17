@@ -72,8 +72,6 @@ spawnSun();
 
 // --- UNIFIED ANIMATION LOOP ---
 function animate(time) {
-  // A. Update Lenis Scroll
-  lenis.raf(time);
   if (lenis) lenis.raf(time);
    
   // B. Update Pearls
@@ -106,14 +104,7 @@ document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
 
 // --- LOADER EXIT ---
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        loader.classList.add('hidden');
-    }, 600);
+  setTimeout(() => {
+    loader.classList.add('hidden');
+  }, 600);
 });
-
-const burger = document.querySelector('.bv-hamburger');
-const mobileMenu = document.querySelector('.bv-mobile-menu');
-
-if (burger && mobileMenu) {
-  mobileMenu.setAttribute('aria-hidden', open ? 'true' : 'false');
-}
