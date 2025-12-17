@@ -115,6 +115,5 @@ const burger = document.querySelector('.bv-hamburger');
 const mobileMenu = document.querySelector('.bv-mobile-menu');
 
 if (burger && mobileMenu) {
-  burger.addEventListener('click', () => {
   mobileMenu.setAttribute('aria-hidden', open ? 'true' : 'false');
 }
