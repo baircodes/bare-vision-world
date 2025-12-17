@@ -88,7 +88,9 @@ body{
   justify-content:center;
 }
 .bv-header-bar.bv-nav-solid { background: rgba(255,255,255,0.85); box-shadow:0 8px 30px rgba(0,0,0,0.06); }
-
+.bv-header-bar * {
+  pointer-events: auto;
+}
 .bv-nav {
   width:100%;
   max-width:var(--maxwidth);
@@ -151,7 +153,11 @@ body{
   width:44px; height:36px; background:transparent; border:none; cursor:pointer;
 }
 .bv-hamburger span{ display:block; height:2px; background:rgba(10,10,10,0.85); margin:6px 0; border-radius:2px; transition:all .22s ease; }
-
+.bv-hamburger {
+  position: relative;
+  z-index: 140;
+  pointer-events: auto;
+}
 .bv-mobile-menu {
   display:none;
   position: fixed;
