@@ -260,6 +260,14 @@ body{
 .hero{ min-height:100vh; display:flex; justify-content:center; align-items:center; padding:0 2rem; text-align:center; position:relative; z-index:20; }
 .hero-inner{ width:100%; max-width:1100px; margin:auto; display:flex; flex-direction:column; gap:.6rem; align-items:center; }
 
+.hero-divider {
+  width: 120px;
+  height: 1px;
+  margin: 36px auto 0;
+  background: linear-gradient(to right, transparent, var(--sage), transparent);
+  opacity: 0.6;
+}
+
 /* Title embossed effect */
 .title-text{
   font-family:'Outfit'; font-weight:700;
