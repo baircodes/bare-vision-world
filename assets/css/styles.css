@@ -408,10 +408,53 @@ body{
   margin-bottom: 0;
 }
 
+/* PROJECT STEWARDSHIP FEATURE RHYTHM */
+.blueprint-feature {
+  padding: 160px 20px 180px;
+}
+
+@media (max-width: 980px) {
+  .blueprint-feature {
+    padding: 120px 20px 140px;
+  }
+}
 /* BOOK LAYOUT */
-.book-spread{ display:flex; gap:60px; margin-top:32px; align-items:flex-start; }
-.book-page{ flex:1; text-align:left; }
+.blueprint-feature .book-spread {
+  margin-top: 64px;
+  gap: 80px;
+}
+
+.blueprint-feature .book-page {
+  padding: 12px 0;
+}
+
+.blueprint-feature .book-page p {
+  max-width: 460px;
+}
+
+.blueprint-feature .subheading {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  letter-spacing: 0.22em;
+}
+
+.blueprint-feature .panel-cta {
+  margin-top: 72px;
+}
+
+.blueprint-feature .panel {
+  background: rgba(255,255,255,0.38);
+}
+
 .book-divider{ width:1px; background:linear-gradient(180deg, transparent, rgba(0,0,0,0.08), transparent); }
+
+@media (max-width: 980px) {
+  .blueprint-feature .book-spread {
+    gap: 40px;
+  }
+}
+
 
 /* STAR LIST */
 .star-list li{ margin:12px 0; display:flex; align-items:flex-start; font-family:'Cormorant Garamond',serif; font-style:italic; }
@@ -428,6 +471,7 @@ body{
                letter-spacing: 0,18em; 
                font-size: var(--title-sm); 
                margin-bottom:16px; }
+
 
 /* STewardship specific */
 .steward-hero{ padding: var(--space-xl) 20px var(--space-lg); }
@@ -552,6 +596,13 @@ body{
   position: absolute;
   left: 0;
   color: var(--sage-dark);
+}
+
+.blueprint-feature .panel {
+  max-width: 1040px;
+}
+.blueprint-feature p {
+  margin-bottom: 26px;
 }
 
 /* CTA */
