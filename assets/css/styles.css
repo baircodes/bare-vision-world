@@ -66,20 +66,43 @@ body{
 }
 #orb-layer{ position:fixed; inset:0; z-index:-8; pointer-events:none; }
 
-/* LOADER */
+/* LOADER — FULL SCREEN CEREMONIAL COVER */
 #page-loader {
   position: fixed;
   inset: 0;
   z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--ivory);
+}
+
+/* Inner loader alignment */
+.loader-inner {
+  text-align: center;
+}
+
+/* Fade-out transition */
+#page-loader {
+  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
 #page-loader.hidden {
   opacity: 0;
-  pointer-events: none;
   visibility: hidden;
+  pointer-events: none;
 }
 
-.loader-title{ font-family:'Cormorant Garamond', serif; letter-spacing:.28em; color:var(--sage); }
+.loader-title{ font-family:'Audiowide', serif; letter-spacing:.28em; color:var(--sage); font-size: 1.4rem;
+  margin-bottom: 8px; }
+
+.loader-sub {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
 
 /* =========================
    NAV — FORCE TRANQUILLE (single source of truth)
