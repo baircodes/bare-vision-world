@@ -408,6 +408,30 @@ body{
   margin-bottom: 0;
 }
 
+/* THRESHOLD MARKER */
+.threshold-marker {
+  width: 100%;
+  height: 140px;
+  margin: 0 auto -40px;
+  position: relative;
+}
+
+.threshold-marker::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 140px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(183,203,184,0.8),
+    transparent
+  );
+  transform: translateX(-50%);
+}
+
 /* PROJECT STEWARDSHIP FEATURE RHYTHM */
 .blueprint-feature {
   padding: 160px 20px 180px;
@@ -441,6 +465,19 @@ body{
 
 .blueprint-feature .panel-cta {
   margin-top: 72px;
+}
+
+.blueprint-feature {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(183,203,184,0.04),
+    transparent
+  );
+}
+
+.blueprint-feature.section {
+  transition: opacity 1.4s ease, transform 1.6s cubic-bezier(.16,1,.3,1);
 }
 
 .blueprint-feature .panel {
@@ -603,6 +640,67 @@ body{
 }
 .blueprint-feature p {
   margin-bottom: 26px;
+}
+
+.section.about .panel {
+  max-width: 720px;
+}
+
+.section.about h1 {
+  font-family: 'Audiowide', sans-serif;
+  letter-spacing: 0.12em;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.section.about h1::before {
+  content: "ABOUT";
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: rgba(10,10,10,0.45);
+  margin-bottom: 10px;
+}
+
+.section.about p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(10,10,10,0.75);
+  position: relative;
+  padding-bottom: 6px;
+}
+.text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(183,203,184,0.8),
+    transparent
+  );
+  transform: scaleX(0.3);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.text-link:hover::after {
+  transform: scaleX(1);
+}
+.orientation-item {
+  padding: 20px 10px;
 }
 
 /* CTA */
