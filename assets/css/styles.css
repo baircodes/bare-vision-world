@@ -426,6 +426,14 @@ body{
   background: rgba(10,10,10,0.35);
 }
 
+.section.mirror .panel {
+  transition: box-shadow 0.4s ease;
+}
+
+.section.mirror.visible .panel {
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.28);
+}
+
 /* thin subheading (book pages) */
 .subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:#555; display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
 
@@ -450,6 +458,17 @@ body{
 .section.mirror p {
   line-height: 1.6;
   color: rgba(10,10,10,0.9);
+}
+
+.section.mirror {
+  transform: translateY(12px);
+}
+
+.section.mirror.visible {
+  transform: translateY(0);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(.2,.8,.2,1);
 }
 
 /* THRESHOLD MARKER */
@@ -487,18 +506,19 @@ body{
   }
 }
 /* BOOK LAYOUT */
-.blueprint-feature .book-spread {
-  margin-top: 64px;
+
+.book-spread {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   gap: 80px;
 }
 
-.blueprint-feature .book-page {
-  padding: 12px 0;
-}
-
-.blueprint-feature .book-page p {
+.book-page {
+  flex: 1;
   max-width: 460px;
 }
+
 
 .blueprint-feature .subheading {
   display: inline-block;
