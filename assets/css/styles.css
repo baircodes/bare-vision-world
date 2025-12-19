@@ -342,30 +342,6 @@ body{
   backdrop-filter: blur(0px); 
 }
 
-/* =========================
-   ORB BUTTONS — ORIGINAL LUXURY VERSION
-   ========================= */
-.btn.orb {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(183,203,184,0.32);
-  color: rgba(10,10,10,0.88);
-  padding: 12px 28px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  font-family: 'Outfit';
-  backdrop-filter: blur(12px);
-  transition: all .28s ease;
-}
-
-.btn.orb:hover {
-  border-color: var(--sage);
-  color: var(--sage-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 38px rgba(160,180,170,0.10);
-}
 
 .panel-cta {
   display: flex;
@@ -494,7 +470,7 @@ body{
 
 
 /* STAR LIST */
-.star-list li{ margin:12px 0; display:flex; align-items:flex-start; font-family:'Cormorant Garamond',serif; font-style:italic; }
+.star-list li{ margin:12px 0; display:flex; align-items:flex-start; font-family:'Outfit',serif; font-style:italic; }
 .star-list li::before{ content:"✦"; margin-right:12px; color:var(--sage); opacity:.85; }
 
 /* PROOF GRID */
@@ -505,7 +481,7 @@ body{
 /* BV TYPOGRAPHY */
 .bv-subheader{ font-family:'Audiowide',sans-serif; 
                text-transform:uppercase; 
-               letter-spacing: 0,18em; 
+               letter-spacing: 0.18em; 
                font-size: var(--title-sm); 
                margin-bottom:16px; }
 
