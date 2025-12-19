@@ -327,6 +327,18 @@ body{
   text-decoration: none;
 }
 
+.section.mirror .btn.orb.primary {
+  background: rgba(10,10,10,0.88);
+  color: #fff;
+  border-color: rgba(10,10,10,0.88);
+}
+
+.section.mirror .btn.orb.primary:hover {
+  background: #000;
+  border-color: #000;
+  transform: translateY(-1px);
+}
+
 /* =========================
    PEARL VISUALS (LUXURY UPDATE)
    ========================= */
@@ -399,15 +411,45 @@ body{
 
 .panel h2{ font-family:'Audiowide',sans-serif; font-weight:400; font-size:2.4rem; margin-bottom:12px; }
 
+.section.mirror .panel {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(10,10,10,0.18);
+  box-shadow: 0 22px 50px -28px rgba(0,0,0,0.18);
+  backdrop-filter: none;
+}
+.section.mirror .panel::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin-bottom: 18px;
+  background: rgba(10,10,10,0.35);
+}
+
 /* thin subheading (book pages) */
 .subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:#555; display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
 
 /* SECTION defaults */
+
 .section{ opacity:0; transform:translateY(24px); transition:opacity 1s ease, transform 1s cubic-bezier(.16,1,.3,1); padding:100px 20px; }
 .section.visible{ opacity:1; transform:none; }
 .section .panel {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.section.mirror {
+  padding: 80px 20px;
+}
+
+.section.mirror h2 {
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+}
+
+.section.mirror p {
+  line-height: 1.6;
+  color: rgba(10,10,10,0.9);
 }
 
 /* THRESHOLD MARKER */
@@ -510,7 +552,6 @@ body{
                letter-spacing: 0.18em; 
                font-size: var(--title-sm); 
                margin-bottom:16px; }
-
 
 /* STewardship specific */
 .steward-hero{ padding: var(--space-xl) 20px var(--space-lg); }
