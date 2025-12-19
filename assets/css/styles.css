@@ -310,6 +310,7 @@ body{
   font-family: 'Outfit';
   backdrop-filter: blur(12px);
   transition: all .28s ease;
+  text-decoration: none;
 }
 
 .btn.orb:hover {
@@ -317,6 +318,13 @@ body{
   color: var(--sage-dark);
   transform: translateY(-3px);
   box-shadow: 0 18px 38px rgba(160,180,170,0.10);
+}
+
+.btn,
+.btn:visited,
+.btn:hover,
+.btn:active {
+  text-decoration: none;
 }
 
 /* =========================
