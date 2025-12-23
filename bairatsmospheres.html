@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BAIR ATMOSPHERES</title>
+
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --off-black: #141414;
+      --bone: #f6f4ef;
+      --chrome-grey: rgba(20, 20, 20, 0.55);
+      --azur: rgba(120, 150, 160, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Audiowide', sans-serif;
+      background-color: var(--bone);
+      color: var(--off-black);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12vh 8vw;
+    }
+
+    .hero {
+      max-width: 720px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      letter-spacing: 0.12em;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      color: var(--chrome-grey);
+      max-width: 520px;
+    }
+
+    .hero p + p {
+      margin-top: 1.2rem;
+    }
+
+    .divider {
+      width: 64px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--azur),
+        transparent
+      );
+      margin: 3.5rem 0;
+    }
+
+    .subtle-link {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      color: var(--chrome-grey);
+      transition: color 0.3s ease;
+    }
+
+    .subtle-link:hover {
+      color: var(--off-black);
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 14vh 6vw;
+      }
+
+      .hero h1 {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>BAIR ATMOSPHERES</h1>
+
+      <p>
+        BAIR ATMOSPHERES curates digital and natural worlds built around energy, sound, and modern systems.
+      </p>
+
+      <p>
+        Dare 2 Bare + BARE VISION are its founding pillars.
+      </p>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- Optional understated link -->
+      <a href="https://baircodes.github.io/bare-vision-world/" class="subtle-link">
+        BARE VISION
+      </a>
+    </section>
+  </main>
+</body>
+</html>
