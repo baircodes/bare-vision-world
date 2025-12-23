@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daph’s Digital Diary — Entry</title>
+
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #121212;
+      --muted: rgba(18,18,18,0.6);
+      --bone: #f6f4ef;
+      --chrome: #b7b7b7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bone);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.7;
+    }
+
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    .home-link:hover {
+      color: var(--ink);
+    }
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 120px 24px 160px;
+    }
+
+    h1 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    }
+
+    .entry {
+      font-size: 0.95rem;
+    }
+
+    .entry p {
+      margin: 0 0 28px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--chrome);
+      margin: 64px auto;
+      opacity: 0.6;
+    }
+
+    footer {
+      margin-top: 120px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding-top: 96px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<a href="/diary/" class="home-link">← Diary</a>
+
+<main>
+  <h1>Daph’s Digital Diary</h1>
+
+  <article class="entry">
+    <p>
+      This is where the entry begins.
+      No introduction. No context.
+      Just the thought as it arrived.
+    </p>
+
+    <p>
+      Write in fragments if needed.
+      Let silence exist between lines.
+    </p>
+
+    <div class="divider"></div>
+
+    <p>
+      End when the energy ends.
+      Not when it feels “complete.”
+    </p>
+  </article>
+
+  <footer>
+    Daph
+  </footer>
+</main>
+
+</body>
+</html>
