@@ -948,3 +948,63 @@ grid-template-columns: 1fr;
   .bv-nav { padding: 10px 12px; }
    
 }
+
+
+/* SOUNDTRACK */
+.soundtrack {
+  margin: 32px 0 56px;
+  text-align: center;
+  color: rgba(20,20,20,0.6);
+}
+
+.soundtrack-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.soundtrack-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.soundtrack-title {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.soundtrack-btn {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.soundtrack-btn:hover {
+  opacity: 1;
+}
+
+.diary-divider {
+  border: none;
+  height: 1px;
+  width: 60px;
+  margin: 64px auto;
+  background: rgba(20,20,20,0.15);
+}
+.diary-notes {
+  margin-top: 64px;
+  font-size: 0.85rem;
+  color: rgba(20,20,20,0.65);
+}
+
+.context-note {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-top: 12px;
+}
