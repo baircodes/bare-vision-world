@@ -496,7 +496,9 @@ body{
 }
 
 /* PROJECT STEWARDSHIP FEATURE RHYTHM */
-grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .book-spread {
+    grid-template-columns: 1fr;
   }
 
   .book-divider {
