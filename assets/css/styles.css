@@ -955,8 +955,13 @@ body{
 /* SOUNDTRACK */
 .soundtrack {
   margin: 64px 0 104px;
+  margin-bottom: 96px;
   text-align: center;
   color: var(--muted);
+}
+
+.entry {
+  padding-top: 32px;
 }
 
 .soundtrack-label {
@@ -1014,16 +1019,16 @@ border-radius: 999px;
 }
 
 /* Diary links — editorial highlight */
-.entry a {
+
+.entry a,
+.entry a:visited {
   color: var(--sage);
   text-decoration: none;
-  background-image: linear-gradient(
-    to right,
-    rgba(183,203,184,0.6),
-    rgba(183,203,184,0.2)
-  );
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(183,203,184,0.6);
+  padding-bottom: 1px;
+}
+
+.entry a:hover {
+  color: var(--sage-dark);
+  border-bottom-color: var(--sage-dark);
 }
