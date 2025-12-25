@@ -954,16 +954,16 @@ body{
 
 /* SOUNDTRACK */
 .soundtrack {
-  margin: 32px 0 56px;
+  margin: 64px 0 72px;
   text-align: center;
-  color: rgba(20,20,20,0.6);
+  color: var(--muted);
 }
 
 .soundtrack-label {
   display: block;
   font-size: 0.65rem;
   letter-spacing: 0.35em;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   opacity: 0.7;
 }
 
@@ -981,8 +981,11 @@ body{
 
 .soundtrack-btn {
   background: none;
-  border: none;
-  font-size: 0.9rem;
+  border: 1px solid var(--chrome);
+border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  font-size: 0.8rem;
   cursor: pointer;
   color: inherit;
   opacity: 0.7;
@@ -992,7 +995,7 @@ body{
   opacity: 1;
 }
 
-.diary-divider {
+.divider {
   border: none;
   height: 1px;
   width: 60px;
@@ -1009,4 +1012,13 @@ body{
   font-size: 0.8rem;
   opacity: 0.6;
   margin-top: 12px;
+}
+
+.entry p {
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+}
+
+.entry em {
+  color: var(--muted);
 }
