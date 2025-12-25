@@ -1013,15 +1013,6 @@ border-radius: 999px;
   letter-spacing: 0.08em;
 }
 
-.entry p {
-  margin-bottom: 32px;
-  font-size: 0.95rem;
-}
-
-.entry em {
-  color: var(--muted);
-}
-
 /* Diary links — editorial highlight */
 .entry a {
   color: var(--sage);
