@@ -108,9 +108,10 @@
     </button>
   </div>
 
- <audio id="soundtrackAudio" preload="none" playsinline>
-    <source src="/assets/audio/holiday-greenday.mp3" type="audio/mpeg">
-  </audio>
+<audio id="soundtrackAudio" preload="none">
+  <source src="/assets/audio/holiday-greenday.mp3" type="audio/mpeg">
+</audio>
+  
 </div>
 
 <article class="entry">
@@ -119,7 +120,7 @@
 <p><s>Merry Christmas.</s></p>
 <p><s>Merry Christmas..?</s></p>
 
-<p><em>recycling Cadi Heron’s line in Mean Girls</em></p>
+<p><em>recycling Cadi Heron aka LiLo’s line in Mean Girls</em></p>
 
 <p><strong><em>“It’s December 25th”</em></strong></p>
 
@@ -218,16 +219,19 @@ neo-utilitarian ethical system
 </main>
   
 <script>
-  const audio = document.getElementById('soundtrackAudio');
-  const toggle = document.getElementById('soundToggle');
+  const audio = document.getElementById("soundtrackAudio");
+  const toggle = document.getElementById("soundToggle");
 
-  toggle.addEventListener('click', () => {
+  toggle.addEventListener("click", () => {
     if (audio.paused) {
-      audio.play();
-      toggle.textContent = '❚❚';
+      audio.currentTime = 0; // forces fresh play
+      audio.play().catch(err => {
+        console.error("Audio play blocked:", err);
+      });
+      toggle.textContent = "❚❚";
     } else {
       audio.pause();
-      toggle.textContent = '▷';
+      toggle.textContent = "▷";
     }
   });
 </script>
