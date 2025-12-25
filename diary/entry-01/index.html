@@ -60,22 +60,89 @@
       margin-bottom: 64px;
     }
 
-    .entry {
-      font-size: 0.95rem;
-    }
+  
+  
+  /* SOUNDTRACK */
+.soundtrack {
+  margin: 64px 0 104px;
+  margin-bottom: 96px;
+  text-align: center;
+  color: var(--muted);
+}
 
-    .entry p {
-      margin: 0 0 28px;
-    }
+.entry {
+  padding-top: 32px;
+}
 
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--chrome);
-      margin: 64px auto;
-      opacity: 0.6;
-    }
+.soundtrack-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  margin-bottom: 14px;
+  opacity: 0.7;
+}
 
+.soundtrack-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.soundtrack-title {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.soundtrack-btn {
+  background: none;
+  border: 1px solid var(--chrome);
+border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.soundtrack-btn:hover {
+  opacity: 1;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  width: 60px;
+  margin: 64px auto;
+  background: rgba(20,20,20,0.15);
+}
+.diary-notes {
+  margin-top: 64px;
+  font-size: 0.85rem;
+  color: rgba(20,20,20,0.65);
+}
+
+.context-note p strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+/* Diary links — editorial highlight */
+
+.entry a,
+.entry a:visited {
+  color: var(--sage);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(183,203,184,0.6);
+  padding-bottom: 1px;
+}
+
+.entry a:hover {
+  color: var(--sage-dark);
+  border-bottom-color: var(--sage-dark);
+}
+    
     footer {
       margin-top: 120px;
       font-size: 0.7rem;
@@ -90,12 +157,13 @@
         padding-top: 96px;
       }
     }
+
   </style>
 </head>
 
 <body>
 
-<a href="/diary/" class="home-link">← Diary</a>
+<a href="/bare-vision-world/diary/" class="home-link">← Diary</a>
 
 <main>
   <h1>Daph’s Digital Diary</h1>
@@ -111,7 +179,7 @@
   </div>
 
 <audio id="soundtrackAudio" preload="none">
-  <source src="/assets/audio/holiday-greenday.mp3" type="audio/mpeg">
+  <source src="//bare-vision-world/assets/audio/holiday-greenday.mp3" type="audio/mpeg">
 </audio>
   
 </div>
