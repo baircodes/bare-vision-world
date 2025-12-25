@@ -1024,13 +1024,15 @@ border-radius: 999px;
 
 /* Diary links — editorial highlight */
 .entry a {
-  color: var(--sage-dark);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  opacity: 0.75;
-}
-
-.entry a:hover {
-  opacity: 1;
+  color: var(--sage);
+  text-decoration: none;
+  background-image: linear-gradient(
+    to right,
+    rgba(183,203,184,0.6),
+    rgba(183,203,184,0.2)
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 2px;
 }
