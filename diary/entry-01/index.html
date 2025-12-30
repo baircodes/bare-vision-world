@@ -100,6 +100,7 @@
   font-style: italic;
 }
 
+
 .soundtrack-btn {
   background: none;
   border: 1px solid var(--chrome);
@@ -115,7 +116,26 @@ border-radius: 999px;
 .soundtrack-btn:hover {
   opacity: 1;
 }
+    
+    <button
+  class="soundtrack-btn"
+  id="soundToggle"
+  data-fallback="https://www.youtube.com/watch?v=A1OqtIqzScI"
+  aria-label="Play soundtrack"
+>
+  ▷
+</button>
+    
+.soundtrack-btn {
+  position: relative;
+}
 
+.soundtrack-btn::after {
+  content: "↗";
+  font-size: 0.6rem;
+  opacity: 0.4;
+  margin-left: 4px;
+}
 .divider {
   border: none;
   height: 1px;
@@ -310,18 +330,25 @@ neo-utilitarian ethical system
 <script>
   const audio = document.getElementById("soundtrackAudio");
   const toggle = document.getElementById("soundToggle");
+  const fallbackURL = toggle.dataset.fallback;
 
   toggle.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.currentTime = 0; // forces fresh play
-      audio.play().catch(err => {
-        console.error("Audio play blocked:", err);
-      });
-      toggle.textContent = "❚❚";
-    } else {
+    if (!audio.paused) {
       audio.pause();
       toggle.textContent = "▷";
+      return;
     }
+
+    audio.currentTime = 0;
+
+    audio.play()
+      .then(() => {
+        toggle.textContent = "❚❚";
+      })
+      .catch(() => {
+        // Fallback: open YouTube
+        window.open(fallbackURL, "_blank", "noopener");
+      });
   });
 </script>
   
