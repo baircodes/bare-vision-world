@@ -337,7 +337,7 @@ neo-utilitarian ethical system
   toggle.addEventListener("click", () => {
     if (!audio.paused) {
       audio.pause();
-      toggle.textContent = "▷";
+      toggle.textContent = "⏵";
       return;
     }
 
@@ -345,7 +345,7 @@ neo-utilitarian ethical system
 
     audio.play()
       .then(() => {
-        toggle.textContent = "❚❚";
+        toggle.textContent = "⏸";
       })
       .catch(() => {
         // Fallback: open YouTube
