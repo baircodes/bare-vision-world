@@ -117,14 +117,6 @@ border-radius: 999px;
   opacity: 1;
 }
     
-    <button
-  class="soundtrack-btn"
-  id="soundToggle"
-  data-fallback="https://www.youtube.com/watch?v=A1OqtIqzScI"
-  aria-label="Play soundtrack"
->
-  ▷
-</button>
     
 .soundtrack-btn {
   position: relative;
@@ -199,13 +191,23 @@ border-radius: 999px;
   <span class="soundtrack-label">s n d t r @ c k</span>
   <div class="soundtrack-row">
     <span class="soundtrack-title">Holiday — Green Day</span>
-    <button class="soundtrack-btn" id="soundToggle" aria-label="Play soundtrack">
-      ▷
-    </button>
+    
+  <button
+  class="soundtrack-btn"
+  id="soundToggle"
+  data-fallback="https://www.youtube.com/watch?v=A1OqtIqzScI"
+  aria-label="Play soundtrack"
+>
+  ▷
+</button>
+ 
   </div>
 
 <audio id="soundtrackAudio" preload="none">
-  <source src="//bare-vision-world/assets/audio/holiday-greenday.mp3" type="audio/mpeg">
+  <source 
+    src="/bare-vision-world/assets/audio/holiday-greenday.mp3"
+    type="audio/mpeg"
+    >
 </audio>
   
 </div>
