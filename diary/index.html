@@ -3,13 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <body>
-    
-  <a href="/bare-vision-world/contact.html" class="home-link">← Home</a>
 
-    
-  <main class="diary-entry">
   <title>Daph’s Digital Diary</title>
 
   <!-- Typography -->
@@ -20,8 +14,6 @@
       --off-black: #0f0f10;
       --bone: #f5f3ee;
       --chrome: #9fa3a7;
-      --beige: #e6e0d6;
-      --azur: #5f7f86;
     }
 
     * {
@@ -34,6 +26,21 @@
       background: var(--bone);
       color: var(--off-black);
       line-height: 1.5;
+    }
+
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: rgba(15,15,16,0.45);
+    }
+
+    .home-link:hover {
+      color: var(--off-black);
     }
 
     main {
@@ -76,7 +83,7 @@
     }
 
     .entry:hover {
-      opacity: 0.65;
+      opacity: 0.6;
     }
 
     .entry-title {
@@ -102,48 +109,42 @@
       main {
         padding: 72px 20px 96px;
       }
-
-      h1 {
-        margin-bottom: 36px;
-      }
-
-      .intro {
-        margin-bottom: 72px;
-      }
     }
   </style>
 </head>
+
 <body>
 
-  <main>
+<a href="/bare-vision-world/" class="home-link">← Home</a>
 
-    <h1>Daph’s Digital Diary</h1>
+<main>
 
-    <p class="intro">
-      Personal field notes. Observations, feelings written in real time.
-      These entries are not statements. They are traces. <br> 
-      Welcome to my mind.
-    </p>
+  <h1>Daph’s Digital Diary</h1>
 
-    <div class="divider"></div>
+  <p class="intro">
+    Personal field notes. Observations, feelings written in real time.
+    These entries are not statements. They are traces.<br>
+    Welcome to the space where my thoughts and my feelings learn to coexist, even when they live miles apart.
+  </p>
 
-    <section class="entry-list">
+  <div class="divider"></div>
 
-      <!-- Entry item -->
-      <a href="entry-01/index.html" class="entry">
-        <div class="entry-title">SNAP OUT OF IT</div>
-        <div class="entry-meta">Field Entry</div>
-      </a>
+  <section class="entry-list">
 
-      <!-- Future entries appear here -->
+    <a href="/bare-vision-world/diary/entry-01/" class="entry">
+      <div class="entry-title">SNAP OUT OF IT</div>
+      <div class="entry-meta">Field Entry</div>
+    </a>
 
-    </section>
+    <!-- Future entries appear here -->
 
-    <footer>
-      Part of the BAIRatmospheres ecosystem ⋆.˚☁️⋆
-    </footer>
+  </section>
 
-  </main>
+  <footer>
+    Part of the BAIRatmospheres ecosystem ⋆.˚☁️⋆
+  </footer>
+
+</main>
 
 </body>
 </html>
