@@ -428,7 +428,7 @@ body{
 }
 
 /* thin subheading (book pages) */
-.subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:#555; display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
+.subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:var(--sage-dark); display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
 
 /* SECTION defaults */
 
@@ -635,7 +635,11 @@ white-space: nowrap;
    margin-bottom: 14px; }
 
 .card-title-ps {
+  font-family: 'Audiowide', sans-serif;
   color: var(--sage);
+   font-size: var(--title-md);
+  letter-spacing: 0.1em;
+   margin-bottom: 14px; 
 }
 
 .card-text{ margin-bottom:14px; }
