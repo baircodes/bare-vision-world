@@ -417,14 +417,6 @@ body{
   box-shadow: 0 22px 50px -28px rgba(0,0,0,0.18);
   backdrop-filter: none;
 }
-.section.mirror .panel::before {
-  content: "";
-  display: block;
-  width: 48px;
-  height: 1px;
-  margin-bottom: 18px;
-  background: rgba(10,10,10,0.35);
-}
 
 .section.mirror .panel {
   transition: box-shadow 0.4s ease;
@@ -629,12 +621,18 @@ body{
 .steward-card:hover{ 
    transform:translateY(-2px); }
 .steward-list{ margin:18px 0 28px; padding-left:18px; }
+
 .card-title {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-md);
   letter-spacing: 0.1em;
    color:#8ea59a;
    margin-bottom: 14px; }
+
+.card-title-ps {
+  color: var(--sage);
+}
+
 .card-text{ margin-bottom:14px; }
 
 .steward-section {
@@ -737,6 +735,13 @@ body{
 }
 .blueprint-feature p {
   margin-bottom: 26px;
+}
+
+.cta-whisper {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgba(10,10,10,0.55);
+  margin-bottom: 12px;
 }
 
 .section.about .panel {
