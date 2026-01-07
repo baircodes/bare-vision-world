@@ -412,6 +412,7 @@ body{
 .panel h2{ font-family:'Audiowide',sans-serif; font-weight:400; font-size:2.4rem; margin-bottom:12px; }
 
 .section.mirror .panel {
+  color: var(--sage);
   background: rgba(255,255,255,0.85);
   border: 1px solid rgba(10,10,10,0.18);
   box-shadow: 0 22px 50px -28px rgba(0,0,0,0.18);
@@ -507,6 +508,8 @@ body{
     padding: 120px 20px 140px;
   }
 }
+
+
 /* BOOK LAYOUT */
 
 .book-spread {
@@ -610,7 +613,9 @@ body{
   font-size: var(--title-xl);
   letter-spacing: 0.04em;
   line-height: 1.1;
+white-space: nowrap;
 }
+
 .page-subtitle{ font-family:'Outfit',sans-serif; opacity:.78; margin-top:8px; }
 
 /* steward cards */
@@ -769,6 +774,23 @@ body{
   line-height: 1.85;
 }
 
+.about-hero {
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+.about-hero .page-lead {
+  max-width: 640px;
+  margin: 16px auto 0;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+.about-hero .page-sub {
+  margin-top: 28px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: rgba(10,10,10,0.65);
+}
+
 .text-link {
   display: inline-block;
   margin-top: 14px;
@@ -881,6 +903,14 @@ body{
   line-height: 1.7;
 }
 
+.contact-note {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgba(10,10,10,0.55);
+  text-align: center;
+  margin-top: 24px;
+}
+
 /* Placeholder tone */
 .refined-form ::placeholder {
   color: rgba(10,10,10,0.35);
@@ -955,5 +985,9 @@ body{
   .bv-nav { padding: 10px 12px; }
    
 }
-
+@media (min-width: 768px) {
+  .steward-hero .page-title {
+    white-space: nowrap;
+  }
+}
 
