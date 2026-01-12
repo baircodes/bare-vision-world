@@ -331,12 +331,14 @@ body{
   background: rgba(10,10,10,0.9);
   color: var(--sage);
   border-color: rgba(10,10,10,0.9);
+  align-items: center;
 }
 
 .section.mirror .btn.orb.secondary {
   background: transparent;
   border-color: rgba(10,10,10,0.35);
   color: rgba(10,10,10,0.8);
+  align-items: center;
 }
 
 .section.mirror .btn.orb.primary:hover {
