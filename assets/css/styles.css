@@ -660,6 +660,11 @@ body{
 white-space: nowrap;
 }
 
+.page-title {
+  max-width: 92vw;
+  margin-inline: auto;
+}
+
 .page-subtitle{ font-family:'Outfit',sans-serif; opacity:.78; margin-top:8px; }
 
 /* steward cards */
@@ -1037,17 +1042,9 @@ white-space: nowrap;
           }
    }
    
-   @media (max-width: 900px) {
-  .section-header,
+  @media (max-width: 900px) {
   .page-title {
     white-space: normal;
+    text-align: center; /* optional but recommended */
   }
 }
-   
-
-@media (min-width: 768px) {
-  .steward-hero .page-title {
-    white-space: nowrap;
-  }
-}
-
