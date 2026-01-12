@@ -346,6 +346,7 @@ body{
 }
 .section.mirror .btn.orb.secondary:hover {
   background: #000;
+  color: var(--sage);
   border-color: #000;
   transform: translateY(-1px);
 }
