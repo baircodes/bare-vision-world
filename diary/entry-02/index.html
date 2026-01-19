@@ -1,0 +1,354 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daph’s Digital Diary — Entry 002 </title>
+
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #121212;
+      --muted: rgba(18,18,18,0.6);
+      --bone: #f6f4ef;
+      --chrome: #b7b7b7;
+      --sage: #B7CBB8;
+      --sage-dark: #9CAD9D;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bone);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.7;
+    }
+
+    .home-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    .home-link:hover {
+      color: var(--ink);
+    }
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 120px 24px 160px;
+    }
+
+    h1 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    }
+
+    h2 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    } 
+  
+  /* SOUNDTRACK */
+.soundtrack {
+  margin: 64px 0 104px;
+  margin-bottom: 96px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.entry {
+  padding-top: 32px;
+}
+
+.soundtrack-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  margin-bottom: 14px;
+  opacity: 0.7;
+}
+
+.soundtrack-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.soundtrack-title {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+
+.soundtrack-btn {
+  background: none;
+  border: 1px solid var(--chrome);
+border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.soundtrack-btn:hover {
+  opacity: 1;
+}
+    
+    
+.soundtrack-btn {
+  position: relative;
+}
+
+.soundtrack-btn::after {
+  content: "↗";
+  font-size: 0.6rem;
+  opacity: 0.4;
+  margin-left: 4px;
+}
+.divider {
+  border: none;
+  height: 1px;
+  width: 60px;
+  margin: 64px auto;
+  background: rgba(20,20,20,0.15);
+}
+.diary-notes {
+  margin-top: 64px;
+  font-size: 0.85rem;
+  color: rgba(20,20,20,0.65);
+}
+
+.context-note p strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+/* Diary links — editorial highlight */
+
+.entry a,
+.entry a:visited {
+  color: var(--sage-dark);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(183,203,184,0.6);
+  padding-bottom: 1px;
+}
+
+.entry a:hover {
+  color: var(--sage);
+  border-bottom-color: var(--sage);
+}
+    
+    footer {
+      margin-top: 120px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding-top: 96px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<a href="/bare-vision-world/diary/" class="home-link">← Diary</a>
+
+<main>
+  <h1>Daph’s Digital Diary</h1>
+
+  <!-- SOUNDTRACK -->
+<div class="soundtrack">
+  <span class="soundtrack-label">s n d t r @ c k</span>
+  <div class="soundtrack-row">
+    <span class="soundtrack-title">One More Hour — Tame Impala</span>
+    
+  <button
+  class="soundtrack-btn"
+  id="soundToggle"
+  data-fallback="https://www.youtube.com/watch?v=Y0U6u2D8cMU"
+  aria-label="Play soundtrack"
+>
+  ▷
+</button>
+ 
+  </div>
+
+<audio id="soundtrackAudio" preload="none">
+  <source 
+    src="/bare-vision-world/assets/audio/Tame Impala - One More Hour Official Audio.mp3"
+    type="audio/mpeg"
+    >
+</audio>
+  
+</div>
+
+<article class="entry">
+<h2>ENERGY IS CURRENCY!</h2>
+  
+<p>
+I’ve always enjoyed reflecting on the past calendar year. It’s one of the traditions of the post holiday limbo I like to indulge in. 
+I come from open minded parents that embrace breaking traditions, and who encouraged my siblings and I to forge our own paths. I remember being drawn to the magic of communication and language at a young age. 
+During my childhood, I would creepily stand in the home office, open random books I felt called to, and ‘’absorb’’ the content without understanding all of the words. 
+Most of the books I did this with turned out to be topics I ended up studying and specializing in. My parents have books about everything; ranging from vintage National Geographics collections, to consumer behaviour & business psychology books to a variety of spiritual texts. 
+If you can’t tell, both sides of my family are linguistic wizards, trailblazers and business savvy.</p> 
+
+<p>The apple doesn’t fall far from the orchard.</p>
+  
+<p>My mother was very into astrology before it was cool. I literally have a poster of the sky during my birth, aka my birth chart, accompanied by a detailed description, dated a month after my birth back in 1996. 
+  I could share pictures. I will not. Source: trust me bestie ✮ ⋆ ˚｡𖦹 ⋆｡° ✩ </p>
+<p>& Before you even formulate the thought…yes indeed, I also was the creepy child hovering in silence over my mom’s side of the bed, in the middle of the night after yet another lucid dream, fulfilling her monthly unsolicited subscription to 3am heart attacks.</p>
+
+<p>SO, through books I learned at a young age to keep track of modern + Chinese astrology.</p>
+ 
+<p>By now, maybe you are asking yourself “Ok cool story Daph. What’s the business point here? My puppy-like attention span is fading away…”</p>
+  
+<p>According to Chinese astrology beliefs—no this is not a full entry on this topic; there is enough informational content out there—the collective is closing the year of the wooden snake. 
+We, as a society, are about the enter the year of the fire horse on February 17th 2026.  For me, that means there’s a duality in my energy field where I feel like I’m ready to move forward and stomp towards the dynamic year ahead. 
+It feels like I am restless; <a href="https://www.youtube.com/watch?v=XN_t8-CtJbQ" target="_blank" rel="noopener"> I Wanna GO</a>. Opportunities have already started to enter my field.</p> 
+<p>Yet… I also feel my inner wisdom nudging me, breathing back to the present moment, helping me discern what is worth my attention and what isn’t. 
+It would be foolish to charge now when I still am integrating recharged parts of my identity, as I simultaneously am letting go of what threatens my feeling of sovereignty. 
+When I find both parts are fighting for my attention, I remember to empty my mind and focus on my breath through my heart. Enjoy here now ☺︎ </p>
+
+<p>It is quite an exercise of patience to embrace this season currently inviting us to rest and fully anchor into the energy we want to move forward with in the next year. Aligning with natural timing is counter intuitive in the Western culture I currently live in. There’s like this cultural obsession with productivity & availability, and showing it off on social media over embodying it. 
+Because of that, I believe practicing feeling safe and satisfied while resting and letting things magnetize back to us, letting it happen, having faith in ourSelf and our previous actions, helps in countering that ‘’default’’ setting our nervous system has been programmed with. It’s your personal responsibility to hack that default!</p>
+<p>Feeling guilty for resting is so 2025. It’s literally when I’m chilling and simply living life how I feel like it that I feel love. Meaning that I get all of my ideas and opportunities therefore I am leveraging my abundance of energy. When I pause and lock in to love’s frequency, I can remember through feeling past moments in my body, moments where I am feeling <a href="https://ahumandesign.com/types/generators/?gad_source=1&gad_campaignid=20070550040&gbraid=0AAAAABvl9BTCrX3iNistVUCsXhJxLhNFh&gclid=Cj0KCQiAgvPKBhCxARIsAOlK_EoQGO4wrJT1qyrdOT439UY2LaIdG7md-wu5pVsKF2Hr6mUlo-VG8ZQaAmrHEALw_wcB" target="_blank" rel="noopener"> satisfied</a>. 
+Feelings of frustration, not resistance, is how I know I should not be directing my energy in that endeavour. That my friends, takes a lot of dedication in unlearning behaviour as well as practicing the art of detachment towards material manifestations.</p> 
+
+<p>My perception, as of right now, is that my attention should not be focused on worshipping time <i>‘’how can I sustain efficient time management skills’’ ‘’everyone should time block their schedule!’’</i> ; instead my awareness should target my energy management skills <i>‘’how can I sustain agile decision making?’’</i> In other words, <i>‘’how skilled am I at intuitively levering my energy?’’</i></p>
+
+<p>When my imposter syndrome tries to come back creeping like a past situationship, I always end up rhetorically asking myself <i>‘’why would I ever consider someone else’s blueprint when the one I’ve created for myself has always worked out in my favour?’’</i> I had to remember that one the hard way, after trying to fit in where I didn’t belong or trying on someone else’s idea of a life.</p> 
+<p>All of this to say, you have to go out there and experience life to see where you truly want to spend your energy, and the cost of being around other energy fields.</p>
+  
+<p>─── ⋆⋅☆⋅⋆ ──</p>
+  
+<p>Us humans have been perceiving life through the dimension of time since forever, simply by observing nature’s cycles. Gravitational time dilation in astrophysics means—in keep it simple stupid language—massive objects, such as, let’s say planet Earth, wrap and cause the dimension of time 2 slow down. 
+  Western human beings have been conditioned to 24h cycles through a mechanical clock; based on the sun of our solar system. In many cultures, the sun is associated to the male hormonal cycle. In a natural example of duality, women naturally operate on a 25-30 days cycle, associated with the moon’s cycle in those same cultures. 
+  Two very different approaches to observe time and work with nature.</p>
+
+<p>For that reason, let’s establish how time and energy are perceived in BARE’s current context.</p>
+
+<p><strong>Time</strong> is fluid, neutral and equal for everyone. How one perceives and frames time is subjective.</p> 
+<p class="context-note"><strong>Concrete concepts to observe the dimension of time:</strong> mechanical time, Gregorian calendar, seasonal cycles, astrophysics, astronomy.</p>
+
+<p><strong>Energy</strong> is variable, contextual and relational. If we observe the concept of electro magnetic fields —again, in keep it simple stupid language; multiple energy fields influence one another: they can charge together or drain each other depending on the polarity (+/- charged) of each field. 
+  Multiple fields create an ecosystem where the same concept applies; each ecosystem has a +/- field that influences other ecosystems.</p> 
+
+<p>Where am I going with all of this?</p>
+<p>BARE with me as I try to put it as simple as I can,</p>
+<p>Some interactions or actions cost more in energy than in how much time they appear to take, or cost. In other words, 2 hours with the wrong people (aka negatively charged energy fields) can cost someone more than spending 1 week of time on isolated focused work. From my perspective, that alignment or misalignment is felt and registered through my body before it is rationalized by my mind. Learning to discern how, what & who elevates/deflates me is a massive energy, and thus time, saver. It’s why I started to observe how my body feels after interactions, activities or tasks, instead of rationalizing my train of thoughts. 
+
+<p><i>‘’Daphhhh, we kinda know. This information isn’t groundbreaking...HOW can we remember to connect with our body’s natural intelligence gathering technique?’’</p></i>
+
+<p>Of course babe, it’s really not that challenging. You simply have to create the habit, the neuropathway. So it does require discipline.</p>
+
+<p>After spending time interacting with others/completing a specific activity or task,
+<strong>take a moment to close your eyes and feel your aura.</strong></p> 
+<p>Is colliding with X person’s field causing disturbance and dissonance in your field? Or is it making you feel harmonized, seen and valued?</p> 
+<p>Did you enjoy X type of workout or did you feel more alive playing X sport?</p> 
+<p>Do you feel light, inspired and elevated towards creativity or do you feel the heavy clouds of self consciousness rolling in?</p> 
+<p>What/who lights you up and what/who dims you?</p> 
+
+<p>You really don’t need to, and you truly shouldn’t force yourself to tolerate anything or anybody that doesn’t set your heart on fire. Your life belongs to you. 
+How you spend your energy is up to you, regardless of whatever illusion tries to creep up in your thoughts trying to convince you otherwise.</p>
+
+<p> —>When regulated, our nervous system is our compass</p>
+<p> —>Self regulation closes the feedback loop of resistance</p>
+<p> —>Resistance is objectively unavoidable in life</p>
+
+<p>You’ve probably already heard the phrase <i>‘’choose your hard’’</i>. I believe part of the ‘’cheat code’’ or the ‘’glitch’’ lies in learning how to enjoy increasing levels of resistance. 
+The gym and the arts being great training grounds to practice, if I do say so myself.</p> 
+
+<p><i>‘’What does any of this have to do with energy management? How can I concretely apply this and embody it in leadership roles?’’</i></p>
+
+<p>Great questions!</p> 
+<p>As a leader, you already understand that a lot of your role within an ecosystem is relationship management in order to delegate each task/position to the optimal trusted collaborator. These decisions become quicker as your intuition sharpens. 
+  You’ll quickly notice how you’ll spend energy nurturing relationships that drive the positive fields of the ecosystem. On the other hand, you won’t be keeping around people or roles longer than what they are meant to serve or teach you. Again, no one is protected from resistance.</p>
+
+<p>Learning to manage resistance for me means, if someone pushes me to feel and thus learn to regulate discomfort; that’s a sign for me to map a way to grow through and with them. Maybe it’s a new collaborator, they are learning to adapt to the culture all while bringing their own experience, wisdom and change ideas.</p>
+<p>On the opposite, if someone is constantly dragging me through disregulation; that’s when I learn to self regulate and let go. Or else, I’ve learned the hard way that I’ll leak too much energy and thus burn precious time.</p> 
+
+<p>We should be paying most attention to the energy fields spiralling higher with us, where our desired behaviour is the norm. That’s how we can learn to elevate one another.</p>
+<p>As you know, relationships are capital. How you make people feel matters, and their respect ratio will always be proportionate to how they perceive you as a leader. I don’t think anybody who is sane is interested in building a community where the ecosystem doesn’t respect them back. 
+I believe it is important to integrate in your being that, how you make people feel entirely depends <i>on how you feel within yourSelf</i>. You control your own field, nobody else’s.</p> 
+<p>You know people who feel like you are chilling with a rainbow? They are so colourful and comforting, they give biiiig dopamine hugs? It feels so safe and freeing to have them around. You have at least one person in mind, maybe it’s you. They radiate that aura because they cultivate love in their field, and love will forever be the strongest magnet. 
+Love is the most powerful way to earn and gain respect.</p>
+<p>So in leadership, choose fewer yet clearer containers. Your body will register that feeling of relief that follows discernment, and that’s how you quickly sharpen your intuition skills. The goal is to show you how you don’t need “more hours in a day” you only need less energy leaks.</p>
+
+<p>─── ⋆⋅☆⋅⋆ ──</p>
+  
+<p>The Western New Year asks for resolutions; the Eastern New Year asks for release. I don’t think you can resolve to be new if you haven't released who you were. I know i’ll be using the weeks before February 17th not to start the race, but to glamourously strut to the starting line. 
+Let the Snake finish biting its tail before asking the Horse to run.</p>
+<p>Hopefully you too felt the vibes of 2025 and spent the year breaking down old systems in order to design a new, more sustainable and agile inner-architecture based on energy management.</p> 
+<p>What I’m focused on protecting right now is the part of me that notices energy before it explains decisions, moving accordingly, leaking little to no energy.</p>
+
+  
+<p>Have fun & feel safe out there </p>
+
+<p>Bisous,<br> 
+D x</p>
+    
+  </article>
+
+  <footer>
+    Daph's Digital Diary‧₊˚🖇️✩ ₊˚🎧⊹♡
+  </footer>
+</main>
+  
+<script>
+  const audio = document.getElementById("soundtrackAudio");
+  const toggle = document.getElementById("soundToggle");
+  const fallbackURL = toggle.dataset.fallback;
+
+  toggle.addEventListener("click", () => {
+    if (!audio.paused) {
+      audio.pause();
+      toggle.textContent = "⏵";
+      return;
+    }
+
+    audio.currentTime = 0;
+
+    audio.play()
+      .then(() => {
+        toggle.textContent = "⏸";
+      })
+      .catch(() => {
+        // Fallback: open YouTube
+        window.open(fallbackURL, "_blank", "noopener");
+      });
+  });
+</script>
+  
+</body>
+</html>
