@@ -270,7 +270,7 @@ body{
 
 /* Title embossed effect */
 .title-text{
-  font-family:'Outfit'; font-weight:700;
+  font-family:'Audiowide'; font-weight:700;
   font-size:clamp(3rem,6vw,6.5rem);
   letter-spacing:-1.5px; line-height:0.92;
   color:#a8b9ac;
