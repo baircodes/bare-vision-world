@@ -500,9 +500,6 @@ body{
   text-align: center;
   width: 100%;
 }
-.section.mirror.visible .panel {
-  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.28);
-}
 
 /* thin subheading (book pages) */
 .subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:var(--sage-dark); display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
@@ -516,12 +513,15 @@ body{
   margin-bottom: 0;
 }
 
+/* MIRROR — reduce panel presence */
+.section.mirror .panel {
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(10,10,10,0.12);
+  backdrop-filter: blur(10px);
+}
+
 .section.mirror {
   padding: 80px 20px;
-}
-.section.mirror .panel-cta {
-  flex-direction: row;
-  gap: 16px;
 }
 
 
@@ -534,12 +534,9 @@ body{
 
 .section.mirror p {
   line-height: 1.6;
-  color: rgba(10,10,10,0.9);
+  color: rgba(10,10,10,0.82);
 }
 
-.section.mirror {
-  transform: translateY(12px);
-}
 
 .section.mirror.visible {
   transform: translateY(0);
@@ -551,6 +548,7 @@ body{
 .section.mirror .panel-cta {
   flex-direction: row;
   gap: 16px;
+   margin-top: 32px;
 }
 
 .section.mirror .cta-micro {
@@ -609,6 +607,7 @@ body{
 /* BOOK LAYOUT */
 
 /* HOME — Stewardship panel cleanup */
+
 .steward-section .panel {
   padding: 52px 48px;
 }
@@ -771,6 +770,7 @@ white-space: nowrap;
   z-index: 1;
 }
 
+
 .steward-section .steward-card {
   margin-top: 12px;
 }
@@ -779,7 +779,7 @@ white-space: nowrap;
   font-size: var(--title-lg);
   letter-spacing: 0.06em;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   color:#8ea59a;
 }
 
@@ -917,6 +917,27 @@ white-space: nowrap;
   color: rgba(10,10,10,0.65);
 }
 
+/* ABOUT — narrower reading column */
+.section.about .panel {
+  max-width: 680px;
+}
+
+/* ABOUT — tighten paragraph rhythm */
+.section.about .bv-paragraph {
+  margin-bottom: 1.2rem;
+}
+
+/* ABOUT — soften lead-in */
+.about-hero .page-lead {
+  opacity: 0.78;
+}
+
+/* ABOUT — de-emphasize captions */
+.photo-caption {
+  font-size: 0.7rem;
+  opacity: 0.55;
+}
+
 .text-link {
   display: inline-block;
   margin-top: 14px;
@@ -975,6 +996,24 @@ white-space: nowrap;
   border-color: var(--sage);
   color: var(--sage-dark);
   transform: translateY(-2px);
+}
+
+/* STEWARDSHIP — reduce visual noise */
+.steward-section .panel {
+  background: rgba(255,255,255,0.32);
+  border: 1px solid rgba(120,130,120,0.10);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px -28px rgba(0,0,0,0.06);
+}
+
+/* STEWARDSHIP — tighter vertical rhythm */
+.steward-section {
+  padding: var(--space-sm) 20px;
+}
+
+/* STEWARDSHIP — calm the headers */
+.steward-section .section-header {
+  margin-bottom: 24px;
 }
 
 /* =========================
