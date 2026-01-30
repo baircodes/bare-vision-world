@@ -59,8 +59,8 @@
     if (!headerBar || !hero) return;
     const heroBottom = hero.getBoundingClientRect().bottom;
     if (heroBottom < 90) headerBar.classList.add('bv-nav-solid');
-    else headerBar.classList.remove('bv-nav-solid');
-  }
+    else headerBar.classList.remove('bv-nav-solid');  if (!document.body.classList.contains('inner-page')) {
+}
   window.addEventListener('scroll', updateNav);
   window.addEventListener('resize', updateNav);
   updateNav();
