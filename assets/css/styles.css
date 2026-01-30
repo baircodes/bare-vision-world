@@ -181,6 +181,12 @@ body{
 .work-dropdown a { color:rgba(10,10,10,0.92); text-decoration:none; padding:8px 10px; border-radius:6px; }
 .work-dropdown a:hover { background: rgba(183,203,184,0.06); }
 
+/* INNER PAGES — NAV AUTHORITY MODE */
+.inner-page .bv-header-bar {
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+
 /* MOBILE NAV */
 .bv-hamburger {
   display:none;
