@@ -59,6 +59,30 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
+/* RHYTHM HOOK — margin note authority */
+.rhythm-hook {
+  margin-top: 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: rgba(10,10,10,0.55);
+
+  /* visual restraint */
+  opacity: 0.85;
+
+  /* subtle offset so it reads as annotation, not headline */
+  padding-left: 2px;
+}
+
+/* Optional: slightly tighter on mobile */
+@media (max-width: 768px) {
+  .rhythm-hook {
+    font-size: 0.75rem;
+    margin-top: 14px;
+  }
+}
+
 /* SKY + ORB LAYER (global atmosphere) */
 #sky{
   position:fixed; inset:0; pointer-events:none; z-index:-10;
