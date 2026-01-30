@@ -744,7 +744,23 @@ white-space: nowrap;
   margin-inline: auto;
 }
 
-.page-subtitle{ font-family:'Outfit',sans-serif; opacity:.78; margin-top:8px; }
+.page.subtitle {
+  margin-top: 14px;
+  max-width: 560px;
+
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  font-weight: 400;
+
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+
+  color: rgba(10,10,10,0.55);
+
+  /* editorial restraint */
+  opacity: 0.85;
+}
 
 /* steward cards */
 .steward-card{ padding:40px; 
