@@ -412,16 +412,18 @@ body{
   margin: 0 auto;
   padding: 48px 44px;
 
-  background: rgba(255,255,255,0.48);
-  border: 1px solid rgba(120,130,120,0.14);
-  border-radius: 12px;
-
-  backdrop-filter: blur(12px) saturate(120%);
-  box-shadow: 0 28px 60px -30px rgba(0,0,0,0.06);
+ background: rgba(255,255,255,0.32);
+  border: 1px solid rgba(120,130,120,0.08);
+  backdrop-filter: blur(10px) saturate(110%);
 
   position: relative;
   z-index: 1;
   color: rgba(10,10,10,0.92);
+}
+
+/* Atmospheric refinement — increase panel translucency */
+.section:not(.mirror) .panel {
+  background: rgba(255,255,255,0.26);
 }
 
 .panel h2{ font-family:'Audiowide',sans-serif; font-weight:400; font-size:2.4rem; margin-bottom:12px; }
@@ -437,6 +439,17 @@ body{
   transition: box-shadow 0.4s ease;
 }
 
+/* HOME — Mirror panel CTA alignment fix */
+.section.mirror .panel-cta {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.section.mirror .cta-micro {
+  text-align: center;
+  width: 100%;
+}
 .section.mirror.visible .panel {
   box-shadow: 0 30px 60px -30px rgba(0,0,0,0.28);
 }
@@ -460,6 +473,8 @@ body{
   flex-direction: row;
   gap: 16px;
 }
+
+
 .section.mirror h2 {
   font-size: 2rem;
   letter-spacing: 0.04em;
@@ -542,6 +557,11 @@ body{
 
 
 /* BOOK LAYOUT */
+
+/* HOME — Stewardship panel cleanup */
+.steward-section .panel {
+  padding: 52px 48px;
+}
 
 .book-spread {
   display: grid;
