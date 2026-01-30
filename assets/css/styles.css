@@ -408,12 +408,20 @@ body{
   gap: 12px;
   margin-top: 24px;
 }
+
 /* Long-form Audiowide titles — optical tightening */
 .page-title,
 .section-header,
 .panel h2 {
   letter-spacing: 0.02em;
 }
+
+.page-title,
+.section-header,
+.panel h3 {
+  letter-spacing: 0.02em;
+}
+
 /* Do NOT change — labels need air */
 .bv-subheader,
 .card-title,
@@ -444,6 +452,7 @@ body{
 }
 
 .panel h2{ font-family:'Audiowide',sans-serif; font-weight:400; font-size:2.4rem; margin-bottom:12px; }
+.panel h3{ font-family:'Audiowide',sans-serif; font-weight:400; font-size:2.2rem; margin-bottom:10px; }
 
 .section.mirror .panel {
   background: rgba(255,255,255,0.85);
