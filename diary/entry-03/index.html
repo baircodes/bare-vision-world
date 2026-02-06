@@ -133,7 +133,7 @@
       <span class="soundtrack-title">Reload — Sebastian Ingrosso x Timmy Trash x John Martin </span>
    
     <audio id="soundtrackAudio" preload="metadata">
-  <source src="/bare-vision-world/assets/audio/reload-radio-edit.mp3" type="audio/mpeg">
+<source src="assets/audio/reload-radio-edit.mp3" type="audio/mpeg">
 </audio>
       
     <button
@@ -262,38 +262,20 @@
   const toggle = document.getElementById("soundToggle");
   const fallbackURL = toggle.dataset.fallback;
 
-  let attemptedFallback = false;
-
   toggle.addEventListener("click", () => {
-    // Pause case
+    audio.load();
+
     if (!audio.paused) {
       audio.pause();
       toggle.textContent = "▷";
       return;
     }
 
-    // Reset to start
-    audio.currentTime = 0;
-
-    audio.play()
-      .then(() => {
-        toggle.textContent = "⏸";
-        attemptedFallback = false;
-      })
-      .catch((err) => {
-        console.warn("Audio play failed:", err);
-
-        // Only fallback if audio truly cannot play
-        if (!attemptedFallback) {
-          attemptedFallback = true;
-          window.open(fallbackURL, "_blank", "noopener");
-        }
-      });
-  });
-
-  // Reset button when audio ends
-  audio.addEventListener("ended", () => {
-    toggle.textContent = "▷";
+    audio.play().then(() => {
+      toggle.textContent = "⏸";
+    }).catch(() => {
+      window.open(fallbackURL, "_blank", "noopener");
+    });
   });
 </script>
 
