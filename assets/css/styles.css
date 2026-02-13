@@ -115,6 +115,50 @@ h1, h2, h3 {
   }
 }
 
+
+/* =====================================
+   CANONICAL TEXT CTA SYSTEM
+   (Replaces All Physical Buttons)
+   ===================================== */
+
+.cta-link {
+  display: inline-block;
+
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  padding-bottom: 6px;
+
+  border-bottom: 1px solid currentColor;
+
+  transition: 
+    opacity var(--ease-standard),
+    letter-spacing var(--ease-standard);
+}
+
+/* Light Sections */
+.cta-link.light {
+  color: var(--sage-500);
+}
+
+.cta-link.light:hover {
+  opacity: 0.65;
+  letter-spacing: 0.22em;
+}
+
+/* Dark Sections (Onyx / Why Now / Ten Years) */
+.cta-link.dark {
+  color: var(--sage-300);
+}
+
+.cta-link.dark:hover {
+  opacity: 0.7;
+  letter-spacing: 0.22em;
+}
+
 /* SKY + ORB LAYER (global atmosphere) */
 #sky{
   position:fixed; inset:0; pointer-events:none; z-index:-10;
@@ -374,64 +418,10 @@ h1, h2, h3 {
 }
 
 .subtitle.muted{ margin-top:8px; max-width:580px; color:rgba(10,10,10,0.6); font-size:.65rem; }
-/* =========================
-   ORB BUTTONS — ORIGINAL LUXURY VERSION
-   ========================= */
-.btn.orb {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(183,203,184,0.32);
-  color: rgba(10,10,10,0.88);
-  padding: 12px 28px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  font-family: 'Outfit';
-  backdrop-filter: blur(var(--panel-blur));
-  transition: all .28s ease;
-  text-decoration: none;
-}
 
-.btn.orb:hover {
-  border-color: var(--sage);
-  color: var(--sage-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 38px rgba(160,180,170,0.10);
-}
 
-.btn,
-.btn:visited,
-.btn:hover,
-.btn:active {
-  text-decoration: none;
-}
 
-.section.mirror .btn.orb.primary {
-  background: rgba(10,10,10,0.9);
-  color: var(--sage);
-  border-color: rgba(10,10,10,0.9);
-  align-items: center;
-}
 
-.section.mirror .btn.orb.secondary {
-  background: transparent;
-  border-color: rgba(10,10,10,0.35);
-  color: rgba(10,10,10,0.8);
-  align-items: center;
-}
-
-.section.mirror .btn.orb.primary:hover {
-  background: #000;
-  border-color: #000;
-  transform: translateY(-1px);
-}
-.section.mirror .btn.orb.secondary:hover {
-  background: #000;
-  color: var(--sage);
-  border-color: #000;
-  transform: translateY(-1px);
-}
 
 /* =========================
    PEARL VISUALS (LUXURY UPDATE)
@@ -1004,26 +994,9 @@ white-space: nowrap;
 /* CTA */
 .cta-section{ text-align:center; padding:120px 20px; border-top:1px solid rgba(0,0,0,0.02); background:transparent; }
 .cta-title{ font-family:'Audiowide',sans-serif; font-size:1.6rem; margin-bottom:10px; }
-.cta-btn {
-  display: inline-block;
-  padding: 14px 34px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 500;
-  font-family: 'Outfit';
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(183,203,184,0.35);
-  color: rgba(10,10,10,0.9);
 
-  backdrop-filter: blur(var(--panel-blur));
-  transition: all .28s ease;
-}
 
-.cta-btn:hover {
-  border-color: var(--sage);
-  color: var(--sage-dark);
-  transform: translateY(-2px);
-}
+
 
 /* STEWARDSHIP — reduce visual noise */
 .steward-section .panel {
@@ -1116,7 +1089,7 @@ white-space: nowrap;
 }
 
 /* Submit button — ceremonial */
-.refined-form button.btn.orb.primary {
+.refined-form button..orb.primary {
   background: transparent;
   border: 1px solid rgba(10,10,10,0.6);
   color: rgba(10,10,10,0.85);
@@ -1126,11 +1099,6 @@ white-space: nowrap;
   text-transform: uppercase;
 }
 
-.refined-form button.btn.orb.primary:hover {
-  background: rgba(10,10,10,0.85);
-  color: #fff;
-  transform: translateY(-2px);
-}
 
 /* Soft divider */
 .hr-soft {
@@ -1206,16 +1174,9 @@ white-space: nowrap;
   margin-bottom: 48px;
 }
 
+
 .why-now-cta {
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--sage-500);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding-bottom: 6px;
-  transition: opacity 0.3s ease;
+  composes: cta-link dark;
 }
 
 .why-now-cta:hover {
