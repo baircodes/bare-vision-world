@@ -159,6 +159,24 @@ h1, h2, h3 {
   letter-spacing: 0.22em;
 }
 
+/* =====================================
+   HERO CTA GROUP SPACING
+   ===================================== */
+
+.hero-cta-group {
+  display: flex;
+  gap: 28px; /* refined luxury spacing */
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .hero-cta-group {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
 /* SKY + ORB LAYER (global atmosphere) */
 #sky{
   position:fixed; inset:0; pointer-events:none; z-index:-10;
