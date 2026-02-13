@@ -6,7 +6,7 @@
   <title>Project Stewardship — Bare Vision</title>
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
- <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js" defer></script>
   <link rel="stylesheet" href="assets/css/styles.css" />
   
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -17,7 +17,6 @@
 <body class="inner-page stewardship-page">
 
 <div id="sky"></div>
-<div id="orb-layer"></div>
 
 <!-- FORCE TRANQUILLE NAV -->
 <header class="bv-header-bar">
@@ -181,7 +180,14 @@ These are not permanent rulebooks, but durable baselines. The measure of this wo
     </footer>
   
 </main>
-<script type="module" src="assets/js/main3d.js"></script>
+<script>
+  if (!document.body.classList.contains("inner-page")) {
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = "assets/js/main3d.js";
+    document.body.appendChild(script);
+  }
+</script>
 <script src="assets/js/nav.js" defer></script>
   
 </body>
