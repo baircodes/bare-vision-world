@@ -1,14 +1,7 @@
-/* =====================================
-   MASTER COLOR + SYSTEM VARIABLES
-   ===================================== */
-
 :root {
-
   /* ---------- Core Palette ---------- */
-
   --ivory: #F9F7F2;
   --sand: #E8E3DB;
-
   --onyx: #0B0B0C;
 
   --sage-100: #C9D8CD;
@@ -19,28 +12,20 @@
   --cherry: #8C1C1C;
   --ice-blue: #AEBEC4;
 
-  /* ---------- Text Tones ---------- */
-
   --text-primary: #111111;
   --text-muted: rgba(0,0,0,0.6);
   --text-soft-light: rgba(255,255,255,0.75);
 
-  /* ---------- Borders ---------- */
-
   --border-soft-dark: rgba(255,255,255,0.08);
   --border-soft-light: rgba(0,0,0,0.08);
 
-  /* ---------- Layout ---------- */
-
   --maxwidth: 1200px;
 
-  /* ---------- Motion ---------- */
-
   --ease-standard: 0.3s ease;
-}
-
 
   --header-height: 90px;
+
+   --panel-blur: 8px;
 }
 
 /* =====================================
@@ -102,7 +87,7 @@ h1, h2, h3 {
   font-size: 0.8rem;
   font-style: italic;
   letter-spacing: 0.04em;
-  color: var(--sage-dark);
+  color: var(--sage-700);
 
   /* visual restraint */
   opacity: 0.85;
@@ -218,7 +203,7 @@ h1, h2, h3 {
   pointer-events: none;
 }
 
-.loader-title{ font-family:'Audiowide', serif; letter-spacing:.28em; color:var(--sage); font-size: 1.4rem;
+.loader-title{ font-family:'Audiowide', serif; letter-spacing:.28em; color:var(--sage-500); font-size: 1.4rem;
   margin-bottom: 8px; }
 
 .loader-sub {
@@ -398,7 +383,7 @@ h1, h2, h3 {
   width: 120px;
   height: 1px;
   margin: 36px auto 0;
-  background: linear-gradient(to right, transparent, var(--sage), transparent);
+  background: linear-gradient(to right, transparent, var(--sage-500), transparent);
   opacity: 0.6;
 }
 
@@ -602,7 +587,7 @@ h1, h2, h3 {
 }
 
 /* thin subheading (book pages) */
-.subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:var(--sage-dark); display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
+.subheading{ font-family:'Outfit'; text-transform:uppercase; letter-spacing:.15em; font-size:.8rem; color:var(--sage-700); display:inline-block; padding-bottom:8px; border-bottom:1px solid rgba(0,0,0,0.05); }
 
 /* SECTION defaults */
 
@@ -799,7 +784,7 @@ h1, h2, h3 {
 .star-list li::before {
   content: "✦";
   margin-right: 12px;
-  color: var(--sage); /* star only */
+  color: var(--sage-500); /* star only */
   opacity: .85;
 }
 
@@ -815,24 +800,6 @@ h1, h2, h3 {
                font-size: var(--title-sm); 
                margin-bottom:16px; }
 
-/* STewardship specific */
-.steward-hero{ padding: var(--space-xl) 20px var(--space-lg); }
-.steward-hero + .steward-section {
-  padding-top: var(--space-sm);
-}
-
-.page-title {
-  font-family: 'Audiowide', sans-serif;
-  font-size: var(--title-xl);
-  letter-spacing: 0.04em;
-  line-height: 1.1;
-white-space: nowrap;
-}
-
-.page-title {
-  max-width: 92vw;
-  margin-inline: auto;
-}
 
 
 /* steward cards */
@@ -853,7 +820,7 @@ white-space: nowrap;
 
 .card-title-ps {
   font-family: 'Audiowide', sans-serif;
-  color: var(--sage);
+  color: var(--sage-500);
    font-size: var(--title-md);
   letter-spacing: 0.1em;
    margin-bottom: 14px; 
@@ -861,18 +828,11 @@ white-space: nowrap;
 
 .card-text{ margin-bottom:14px; }
 
-.steward-section {
-  padding: var(--space-md) 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
 
 .steward-section .steward-card {
   margin-top: 12px;
 }
+
 .section-header {
   font-family: 'Audiowide', sans-serif;
   font-size: var(--title-lg);
@@ -914,7 +874,7 @@ white-space: nowrap;
   left: 50%;
   width: 120px;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--sage), transparent);
+  background: linear-gradient(to right, transparent, var(--sage-500), transparent);
   transform: translateX(-50%);
   opacity: 0.6;
 }
@@ -954,7 +914,7 @@ white-space: nowrap;
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--sage-dark);
+  color: var(--sage-700);
 }
 
 .blueprint-feature .panel {
@@ -991,10 +951,6 @@ white-space: nowrap;
   margin-bottom: 10px;
 }
 
-.section. p {
-  font-size: 1.05rem;
-  line-height: 1.85;
-}
 
 .about-hero {
   padding-top: 120px;
@@ -1080,9 +1036,10 @@ white-space: nowrap;
   box-shadow: 0 18px 40px -28px rgba(0,0,0,0.06);
 }
 
-/* STEWARDSHIP — tighter vertical rhythm */
 .steward-section {
-  padding: var(--space-sm) 20px;
+  padding: 100px 20px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 /* STEWARDSHIP — calm the headers */
@@ -1163,7 +1120,7 @@ white-space: nowrap;
 }
 
 /* Submit button — ceremonial */
-.refined-form button..orb.primary {
+.refined-form button.orb.primary {
   background: transparent;
   border: 1px solid rgba(10,10,10,0.6);
   color: rgba(10,10,10,0.85);
@@ -1196,7 +1153,7 @@ white-space: nowrap;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--sage);
+  color: var(--sage-500);
   text-decoration: none;
 }
 
@@ -1335,16 +1292,17 @@ white-space: nowrap;
     padding: 32px 26px;
   }
 }
+
 @media (max-width: 768px) {
   .section {
     padding: 64px 18px;
   }
-}
 
   .section.mirror {
     padding: 64px 18px;
   }
 }
+
 @media (max-width:980px){
   .book-spread{ flex-direction:column; gap:28px; }
   .proof-grid{ grid-template-columns:1fr; }
