@@ -1,74 +1,94 @@
-/* =========================
-   BARE VISION — styles.css
-   Edition: Vogue Arabia x Schiaparelli
-   CLEAN / UNIFIED VERSION
-   ========================= */
+/* =====================================
+   MASTER COLOR + SYSTEM VARIABLES
+   ===================================== */
 
-:root{
+:root {
+
+  /* ---------- Core Palette ---------- */
+
   --ivory: #F9F7F2;
   --sand: #E8E3DB;
-  --sage: #B7CBB8;
-  --sage-dark: #9CAD9D;
-  --gold-accent: #D4AF37;
-  --azur: #AEBEC4;
 
-  /* ADD THESE */
-  --onyx-black: #0B0B0C;
-  --sage-green: #9FB8A6;
+  --onyx: #0B0B0C;
+
+  --sage-100: #C9D8CD;
+  --sage-300: #B7CBB8;
+  --sage-500: #9FB8A6;
+  --sage-700: #7F998A;
+
+  --cherry: #8C1C1C;
+  --ice-blue: #AEBEC4;
+
+  /* ---------- Text Tones ---------- */
+
+  --text-primary: #111111;
+  --text-muted: rgba(0,0,0,0.6);
+  --text-soft-light: rgba(255,255,255,0.75);
+
+  /* ---------- Borders ---------- */
+
+  --border-soft-dark: rgba(255,255,255,0.08);
+  --border-soft-light: rgba(0,0,0,0.08);
+
+  /* ---------- Layout ---------- */
 
   --maxwidth: 1200px;
+
+  /* ---------- Motion ---------- */
+
+  --ease-standard: 0.3s ease;
 }
 
-/* =========================
-   TYPOGRAPHY SYSTEM — EDITORIAL
-   ========================= */
+/* =====================================
+   TYPOGRAPHY SYSTEM
+   ===================================== */
 
-:root {
-  /* Titles — Audiowide */
-  --title-xl: clamp(2.6rem, 4.5vw, 3.2rem); /* Hero */
-  --title-lg: clamp(1.8rem, 3vw, 2.3rem); /* Section headers */
-  --title-md: 1.25rem; /* Card titles */
-  --title-sm: 0.85rem;  /* Small caps / labels */
-   
-  /* Body — Outfit */
-  --body-lg: 1.05rem;
-  --body-md: 0.98rem;
-  --body-sm: 0.9rem;
-
-  --line-loose: 1.85;
-  --line-normal: 1.7;
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+  background-color: var(--ivory);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-:root {
-  --panel-glass-light: rgba(255,255,255,0.26);
-  --panel-glass: rgba(255,255,255,0.32);
-  --panel-glass-strong: rgba(255,255,255,0.65);
-  --panel-blur: 10px;
+h1, h2, h3 {
+  font-family: 'Audiowide', sans-serif;
+  letter-spacing: 0.02em;
 }
 
-/* =========================
-   VERTICAL RHYTHM SYSTEM
-   ========================= */
-
-:root {
-  --space-xl: 140px;
-  --space-lg: 110px;
-  --space-md: 80px;
-  --space-sm: 48px;
+.page-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 16px;
 }
 
-/* RESET */
-*{ margin:0; padding:0; box-sizing:border-box; }
-html,body{ height:100%; }
+.page-subtitle {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  color: var(--sage-500);
+}
 
-/* BASE */
-body{
-  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-  line-height:1.65;
-  color:#111;
-  background:var(--ivory);
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+/* =====================================
+   SPACING SYSTEM
+   ===================================== */
+
+.section {
+  padding: 100px 40px;
+}
+
+.section-narrow {
+  padding: 80px 40px;
+}
+
+.container {
+  max-width: var(--maxwidth);
+  margin: 0 auto;
+}
+
+.centered {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* RHYTHM HOOK — margin note authority */
@@ -1147,10 +1167,10 @@ white-space: nowrap;
    ========================= */
 
 .why-now-strip {
-  background-color: var(--onyx-black);
+  background-color: var(--onyx);
   color: var(--ivory);
   padding: 120px 40px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top:  1px solid var(--border-soft-dark);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
@@ -1165,7 +1185,7 @@ white-space: nowrap;
   font-size: 0.75rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--sage-green);
+  color: var(--sage-500);
   margin-bottom: 28px;
 }
 
@@ -1192,7 +1212,7 @@ white-space: nowrap;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--sage-green);
+  color: var(--sage-500);
   border-bottom: 1px solid rgba(255,255,255,0.2);
   padding-bottom: 6px;
   transition: opacity 0.3s ease;
@@ -1207,12 +1227,12 @@ white-space: nowrap;
    ========================= */
 
 .ten-years-panel {
-  background-color: var(--onyx-black);
+  background-color: var(--onyx);
   color: var(--ivory);
   padding: 140px 40px;
   margin: 140px auto;
   max-width: 980px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top:  1px solid var(--border-soft-dark);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -1227,7 +1247,7 @@ white-space: nowrap;
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   letter-spacing: 0.03em;
   margin-bottom: 40px;
-  color: var(--sage-green);
+  color: var(--sage-500);
 }
 
 .ten-years-inner p {
@@ -1264,7 +1284,7 @@ white-space: nowrap;
   font-size: 1.15rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--sage-green);
+  color: var(--sage-500);
 }
 
 /* FOOTER */
