@@ -1138,148 +1138,128 @@ white-space: nowrap;
 }
 
 /* =========================
-   WHY NOW STRIP
+   WHY NOW — TIMELESS STRIP
    ========================= */
+
 .why-now-strip {
-  background-color: #111; /* rich black for contrast */
+  background-color: var(--onyx-black);
   color: var(--ivory);
-  text-align: center;
-  padding: 100px 20px;
-  position: relative;
-  z-index: 5;
+  padding: 120px 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .why-now-inner {
   max-width: 760px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .why-now-label {
-  font-family: 'Audiowide', sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.18em;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold-accent);
-  margin-bottom: 12px;
-  opacity: 0.85;
+  color: var(--sage-green);
+  margin-bottom: 28px;
 }
 
 .why-now-headline {
   font-family: 'Audiowide', sans-serif;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  line-height: 1.3;
-  margin-bottom: 24px;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  margin-bottom: 36px;
   color: var(--ivory);
 }
 
 .why-now-support {
   font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 36px;
-  opacity: 0.85;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 48px;
 }
 
 .why-now-cta {
-  display: inline-block;
   font-family: 'Outfit', sans-serif;
-  font-weight: 500;
-  background-color: var(--gold-accent);
-  color: #111;
-  padding: 14px 28px;
-  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.28s ease;
+  color: var(--sage-green);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 6px;
+  transition: opacity 0.3s ease;
 }
 
 .why-now-cta:hover {
-  background-color: #f5d95b;
-  transform: translateY(-2px);
+  opacity: 0.65;
 }
 
 /* =========================
-   TEN YEARS PANEL — HIGH-CONTRAST FEATURE
+   TEN YEARS PANEL — TIMELESS LUXURY
    ========================= */
+
 .ten-years-panel {
-  background-color: rgba(10,10,10,0.95); /* deep luxury black */
+  background-color: var(--onyx-black);
   color: var(--ivory);
+  padding: 140px 40px;
+  margin: 140px auto;
+  max-width: 980px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ten-years-inner {
+  max-width: 720px;
+  margin: 0 auto;
   text-align: center;
-  padding: 100px 20px;
-  margin: 80px 0;
-  border-radius: 12px;
-  position: relative;
-  z-index: 2;
-  max-width: 920px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 18px 48px rgba(0,0,0,0.18);
 }
 
 .ten-years-inner h2 {
   font-family: 'Audiowide', sans-serif;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  letter-spacing: 0.02em;
-  margin-bottom: 24px;
-  color: var(--gold-accent);
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 40px;
+  color: var(--sage-green);
 }
 
 .ten-years-inner p {
   font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 18px;
-  opacity: 0.88;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 22px;
+  color: rgba(255,255,255,0.82);
 }
 
 .ten-years-inner .positioning-line {
-  font-weight: 600;
-  font-size: 1.05rem;
-  margin-top: 12px;
+  font-weight: 500;
   color: var(--ivory);
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
 }
 
 .ten-years-inner .advantage-list {
   list-style: none;
-  padding-left: 0;
-  margin: 28px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.98rem;
-  line-height: 1.6;
+  padding: 0;
+  margin: 50px 0;
 }
 
-.ten-years-inner .advantage-list li::before {
-  content: "✦";
-  margin-right: 10px;
-  color: var(--gold-accent);
-  opacity: 0.85;
+.ten-years-inner .advantage-list li {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 10px;
+  color: rgba(255,255,255,0.75);
 }
 
 .ten-years-inner .closing-line {
-  font-family: 'Audiowide', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-top: 36px;
-  color: var(--gold-accent);
-  line-height: 1.4;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .ten-years-panel {
-    padding: 60px 18px;
-  }
-
-  .ten-years-inner h2 {
-    font-size: 1.7rem;
-  }
-
-  .ten-years-inner .closing-line {
-    font-size: 1rem;
-  }
+  margin-top: 60px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sage-green);
 }
 
 /* FOOTER */
