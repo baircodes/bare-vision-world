@@ -39,6 +39,10 @@
   --ease-standard: 0.3s ease;
 }
 
+
+  --header-height: 90px;
+}
+
 /* =====================================
    TYPOGRAPHY SYSTEM
    ===================================== */
@@ -228,6 +232,7 @@ h1, h2, h3 {
    ========================= */
 .bv-header-bar {
   position: fixed;
+  height: var(--header-height);
   left: 0;
   right: 0;
   top: 0;
@@ -304,6 +309,10 @@ h1, h2, h3 {
 .inner-page .bv-header-bar {
   background: rgba(255,255,255,0.92);
   box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+
+.inner-page main {
+  padding-top: calc(var(--header-height) + 40px);
 }
 
 /* MOBILE NAV */
