@@ -160,23 +160,24 @@ h1, h2, h3 {
 }
 
 /* =====================================
-   HERO CTA GROUP SPACING
+   HERO CTA GROUP
    ===================================== */
 
-.hero-cta-group {
+.hero .cta-group {
   display: flex;
-  gap: 28px; /* refined luxury spacing */
-  align-items: center;
   justify-content: center;
-  margin-top: 32px;
+  align-items: center;
+  gap: 36px; /* increased from 28 for luxury spacing */
+  margin-top: 36px;
 }
 
 @media (max-width: 768px) {
-  .hero-cta-group {
+  .hero .cta-group {
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
   }
 }
+
 /* SKY + ORB LAYER (global atmosphere) */
 #sky{
   position:fixed; inset:0; pointer-events:none; z-index:-10;
