@@ -127,7 +127,7 @@
 
     <p>& then life happened.</p>
 
-    <p>It made me stronger. Wiser. Softer.</p>
+    <p>It made me stronger. Wiser. Softer.</p><br>
 
     <p>For the past few years, I’ve been rediscovering the enjoyment of simplicity. In my experience, those are the real anchors. They pull me back to now.</p>
 
@@ -149,7 +149,7 @@
 
     <p>Breathing through tightness.</p>
 
-    <p>Heartship.</p>
+    <p>Heartship.</p><br>
 
     <p>I’ve learned to curate safety in my own nervous system. A super chill system, if you will. I don’t want my energy field to add unnecessary pressure to any environment.</p>
 
@@ -175,17 +175,13 @@
 
     <p>At 29, that feels clearer than ever.</p>
 
-    <p>Detachment, for me, isn’t avoidance.</p>
+    <p>Detachment, for me, isn’t avoidance. It’s loving without possession. It’s choosing sovereignty over control.</p>
 
-    <p>It’s loving without possession.</p>
+    <p>Push, Pull. Surrender.</p><br>
 
-    <p>It’s choosing sovereignty over control.</p>
+    <p>The codes are always coding.</p><br>
 
-    <p>Push, Pull. Surrender.</p>
-
-    <p>The codes are always coding.</p>
-
-    <p>And lately, I’ve been thinking about how much of society is emotionally entrained without realizing it.</p>
+    <p>Lately, I’ve been thinking about how much of society is emotionally entrained without realizing it.</p>
 
     <p>Music codes us faster than almost anything.</p>
 
@@ -199,21 +195,13 @@
 
     <p>You don’t even notice when your nervous system syncs.</p>
 
-    <p>Commercial pop.</p>
+    <p>Commercial pop. Western dominance. Algorithmic loops.</p>
 
-    <p>Western dominance.</p>
-
-    <p>Algorithmic loops.</p>
-
-    <p>It’s not inherently wrong, but it is influential.</p>
+    <p>It’s not inherently wrong, but it is influential.</p><br>
 
     <p>EDM feels different to me.</p>
 
-    <p>More universal.</p>
-
-    <p>More wordless.</p>
-
-    <p>More collective.</p>
+    <p>More universal. More wordless. More collective.</p>
 
     <p>Certain artists carry frequency that regulates instead of agitates.</p>
 
@@ -231,11 +219,11 @@
 
     <p>Refuse scarcity competition.</p>
 
-    <p>It’s coexistence — intuition and intention.</p>
+    <p>It’s coexistence — intuition and intention.</p><br>
 
     <p>Feminine and Masculine.</p>
 
-    <p>Flow and Structure.</p>
+    <p>Flow and Structure.</p><br>
 
     <p>I don’t reject the world.</p>
 
@@ -253,11 +241,9 @@
 
     <p>Humans still crave innocence.</p>
 
-    <p>Still feel collectively.</p>
+    <p>Still feel collectively. Still remember love, even if briefly.</p>
 
-    <p>Still remember love, even if briefly.</p>
-
-    <p>That matters.</p>
+    <p>That matters.</p><br>
 
     <p>The real cost of unconscious coding isn’t apocalypse.</p>
 
@@ -271,29 +257,19 @@
 
     <p>When we don’t understand the mechanics shaping us, connection weakens.</p>
 
-    <p>When we do, it strengthens.</p>
+    <p>When we do, it strengthens.</p><br>
 
-    <p>To many, I appear composed.</p>
+    <p>To many, I appear composed.<br> 
+    Resilient. Steady.</p>
 
-    <p>Resilient.</p>
-
-    <p>Steady.</p>
-
-    <p>To myself, I’ve cried oceans.</p>
-
-    <p>Doubted.</p>
-
-    <p>Shamed.</p>
-
-    <p>Questioned.</p>
+    <p>To myself, I’ve cried oceans.<br> 
+    Doubted. Shamed. Questioned.</p>
 
     <p>Neither defines me.</p>
 
     <p>Both refined me.</p>
 
-    <p>I don’t fear being misunderstood anymore.</p>
-
-    <p>I fear losing my internal steadiness.</p>
+    <p>I don’t fear being misunderstood anymore. I fear losing my internal steadiness.</p>
 
     <p>So I protect it.</p>
 
@@ -335,6 +311,29 @@
     Daph’s Digital Diary ‧₊˚🖇️✩ ₊˚🎧⊹♡
   </footer>
 </main>
+  
+<script>
+  const audio = document.getElementById("soundtrackAudio");
+  const toggle = document.getElementById("soundToggle");
+  const fallbackURL = toggle.dataset.fallback;
 
+  toggle.addEventListener("click", () => {
+    audio.load();
+
+    if (!audio.paused) {
+      audio.pause();
+      toggle.textContent = "▷";
+      return;
+    }
+
+    audio.play().then(() => {
+      toggle.textContent = "⏸";
+    }).catch(() => {
+      window.open(fallbackURL, "_blank", "noopener");
+    });
+  });
+</script>
+
+  
 </body>
 </html>
