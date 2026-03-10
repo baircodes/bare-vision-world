@@ -1329,6 +1329,38 @@ h1, h2, h3 {
   color: var(--sage-500);
 }
 
+/* ===== FINAL LUXURY POLISH ===== */
+
+.title-text {
+  filter: saturate(1.05) contrast(1.05);
+}
+
+.panel {
+  background-clip: padding-box;
+}
+
+.panel::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(120deg, rgba(255,255,255,0.35), transparent 60%);
+  opacity:.25;
+  pointer-events:none;
+}
+
+.pearl {
+  filter: brightness(1.02) contrast(1.03);
+}
+
+.bv-logo {
+  letter-spacing:.14em;
+}
+
+.cta-link {
+  letter-spacing:.20em;
+}
+
 /* FOOTER */
 .footer{ padding:48px 20px; text-align:center; font-size:.95rem; opacity:.85; }
 
@@ -1372,9 +1404,4 @@ h1, h2, h3 {
     font-size: 0.85rem;
     line-height: 1.6;
   }
-}
-
-html {
-  scroll-behavior: smooth;
-  font-variant-ligatures: common-ligatures discretionary-ligatures;
 }
