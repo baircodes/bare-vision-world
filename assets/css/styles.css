@@ -171,6 +171,8 @@ h1, h2, h3 {
 #sky{
   position:fixed; inset:0; pointer-events:none; z-index:-10;
   background:linear-gradient(to bottom, #FCFBF8, #F7F5F0, #EDF1EE);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .hero::before {
@@ -510,6 +512,7 @@ h1, h2, h3 {
   border-radius: 50%;
   pointer-events: none;
   z-index: -6;
+  
    
   /* STEP 1: REMOVE BLEND MODE 
      We want these to feel solid and heavy, not like holograms. */
@@ -541,6 +544,9 @@ h1, h2, h3 {
   backdrop-filter: blur(0px); 
 }
 
+.pearl {
+  will-change: transform;
+}
 
 .panel-cta {
   display: flex;
@@ -583,6 +589,11 @@ h1, h2, h3 {
   color: rgba(10,10,10,0.92);
 }
 
+.panel {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 /* Atmospheric refinement — increase panel translucency */
 .section:not(.mirror) .panel {
   background: rgba(255,255,255,0.24);
@@ -620,6 +631,10 @@ h1, h2, h3 {
 .section .panel {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.section {
+  will-change: opacity, transform;
 }
 
 /* MIRROR — reduce panel presence */
@@ -1330,8 +1345,9 @@ h1, h2, h3 {
 
 @media (max-width: 768px) {
   .section {
-    : 64px 18px;
+    padding: 64px 18px;
   }
+}
 
   .section.mirror {
     padding: 64px 18px;
@@ -1358,11 +1374,7 @@ h1, h2, h3 {
   }
 }
 
-* {
-  scroll-behavior: smooth;           /* silky page scroll */
-  transition-timing-function: cubic-bezier(.19,1,.22,1); /* luxury motion curve */
-}
-
 html {
-  font-variant-ligatures: common-ligatures discretionary-ligatures; /* subtle typographic polish */
+  scroll-behavior: smooth;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
 }
