@@ -25,7 +25,7 @@
 
   --header-height: 90px;
 
-   --panel-blur: 8px;
+   --panel-blur: 6px;
 }
 
 /* =====================================
@@ -407,6 +407,15 @@ h1, h2, h3 {
   opacity: 0.6;
 }
 
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 50% 30%, rgba(255,255,255,0.45), transparent 65%);
+opacity:.55;
+pointer-events:none;
+}
+
 /* Title embossed effect */
 .title-text{
   font-family:'Audiowide'; font-weight:700;
@@ -545,7 +554,7 @@ h1, h2, h3 {
 }
 
 .pearl {
-  will-change: transform;
+  transform: translateZ(0);
 }
 
 .panel-cta {
@@ -591,7 +600,6 @@ h1, h2, h3 {
 
 .panel {
   transform: translateZ(0);
-  will-change: transform;
 }
 
 /* Atmospheric refinement — increase panel translucency */
@@ -634,7 +642,7 @@ h1, h2, h3 {
 }
 
 .section {
-  will-change: opacity, transform;
+  will-change: opacity, auto;
 }
 
 /* MIRROR — reduce panel presence */
@@ -1385,7 +1393,6 @@ h1, h2, h3 {
   .section {
     padding: 64px 18px;
   }
-}
 
   .section.mirror {
     padding: 64px 18px;
