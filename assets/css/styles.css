@@ -748,7 +748,7 @@ pointer-events:none;
 .book-spread{
   display:grid;
   grid-template-columns: 1fr 1px 1fr;
-  gap:64px;
+  gap:72px;
   max-width:1000px;
   margin:80px auto 60px;
   align-items:start;
@@ -757,11 +757,6 @@ pointer-events:none;
 .book-page{
   max-width:460px;
   margin:0 auto;
-}
-
-.book-spread .panel{
-  max-width:100%;
-  margin:0;
 }
 
 
@@ -810,6 +805,22 @@ pointer-events:none;
 .book-divider{
   opacity:.35;
   height:60%;
+}
+
+.book-page:first-child .panel{
+box-shadow: -18px 28px 60px -32px rgba(0,0,0,0.18);
+}
+
+.book-page:last-child .panel{
+box-shadow: 18px 28px 60px -32px rgba(0,0,0,0.18);
+}
+
+.book-divider{
+background:linear-gradient(
+to bottom,
+transparent,
+rgba(120,130,120,0.35),
+transparent);
 }
 
 @media (max-width: 768px) {
