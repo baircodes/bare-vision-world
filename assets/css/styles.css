@@ -741,23 +741,25 @@ pointer-events:none;
 
 /* HOME — Stewardship panel cleanup */
 
-.steward-section .panel {
-  padding: 52px 48px;
-}
-
 .book-spread{
-  display:grid;
-  grid-template-columns: minmax(0,1fr) 1px minmax(0,1fr);
-  gap:72px;
-  max-width:1100px;
-  margin:80px auto 60px;
-  align-items:start;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 56px;
+
+  max-width: 1000px;
+  margin: 72px auto 56px;
+
+  align-items: stretch;
 }
 
-.book-page{
-  max-width:100;
+.book-page {
+  display: flex;
 }
 
+.book-page .panel {
+  width: 100%;
+  padding: 40px 36px;
+}
 
 .blueprint-feature .subheading {
   display: inline-block;
@@ -784,26 +786,18 @@ pointer-events:none;
 }
 
 .blueprint-feature .panel {
-  background: rgba(255,255,255,0.38);
+  background: rgba(255,255,255,0.30);
 }
 
 .book-divider{
-  width:1px;
-  height:70%;
-  align-self:center;
-  opacity:.22;
-  box-shadow:0 0 8px rgba(159,184,166,0.18);
-  background:linear-gradient(
-    180deg,
+  width: 1px;
+  opacity: 0.18;
+  background: linear-gradient(
+    to bottom,
     transparent,
-    rgba(159,184,166,0.55),
+    rgba(120,130,120,0.25),
     transparent
   );
-}
-
-.book-divider{
-  opacity:.35;
-  height:60%;
 }
 
 .book-page:first-child .panel{
@@ -814,17 +808,11 @@ box-shadow: -18px 28px 60px -32px rgba(0,0,0,0.18);
 box-shadow: 18px 28px 60px -32px rgba(0,0,0,0.18);
 }
 
-.book-divider{
-background:linear-gradient(
-to bottom,
-transparent,
-rgba(120,130,120,0.35),
-transparent);
-}
 
 @media (max-width: 768px) {
   .book-spread {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .book-divider {
